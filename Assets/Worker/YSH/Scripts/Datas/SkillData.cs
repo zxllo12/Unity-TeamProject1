@@ -11,16 +11,17 @@ public class SkillData : IDataLoader
     public Enums.SkillType SkillType;
     public Enums.Grade Grade;
     public float Damage;
-    public int Radius;                  // 피해 범위
     public int CoolTime;
     public int Price;
+    public int Radius;                  // 피해 범위
     public string ClassName;
     public int Second;                  // 도트 데미지 초
     public float Tick;                  // 초당 틱
-    public int Range;                   // 사거리
+    public int Range;                   // 사거리 (스캔범위 겸용)
     public int CastTime;                // 시전시간
     public int ProjectileSpeed;         // 투사체 속도
     public bool CanPenetration;         // 관통 여부
+    public float ProjectileSize;        // 투사체 크기
 
     public void Load(string[] fields)
     {
@@ -30,9 +31,9 @@ public class SkillData : IDataLoader
         Enum.TryParse(fields[3], out SkillType);    // Parse SkillType
         Enum.TryParse(fields[4], out Grade);        // Parse Grade
         Damage = float.Parse(fields[5]);            // Parse Damage
-        Radius = int.Parse(fields[6]);              // Parse Radius
-        CoolTime = int.Parse(fields[7]);            // Parse CoolTime
-        Price = int.Parse(fields[8]);               // Parse Price
+        CoolTime = int.Parse(fields[6]);            // Parse CoolTime
+        Price = int.Parse(fields[7]);               // Parse Price
+        Radius = int.Parse(fields[8]);              // Parse Radius
         ClassName = fields[9];                      // Parse ClassName
         Second = int.Parse(fields[10]);             // Parse Second
         Tick = float.Parse(fields[11]);             // Parse Tick
@@ -40,5 +41,6 @@ public class SkillData : IDataLoader
         CastTime = int.Parse(fields[13]);           // Parse CastTime
         ProjectileSpeed = int.Parse(fields[14]);    // Parse Projectile Speed
         CanPenetration = bool.Parse(fields[15]);    // Parse Can Penetration
+        ProjectileSize = float.Parse(fields[16]);   // Parse Projectile Size
     }
 }

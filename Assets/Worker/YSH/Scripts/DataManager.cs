@@ -40,7 +40,6 @@ public class DataManager : Singleton<DataManager>
         }
 
         Debug.Log("SkillData Load OK!");
-        Debug.Log(lines);
     }
 }
 
