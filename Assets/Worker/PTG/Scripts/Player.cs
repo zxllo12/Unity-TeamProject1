@@ -4,93 +4,84 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] Rigidbody rigid;
-    [SerializeField] Animator animator;
+    public CharacterController controller;
+    private Vector3 direction;
+    public float speed = 8;
 
-    [SerializeField] float movePower;
-    [SerializeField] float maxMoveSpeed;
-    [SerializeField] float jumpPower;
-    [SerializeField] float maxFallSpeed;
+    public float jumpForce = 10;
+    public float gravity = -20;
+    public Transform groundCheck;
+    public LayerMask groundLayer;
 
-    [SerializeField] bool isGrounded;
+    public bool ableToMakeADoubleJump = true;
 
-    private float x;
+    public Animator animator;
+    public Transform model;
 
-    private static int idleHash = Animator.StringToHash("idle");
-    private static int runHash = Animator.StringToHash("run");
-    private static int jumpHash = Animator.StringToHash("jump");
-
-    private void Update()
+    void Update()
     {
-        x = Input.GetAxisRaw("Horizontal");
 
-        Idle();
+        //Take the horizontal input to move the player
+        float hInput = Input.GetAxis("Horizontal");
+        direction.x = hInput * speed;
+        animator.SetFloat("speed", Mathf.Abs(hInput));
 
-        Jump();
+        //Check if the player is on the ground
+        bool isGrounded = Physics.CheckSphere(groundCheck.position, 0.15f, groundLayer);
+        animator.SetBool("isGrounded", isGrounded);
+
+        if (isGrounded)
+        {
+            direction.y = -1;
+            ableToMakeADoubleJump = true;
+            if (Input.GetButtonDown("Jump"))
+            {
+                Jump();
+            }
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                animator.SetTrigger("fireBallAttack");
+            }
+        }
+        else
+        {
+            direction.y += gravity * Time.deltaTime;//Add Gravity
+            if (ableToMakeADoubleJump && Input.GetButtonDown("Jump"))
+            {
+                DoubleJump();
+            }
+        }
+
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Fireball Attack"))
+            return;
+
+        //Flip the player
+        if (hInput != 0)
+        {
+            Quaternion newRotation = Quaternion.LookRotation(new Vector3(hInput, 0, 0));
+            model.rotation = newRotation;
+        }
+
+        //Move the player using the character controller
+        controller.Move(direction * Time.deltaTime);
+
+        //Reset Z Position
+        if (transform.position.z != 0)
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+
     }
 
-    private void FixedUpdate()
+    private void DoubleJump()
     {
-        Move();
-    }
-
-    private void Idle()
-    {
-        if (rigid.velocity.sqrMagnitude < 0.01f)
-        {
-            animator.Play(idleHash);
-            isGrounded = true;
-        }
-    }
-
-    private void Move()
-    {
-        rigid.AddForce(Vector2.right * x * movePower, ForceMode.Force);
-        if (rigid.velocity.x > maxMoveSpeed)
-        {
-            rigid.velocity = new Vector2(maxMoveSpeed, rigid.velocity.y);
-        }
-        else if (rigid.velocity.x < -maxMoveSpeed)
-        {
-            rigid.velocity = new Vector2(-maxMoveSpeed, rigid.velocity.y);
-        }
-
-        if (rigid.velocity.y < -maxFallSpeed)
-        {
-            rigid.velocity = new Vector2(rigid.velocity.x, -maxFallSpeed);
-        }
-
-        //if (x < 0)
-        //{
-        //    render.flipX = true;
-        //}
-        //else if (x > 0)
-        //{
-        //    render.flipX = false;
-        //}
-
-        if (rigid.velocity.sqrMagnitude > 0.01f)
-        {
-            animator.Play(runHash);
-            isGrounded = true;
-        }
-
+        //Double Jump
+        animator.SetTrigger("doubleJump");
+        direction.y = jumpForce;
+        ableToMakeADoubleJump = false;
     }
     private void Jump()
     {
-        if (isGrounded == false)
-            return;
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            rigid.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
-        }
-
-        if (rigid.velocity.y > 0.01f)
-        {
-            animator.Play(jumpHash);
-            isGrounded = false;
-        }
-
+        //Jump
+        direction.y = jumpForce;
     }
 }
