@@ -67,6 +67,8 @@ public class SkillHandler : MonoBehaviour
     public void Cast(Enums.PlayerSkillSlot slot, Vector3 startPos)
     {
         _playerSkillSlot[(int)slot].StartPos = startPos;
+        _playerSkillSlot[(int)slot].User = gameObject;
+        // 유저 방향 설정 필요
         _castRoutine = StartCoroutine(CastRoutine(slot));
     }
 

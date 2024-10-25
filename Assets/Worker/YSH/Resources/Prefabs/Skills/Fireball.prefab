@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2165571649621191007}
   - component: {fileID: 2165571649621191004}
   m_Layer: 0
-  m_Name: Fireball
+  m_Name: FireBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,4 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  projectilePrefab: {fileID: 2173253202638582265, guid: 6bfb7864f6a6a954d9d95c0a72365364, type: 3}
+  projectilePrefab: {fileID: 9124370909991465078, guid: ea471fb16b008d44886490483edd9cee, type: 3}
+  flashEffectPrefab: {fileID: 1738175644799202, guid: c9e6ddab55c69eb4b81803e860d80c55, type: 3}

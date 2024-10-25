@@ -8,10 +8,15 @@ public class SkillBase : MonoBehaviour
     // 스킬 데이터
     protected SkillData _skillData;
     [SerializeField] protected Sprite _icon;
-    //[SerializeField] protected Projectile projectilePrefab;
+    [SerializeField] protected Projectile projectilePrefab;
 
     protected Vector3 _startPos;
+    protected GameObject _user;
+    
+    // 유저의 방향을 알 수 있는 변수 필요
+
     public Vector3 StartPos { get { return _startPos; } set { _startPos = value; } }
+    public GameObject User { get { return _user; } set { _user = value; } }
 
     public SkillData SkillData { get { return _skillData; } }
     public Sprite Icon { get { return _icon; } }
@@ -42,7 +47,6 @@ public class SkillBase : MonoBehaviour
     public virtual void DoSkill()
     {
         Debug.Log($"Do Skill : {_skillData.Name}");
-
         // 스킬 사용 시의 공통 행동
         _currentCoolTime = _skillData.CoolTime;
     }

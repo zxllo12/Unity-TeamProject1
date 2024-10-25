@@ -17,7 +17,7 @@ public class SkillData : IDataLoader
     public string ClassName;
     public int Second;                  // 도트 데미지 초
     public float Tick;                  // 초당 틱
-    public int Range;                   // 사거리 (스캔범위 겸용)
+    public int Range;                   // 사거리 (스캔이 시작되는 상대 위치로도 사용)
     public int CastTime;                // 시전시간
     public int ProjectileSpeed;         // 투사체 속도
     public bool CanPenetration;         // 관통 여부
