@@ -92,11 +92,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void EnterBattleScene()
-    {
-
-    }
-
     private void OpenOptionWindow()
     {
 
