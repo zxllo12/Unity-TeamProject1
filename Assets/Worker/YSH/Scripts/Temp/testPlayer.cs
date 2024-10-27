@@ -17,6 +17,7 @@ public class testPlayer : MonoBehaviour
     private void Start()
     {
         handler.EquipSkill(0, Enums.PlayerSkillSlot.Slot1);
+        handler.EquipSkill(0, Enums.PlayerSkillSlot.Slot2);
     }
 
     private void Update()

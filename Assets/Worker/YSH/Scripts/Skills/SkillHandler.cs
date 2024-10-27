@@ -19,7 +19,7 @@ public class SkillHandler : MonoBehaviour
             return;
         }
 
-        SkillBase prefab = Resources.Load<SkillBase>($"Prefabs/Skills/{data.ClassName}");
+        SkillBase prefab = ResourceManager.Instance.Load<SkillBase>($"Prefabs/Skills/{data.ClassName}");
         if (prefab == null)
         {
             Debug.LogError($"Can't find SkillBase Component! / ID : {skillID}");

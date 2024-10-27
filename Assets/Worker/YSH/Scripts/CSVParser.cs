@@ -9,7 +9,7 @@ public static class CSVParser
 
     public static bool GetDataString(string fileName, out string[] lines)
     {
-        TextAsset text = Resources.Load<TextAsset>($"{DATA_DIRECTORY}/{fileName}");
+        TextAsset text = ResourceManager.Instance.Load<TextAsset>($"{DATA_DIRECTORY}/{fileName}");
         if (text == null)
         {
             Debug.LogError("잘못된 파일입니다!");
