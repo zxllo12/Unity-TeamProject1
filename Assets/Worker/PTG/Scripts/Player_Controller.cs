@@ -2,24 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player_Controller : MonoBehaviour
 {
     public CharacterController controller;
     private Vector3 direction;
     public float speed = 8;
-
     public float jumpForce = 10;
     public float gravity = -20;
     public Transform groundCheck;
     public LayerMask groundLayer;
 
-    public bool ableToMakeADoubleJump = true;
-
     public Animator animator;
     public Transform model;
 
+    //테스트코드
+    public PlayerStats stats = new PlayerStats();
+
+    private void Start()
+    {
+        Debug.Log("초기 체력: " + stats.currentHealth);
+    }
+    //테스트코드
+
     void Update()
     {
+        //테스트코드
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            stats.TakeDamage(20f);
+            Debug.Log("현재 체력: " + stats.currentHealth);
+        }
+        //테스트코드
 
         //Take the horizontal input to move the player
         float hInput = Input.GetAxis("Horizontal");
@@ -30,31 +43,23 @@ public class Player : MonoBehaviour
         bool isGrounded = Physics.CheckSphere(groundCheck.position, 0.15f, groundLayer);
         animator.SetBool("isGrounded", isGrounded);
 
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            Atk();
+        }
+
         if (isGrounded)
         {
             direction.y = -1;
-            ableToMakeADoubleJump = true;
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetButton("Jump"))
             {
                 Jump();
-            }
-
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                animator.SetTrigger("fireBallAttack");
             }
         }
         else
         {
             direction.y += gravity * Time.deltaTime;//Add Gravity
-            if (ableToMakeADoubleJump && Input.GetButtonDown("Jump"))
-            {
-                DoubleJump();
-            }
         }
-
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Fireball Attack"))
-            return;
 
         //Flip the player
         if (hInput != 0)
@@ -65,23 +70,17 @@ public class Player : MonoBehaviour
 
         //Move the player using the character controller
         controller.Move(direction * Time.deltaTime);
-
-        //Reset Z Position
-        if (transform.position.z != 0)
-            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-
     }
 
-    private void DoubleJump()
-    {
-        //Double Jump
-        animator.SetTrigger("doubleJump");
-        direction.y = jumpForce;
-        ableToMakeADoubleJump = false;
-    }
     private void Jump()
     {
         //Jump
         direction.y = jumpForce;
+    }
+
+    private void Atk()
+    {
+        //Attack
+        animator.SetTrigger("Atk");
     }
 }
