@@ -26,7 +26,9 @@ public class MonsterState : MonoBehaviour
     [SerializeField] float attack;  // 공격력
     [SerializeField] float def; // 방어력
     [SerializeField] float hp;  // 체력
-    [SerializeField] float speed;   // 공속
+    public float curHp;
+    public float walkSpeed;   // 걷기이속
+    public float runSpeed;   // 뛰기이속
     [SerializeField] float attackSpeed; // 이속
     [SerializeField] float rage;    // 추적거리
     [SerializeField] float attackRage;   // 공격 사거리
@@ -47,6 +49,9 @@ public class MonsterState : MonoBehaviour
 
         // 플레이어 확인(일단 이름으로 플레이어 오브젝트 찾는다)
         player = GameObject.Find("Player");
+
+        // 현재 체력 = 설정체력으로 설정
+        curHp = hp;
     }
 
     private void Update()
@@ -86,11 +91,6 @@ public class MonsterState : MonoBehaviour
         // 기준점보다 왼쪽일 경우 
         // 기준점보다 오른쪽일 경우
 
-        // 죽었을 경우
-        if (hp < 0)
-        {
-            curState = State.Dead;
-        }
 
         // (TODO)스턴상태일 경우 불러올 함수 작성
     }
@@ -126,7 +126,7 @@ public class MonsterState : MonoBehaviour
         StopAllCoroutines();
 
         // 타겟(플레이어)를 향해서 이동
-        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, runSpeed * Time.deltaTime);
 
         // 공격범위 내로 들어왔을 경우
         if (Vector3.Distance(transform.position, player.transform.position) <= attackRage)
@@ -148,7 +148,7 @@ public class MonsterState : MonoBehaviour
         // 되돌아가는 상태 = 걷는 모션
         animator.SetBool("isWalking", true);
         // 스폰지점으로 다시 돌아감
-        transform.position = Vector3.MoveTowards(transform.position, spawnPoint, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, spawnPoint, walkSpeed * Time.deltaTime);
 
         // 원래 지점으로 이동을 위한 회전
         // 몬스터가 왼쪽을 바라보는 지점을 기준으로 설정됨
@@ -218,7 +218,7 @@ public class MonsterState : MonoBehaviour
         animator.SetBool("isWalking", true);
 
         // 앞으로 이동?
-        transform.position += Vector3.left * speed * Time.deltaTime;
+        transform.position += Vector3.left * walkSpeed * Time.deltaTime;
 
         // 걷기 코루틴 정지 & 되돌아가기 코루틴 시작
         StopCoroutine(WalkCoroutine());
@@ -248,7 +248,14 @@ public class MonsterState : MonoBehaviour
         animator.SetBool("isHit", false);
 
         // Hp 감소
-        hp -= damage;
+        curHp -= damage;
+
+        // 죽었을 경우
+        if (curHp <= 0)
+        {
+            curState = State.Dead;
+        }
+
     }
 
     // 충돌 감지
