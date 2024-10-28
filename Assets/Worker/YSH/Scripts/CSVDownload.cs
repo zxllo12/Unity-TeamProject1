@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 public static class CSVDownload
 {
     const string skillDataUrl = "https://docs.google.com/spreadsheets/d/1KKp21OkOGInFUfQvvE-ZlDCtzdnPYfzevhZbfoynPkQ/export?gid=367973711&format=csv";
+    const string monsterDataUrl = "https://docs.google.com/spreadsheets/d/1NXzXEfqV4n5AN5xSIf0AOBBvnqDwgKlSXRmfL1Ra3gs/export?gid=0&format=csv";
 
     public static IEnumerator SkillDataDownloadRoutine()
     {
@@ -26,5 +27,22 @@ public static class CSVDownload
 
         Debug.Log("Skill Data Download OK");
         yield return skillTableText;
+    }
+
+    public static IEnumerator MonsterDataDownloadRoutine()
+    {
+        UnityWebRequest monsterDataRequest = UnityWebRequest.Get(monsterDataUrl);
+
+        yield return monsterDataRequest.SendWebRequest();
+
+        string monsterTableText = monsterDataRequest.downloadHandler.text;
+        if (monsterTableText == null)
+        {
+            Debug.LogError("Monster Data Download Error!");
+            yield break;
+        }
+
+        Debug.Log("Monster Data Download OK");
+        yield return monsterTableText;
     }
 }
