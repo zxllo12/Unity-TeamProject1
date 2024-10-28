@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DataManager : Singleton<DataManager>
 {
@@ -11,24 +12,48 @@ public class DataManager : Singleton<DataManager>
 
     public Dictionary<int, SkillData> SkillDict { get { return _skillDict; } }
 
+    public UnityAction OnLoadCompleted;
+
     protected override void Init()
     {
-        LoadData();
+        StartCoroutine(LoadData());
     }
 
-    void LoadData()
+    IEnumerator LoadData()
     {
-        LoadSkillData();
+        bool bSuccess = false;
+        IEnumerator LoadEnumerator = LoadSkillData();
+        yield return StartCoroutine(LoadEnumerator);
+
+        bSuccess = (LoadEnumerator.Current as string) != null;
+
+        if (!bSuccess)
+        {
+            Debug.LogError("Skill Data Load Fail...");
+            yield break;
+        }
 
         Debug.Log("Data Load Complete");
+        OnLoadCompleted?.Invoke();
     }
 
-    void LoadSkillData()
+    IEnumerator LoadSkillData()
     {
-        if (CSVParser.GetDataString("SkillData_Table", out string[] lines) == false)
+        IEnumerator skillDataEnumerator = CSVDownload.SkillDataDownloadRoutine();
+        yield return StartCoroutine(skillDataEnumerator);
+
+        string skillText = skillDataEnumerator.Current as string;
+        if (skillText == null)
         {
-            Debug.Log("SkillData Load Error!");
-            return;
+            yield return null;
+            yield break;
+        }
+
+        if (CSVParser.GetDataStringWithWeb(skillText, out string[] lines) == false)
+        {
+            Debug.Log("Skill Data Parse Error!");
+            yield return null;
+            yield break;
         }
 
         for (int line = 1; line < lines.Length; line++)
@@ -40,6 +65,7 @@ public class DataManager : Singleton<DataManager>
         }
 
         Debug.Log("SkillData Load OK!");
+        yield return skillText;
     }
 }
 

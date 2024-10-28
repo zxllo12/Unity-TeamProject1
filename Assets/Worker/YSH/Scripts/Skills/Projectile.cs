@@ -4,32 +4,31 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] ParticleSystem flashEffect;
-    [SerializeField] ParticleSystem hitEffect;
+    [SerializeField] protected ParticleSystem flashEffect;
+    [SerializeField] protected ParticleSystem hitEffect;
 
-    Coroutine _moveRoutine;
+    protected Coroutine _moveRoutine;
 
-    float _damage;
+    protected float _damage;
 
-    SkillBase _ownerSkill;
+    protected SkillBase _ownerSkill;
 
-    public void SetDamage(float damage)
+    public virtual void SetDamage(float damage)
     {
         _damage = damage;
     }
 
-    public void Fire(SkillBase skill, Vector3 startPos, Vector3 dir, float speed)
+    public virtual void Fire(SkillBase skill, Vector3 startPos, Vector3 dir, float speed)
     {
         _ownerSkill = skill;
 
-        ParticleSystem flash = Instantiate(flashEffect, startPos, Quaternion.identity);
+        if (flashEffect != null)
+            Instantiate(flashEffect, startPos, Quaternion.identity);
 
         _moveRoutine = StartCoroutine(MoveRoutine(skill, startPos, dir, speed));
-
-        //StartCoroutine(DestroyRoutine(skill));
     }
 
-    IEnumerator MoveRoutine(SkillBase skill, Vector3 startPos, Vector3 dir, float speed)
+    protected IEnumerator MoveRoutine(SkillBase skill, Vector3 startPos, Vector3 dir, float speed)
     {
         while (true)
         {
@@ -48,28 +47,20 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject);
     }
 
-    //IEnumerator DestroyRoutine(SkillBase skill)
-    //{
-    //    WaitForSeconds _destroyTime = new WaitForSeconds(skill.SkillData.Range / skill.SkillData.ProjectileSpeed);
-
-    //    yield return _destroyTime;
-
-    //    StopCoroutine(_moveRoutine);
-    //    _moveRoutine = null;
-
-    //    Destroy(gameObject);
-    //}
-
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         Debug.Log($"{gameObject.name} hit : {other.name}");
-        ParticleSystem hit = Instantiate(hitEffect, other.transform.position, Quaternion.identity);
+
+        if (hitEffect != null)
+            Instantiate(hitEffect, other.transform.position, Quaternion.identity);
 
         //MonsterState monster = other.GetComponent<MonsterState>();
         //if (monster != null)
         //{
-        //    monster.IsHit();
+        //    monster.IsHit(_damage);
         //}
+
+        Debug.Log($"Projectile Damage : {_damage}");
 
         // 관통 여부 확인
         if (_ownerSkill.SkillData.CanPenetration == false)

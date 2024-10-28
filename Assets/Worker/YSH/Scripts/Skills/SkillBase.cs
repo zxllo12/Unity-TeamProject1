@@ -9,6 +9,9 @@ public class SkillBase : MonoBehaviour
     protected SkillData _skillData;
     [SerializeField] protected Sprite _icon;
     [SerializeField] protected Projectile projectilePrefab;
+    [SerializeField] protected ParticleSystem castEffect;
+
+    ParticleSystem _castEffectInstance;
 
     protected Vector3 _startPos;
     protected GameObject _user;
@@ -44,11 +47,33 @@ public class SkillBase : MonoBehaviour
         }
     }
 
-    public virtual void DoSkill()
+    public virtual void DoCast()
+    {
+        if (castEffect == null)
+            return;
+
+        if (_castEffectInstance == null)
+        {
+            ParticleSystem particle = Instantiate(castEffect, StartPos, Quaternion.identity);
+            _castEffectInstance = particle;
+        }
+        else
+        {
+            _castEffectInstance.transform.position = StartPos;
+            _castEffectInstance.Play();
+        }
+    }
+
+    public virtual void DoSkill(float attackPoint)
     {
         Debug.Log($"Do Skill : {_skillData.Name}");
         // 스킬 사용 시의 공통 행동
         _currentCoolTime = _skillData.CoolTime;
+    }
+
+    public virtual void StopCast()
+    {
+        _castEffectInstance?.Stop();
     }
 
     public virtual void StopSkill()
