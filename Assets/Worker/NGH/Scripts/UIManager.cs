@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
 {
     // 싱글톤 인스턴스
     public static UIManager Instance;
+    public static GameManager GameManager;
 
     // 로비 UI 요소
     [Header("Lobby UI")]
