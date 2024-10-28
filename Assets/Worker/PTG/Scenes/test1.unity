@@ -354,7 +354,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 16
-  ableToMakeADoubleJump: 1
   animator: {fileID: 1553730143}
   model: {fileID: 1553730144}
 --- !u!95 &1553730143 stripped
@@ -398,7 +397,7 @@ CharacterController:
   m_StepOffset: 0
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.509957, z: 0}
+  m_Center: {x: 0, y: 0.55, z: 0}
 --- !u!1 &2094671815
 GameObject:
   m_ObjectHideFlags: 0
