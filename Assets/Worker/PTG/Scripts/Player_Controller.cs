@@ -15,8 +15,25 @@ public class Player_Controller : MonoBehaviour
     public Animator animator;
     public Transform model;
 
+    //테스트코드
+    public PlayerStats stats = new PlayerStats();
+
+    private void Start()
+    {
+        Debug.Log("초기 체력: " + stats.currentHealth);
+    }
+    //테스트코드
+
     void Update()
     {
+        //테스트코드
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            stats.TakeDamage(20f);
+            Debug.Log("현재 체력: " + stats.currentHealth);
+        }
+        //테스트코드
+
         //Take the horizontal input to move the player
         float hInput = Input.GetAxis("Horizontal");
         direction.x = hInput * speed;
@@ -63,6 +80,7 @@ public class Player_Controller : MonoBehaviour
 
     private void Atk()
     {
+        //Attack
         animator.SetTrigger("Atk");
     }
 }
