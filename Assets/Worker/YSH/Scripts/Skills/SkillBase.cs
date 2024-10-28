@@ -44,7 +44,7 @@ public class SkillBase : MonoBehaviour
         }
     }
 
-    public virtual void DoSkill()
+    public virtual void DoSkill(float attackPoint)
     {
         Debug.Log($"Do Skill : {_skillData.Name}");
         // 스킬 사용 시의 공통 행동

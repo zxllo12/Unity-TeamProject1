@@ -10,7 +10,7 @@ public class SkillData : IDataLoader
     public string Description;
     public Enums.SkillType SkillType;
     public Enums.Grade Grade;
-    public float Damage;
+    public float Damage;                // 계수
     public int CoolTime;
     public int Price;
     public int Radius;                  // 피해 범위
@@ -18,10 +18,10 @@ public class SkillData : IDataLoader
     public int Second;                  // 도트 데미지 초
     public float Tick;                  // 초당 틱
     public int Range;                   // 사거리 (스캔이 시작되는 상대 위치로도 사용)
-    public int CastTime;                // 시전시간
+    public float CastTime;              // 시전시간
     public int ProjectileSpeed;         // 투사체 속도
     public bool CanPenetration;         // 관통 여부
-    public float ProjectileSize;        // 투사체 크기
+    //public float ProjectileSize;        // 투사체 크기 (아직 사용여부 확인 안 됨)
 
     public void Load(string[] fields)
     {
@@ -38,9 +38,9 @@ public class SkillData : IDataLoader
         Second = int.Parse(fields[10]);             // Parse Second
         Tick = float.Parse(fields[11]);             // Parse Tick
         Range = int.Parse(fields[12]);              // Parse Range
-        CastTime = int.Parse(fields[13]);           // Parse CastTime
+        CastTime = float.Parse(fields[13]);           // Parse CastTime
         ProjectileSpeed = int.Parse(fields[14]);    // Parse Projectile Speed
         CanPenetration = bool.Parse(fields[15]);    // Parse Can Penetration
-        ProjectileSize = float.Parse(fields[16]);   // Parse Projectile Size
+        //ProjectileSize = float.Parse(fields[16]);   // Parse Projectile Size
     }
 }
