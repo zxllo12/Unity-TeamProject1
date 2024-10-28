@@ -28,22 +28,4 @@ public class MonsterData : IDataLoader
         WalkSpeed = float.Parse(fields[10]);        // °È±â¼Óµµ
         RunSpeed = float.Parse(fields[11]);         // ¶Ù±â¼Óµµ
     }
-
-    /*
-    public MonsterData(int id, string name,bool attackType, int attack, int defense, bool canSkill,
-        float hp, float walkSpeed, float runSpeed, float attackSpeed, int rage, float attackRage)
-    {
-        ID = id;
-        Name = name;
-        AttackType = attackType;    
-        AttackRage = attackRage;
-        Rage = rage;
-        CanSkill = canSkill;
-        Attack = attack;
-        Defense = defense;
-        Hp = hp;
-        AttackSpeed = attackSpeed;
-        WalkSpeed = walkSpeed;
-        RunSpeed = runSpeed;
-    }*/
 }
