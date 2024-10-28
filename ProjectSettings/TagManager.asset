@@ -3,7 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Lobby
+  - Battle
+  - Magicshop
+  - Statusshop
+  - Magicshopexit
+  - Statusshopexit
+  - Magicshopenter
+  - Statusshopenter
+  - Gamestart
   layers:
   - Default
   - TransparentFX

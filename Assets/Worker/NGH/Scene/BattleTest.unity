@@ -456,8 +456,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lobbyScreen: {fileID: 0}
+  magicShopButton: {fileID: 0}
+  statusUpgradeShopButton: {fileID: 0}
+  gameStartButton: {fileID: 0}
   magicShopScreen: {fileID: 0}
+  magicShopExit: {fileID: 0}
   statusUpgradeShopScreen: {fileID: 0}
+  statusUpgradeShopExit: {fileID: 0}
+  battleUI: {fileID: 0}
 --- !u!4 &140464230
 Transform:
   m_ObjectHideFlags: 0
@@ -680,7 +686,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -184.99994, y: 81.15503}
+  m_AnchoredPosition: {x: -170, y: 81.15503}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &257828101
@@ -945,8 +951,8 @@ GameObject:
   - component: {fileID: 462813035}
   - component: {fileID: 462813034}
   m_Layer: 5
-  m_Name: Canvas
-  m_TagString: Untagged
+  m_Name: BattleUI
+  m_TagString: Battle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1546,7 +1552,7 @@ Camera:
   m_GameObject: {fileID: 1089309131}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -1996,7 +2002,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -74.99994, y: 81.15503}
+  m_AnchoredPosition: {x: -60, y: 81.15503}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1277630687
@@ -2074,7 +2080,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 145, y: 81.15503}
+  m_AnchoredPosition: {x: 155, y: 81.15503}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1316771428
@@ -2574,7 +2580,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 35, y: 81.15503}
+  m_AnchoredPosition: {x: 45, y: 81.15503}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1834019049

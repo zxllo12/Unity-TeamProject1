@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     // 싱글톤 인스턴스
     public static GameManager Instance;
+
+
 
     private void Awake()
     {
@@ -28,6 +31,16 @@ public class GameManager : MonoBehaviour
         {
             ReturnToLobby();
         }
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     // 게임 시작 시 타이틀 화면에서 호출
@@ -68,5 +81,72 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("Scene Loaded : " + scene.name);
+
+        if(scene.name == "BattleTest")
+        {
+            InitializeBattleScene();
+        }
+
+        if(scene.name == "LobbyTest")
+        {
+            InitializeLobbyScene();
+        }
+    }
+
+    private void InitializeBattleScene()
+    {
+        UIManager.Instance.lobbyScreen = null;
+        UIManager.Instance.magicShopScreen = null;
+        UIManager.Instance.statusUpgradeShopScreen = null;
+        UIManager.Instance.battleUI = GameObject.FindWithTag("Battle");
+    }
+
+    private void InitializeLobbyScene()
+    {
+        UIManager.Instance.lobbyScreen = GameObject.FindWithTag("Lobby");
+        GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+
+        foreach (GameObject obj in allObjects)
+        {
+            if (obj.CompareTag("Magicshop"))
+            {
+                UIManager.Instance.magicShopScreen = obj;
+            }
+            if (obj.CompareTag("Statusshop"))
+            {
+                UIManager.Instance.statusUpgradeShopScreen = obj;
+            }
+        }
+        Button[] allButtons = Resources.FindObjectsOfTypeAll<Button>();
+        foreach (Button button in allButtons)
+        {
+            if(button.CompareTag("Gamestart"))
+            {
+                UIManager.Instance.gameStartButton = button;
+            }
+            if (button.CompareTag("Magicshopenter"))
+            {
+                UIManager.Instance.magicShopButton = button;
+            }
+            if(button.CompareTag("Statusshopenter"))
+            {
+                UIManager.Instance.statusUpgradeShopButton = button;
+            }
+            if(button.CompareTag("Magicshopexit"))
+            {
+                UIManager.Instance.magicShopExit = button;
+            }
+            if (button.CompareTag("Statusshopexit"))
+            {
+                UIManager.Instance.statusUpgradeShopExit = button;
+            }
+        }
+        UIManager.Instance.LinkButton();
+        UIManager.Instance.battleUI = null;
     }
 }
