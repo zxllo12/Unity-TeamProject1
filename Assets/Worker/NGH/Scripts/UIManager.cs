@@ -13,7 +13,6 @@ public class UIManager : MonoBehaviour
     [Header("Lobby UI")]
     public GameObject lobbyScreen;
 
-
     // 마법 상점 UI 요소
     [Header("MagicShop UI")]
     public GameObject magicShopScreen;
