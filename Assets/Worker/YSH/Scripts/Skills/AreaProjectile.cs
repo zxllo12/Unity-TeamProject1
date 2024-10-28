@@ -44,7 +44,7 @@ public class AreaProjectile : Projectile
         //MonsterState monster = other.GetComponent<MonsterState>();
         //if (monster != null)
         //{
-        //    monster.IsHit();
+        //    monster.IsHit(_damage);
         //}
 
         Debug.Log($"Projectile Damage : {_damage}");

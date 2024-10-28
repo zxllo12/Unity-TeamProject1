@@ -37,25 +37,6 @@ public class DataManager : Singleton<DataManager>
         OnLoadCompleted?.Invoke();
     }
 
-    //void LoadSkillData()
-    //{
-    //    if (CSVParser.GetDataStringWithLocal("SkillData_Table", out string[] lines) == false)
-    //    {
-    //        Debug.Log("SkillData Load Error!");
-    //        return;
-    //    }
-
-    //    for (int line = 1; line < lines.Length; line++)
-    //    {
-    //        SkillData skillData = new SkillData();
-    //        skillData.Load(lines[line].Split(','));
-
-    //        _skillDict.Add(skillData.ID, skillData);
-    //    }
-
-    //    Debug.Log("SkillData Load OK!");
-    //}
-
     IEnumerator LoadSkillData()
     {
         IEnumerator skillDataEnumerator = CSVDownload.SkillDataDownloadRoutine();

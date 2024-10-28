@@ -78,7 +78,10 @@ public class SkillHandler : MonoBehaviour
         WaitForSeconds castTime = new WaitForSeconds(_playerSkillSlot[(int)slot].SkillData.CastTime);
 
         Debug.Log($"Start Cast : {_playerSkillSlot[(int)slot].SkillData.Name}");
+        _playerSkillSlot[(int)slot].DoCast();
+
         yield return castTime;
+        _playerSkillSlot[(int)slot].StopCast();
         _playerSkillSlot[(int)slot].DoSkill(attackPoint);
         _castRoutine = null;
     }
@@ -91,6 +94,7 @@ public class SkillHandler : MonoBehaviour
 
         if (_castRoutine != null)
         {
+            _playerSkillSlot[(int)slot].StopCast();
             StopCoroutine(_castRoutine);
             _castRoutine = null;
             return;
