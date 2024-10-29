@@ -7,9 +7,17 @@ public class BattleUI : MonoBehaviour
 {
     // 배틀쪽 UI 요소
     [Header("Skill Icon")]
-    public Image[] skillimage = new Image[(int)Enums.PlayerSkillSlot.Length];  
+    public Image[] skillimage = new Image[(int)Enums.PlayerSkillSlot.Length];
 
-    
+    private void Start()
+    {
+        GameManager.Instance.player.handler.OnChangedSkillSlot += UpdateSkill;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.player.handler.OnChangedSkillSlot -= UpdateSkill;
+    }
 
     public void UpdateSkill()
     {
