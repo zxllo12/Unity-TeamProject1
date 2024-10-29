@@ -7,6 +7,8 @@ public class SkillHandler : MonoBehaviour
 {
     SkillBase[] _playerSkillSlot = new SkillBase[(int)Enums.PlayerSkillSlot.Length];
 
+    public SkillBase[] PlayerSkillSlot { get { return _playerSkillSlot; } }
+
     Coroutine _castRoutine;
 
     public void EquipSkill(int skillID, Enums.PlayerSkillSlot slot)
