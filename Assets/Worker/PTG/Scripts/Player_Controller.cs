@@ -18,22 +18,22 @@ public class Player_Controller : MonoBehaviour
     public Transform model;
 
     //테스트코드
-    public PlayerStats stats = new PlayerStats();
+    //public PlayerStats stats = new PlayerStats();
 
-    private void Start()
-    {
-        Debug.Log("초기 체력: " + stats.currentHealth);
-    }
+    //private void Start()
+    //{
+    //    Debug.Log("초기 체력: " + stats.currentHealth);
+    //}
     //테스트코드
 
     void Update()
     {
         //테스트코드
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            stats.TakeDamage(20f);
-            Debug.Log("현재 체력: " + stats.currentHealth);
-        }
+        //if (Input.GetKeyDown(KeyCode.C))
+        //{
+        //    stats.TakeDamage(20f);
+        //    Debug.Log("현재 체력: " + stats.currentHealth);
+        //}
         //테스트코드
 
         //Take the horizontal input to move the player
