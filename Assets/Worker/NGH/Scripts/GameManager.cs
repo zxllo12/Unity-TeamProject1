@@ -9,10 +9,18 @@ public class GameManager : MonoBehaviour
     // 싱글톤 인스턴스
     public static GameManager Instance;
 
+    private Player_Controller player;
 
+    public void SetPlayer(Player_Controller player)
+    {
+        this.player = player;
+    }
+
+    [SerializeField] private int gold;
 
     private void Awake()
     {
+
         //싱글톤 패턴 구현
         if (Instance == null)
         {
@@ -155,5 +163,38 @@ public class GameManager : MonoBehaviour
         }
         UIManager.Instance.LinkButton();
         UIManager.Instance.battleUI = null;
+    }
+
+    // 골드를 추가하는 메서드
+    public void AddGold(int amount)
+    {
+        gold += amount;
+        Debug.Log("골드 추가: " + amount + ", 현재 골드: " + gold);
+    }
+
+    // 골드를 차감하는 메서드
+    public void SpendGold(int amount)
+    {
+        if (HasEnoughGold(amount))
+        {
+            gold -= amount;
+            Debug.Log("골드 차감: " + amount + ", 남은 골드: " + gold);
+        }
+        else
+        {
+            Debug.Log("골드가 부족합니다.");
+        }
+    }
+
+    // 골드가 충분한지 확인하는 메서드
+    public bool HasEnoughGold(int amount)
+    {
+        return gold >= amount;
+    }
+
+    // 현재 골드 수량을 가져오는 메서드 (필요 시 추가)
+    public int GetGold()
+    {
+        return gold;
     }
 }

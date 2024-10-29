@@ -9,6 +9,11 @@ public class RewardChest : MonoBehaviour
     public int tableIndex; // 사용할 테이블 인덱스
     public GameObject hpItemPrefab, skillPrefab, goldPrefab, rareGoldPrefab;
 
+    private void Awake()
+    {
+        
+    }
+
     public void OpenChest()
     {
         DropTable selectedTable = dropTableList[tableIndex];

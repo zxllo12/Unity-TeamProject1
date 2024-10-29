@@ -2908,7 +2908,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &546173646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7396,6 +7396,17 @@ MonoBehaviour:
   gameStartButton: {fileID: 1196386604}
   magicShopScreen: {fileID: 2125828815}
   magicShopExit: {fileID: 2118679865}
+  skillButtons:
+  - {fileID: 1587611457}
+  - {fileID: 419383743}
+  - {fileID: 1103026153}
+  - {fileID: 165063509}
+  - {fileID: 192019917}
+  - {fileID: 1468606726}
+  - {fileID: 1380534534}
+  - {fileID: 705772697}
+  - {fileID: 847371900}
+  skillCosts: 320000003200000032000000f4010000f4010000f4010000881300008813000088130000
   statusUpgradeShopScreen: {fileID: 62312183}
   statusUpgradeShopExit: {fileID: 1238127098}
   battleUI: {fileID: 0}
@@ -7946,6 +7957,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ef052b46811a04588ef6bfcc158c5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gold: 10000
 --- !u!1 &1640605463
 GameObject:
   m_ObjectHideFlags: 0
@@ -9969,7 +9981,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2125828816
 MonoBehaviour:
   m_ObjectHideFlags: 0
