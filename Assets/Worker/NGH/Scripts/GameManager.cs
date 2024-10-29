@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     // 싱글톤 인스턴스
     public static GameManager Instance;
 
-    private Player_Controller player;
+    public Player_Controller player;
 
     public void SetPlayer(Player_Controller player)
     {
@@ -117,7 +117,6 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.lobbyScreen = null;
         UIManager.Instance.magicShopScreen = null;
         UIManager.Instance.statusUpgradeShopScreen = null;
-        UIManager.Instance.battleUI = GameObject.FindWithTag("Battle");
     }
 
     private void InitializeLobbyScene()
@@ -162,7 +161,6 @@ public class GameManager : MonoBehaviour
             }
         }
         UIManager.Instance.LinkButton();
-        UIManager.Instance.battleUI = null;
     }
 
     // 골드를 추가하는 메서드
