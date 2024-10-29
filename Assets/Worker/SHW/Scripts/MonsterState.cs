@@ -14,6 +14,8 @@ public class MonsterState : MonoBehaviour
     public Vector3 spawnPoint;
     // 원거리 공격시 발사할 프리팹
     [SerializeField] GameObject bulletPrefab;
+    // 발사 포인트
+    [SerializeField] Transform shootPoint;
 
     // 재생할 에니메이터
     [SerializeField] Animator animator;
@@ -121,11 +123,10 @@ public class MonsterState : MonoBehaviour
                 return;
         }
 
-        // 기준점보다 왼쪽일 경우 
-        // 기준점보다 오른쪽일 경우
-
-
-        // (TODO)스턴상태일 경우 불러올 함수 작성
+        if (curState == State.Attack && attackType == true)
+        {
+            StartCoroutine(ShootCoroutine());
+        }
     }
 
     public void Idle()
@@ -138,6 +139,7 @@ public class MonsterState : MonoBehaviour
         // 일정 범위 내에 플레이어가 들어왔을 경우
         if (Vector3.Distance(transform.position, player.transform.position) < rage)
         {
+            StopAllCoroutines();
             animator.SetBool("isIdle", false);  // 애니메이션 취소
             curState = State.Running;   // 추적상태로 변환
         }
@@ -156,21 +158,20 @@ public class MonsterState : MonoBehaviour
         // 추적 애니메이션 실행
         animator.SetBool("isRunning", true);
 
-
-        StopAllCoroutines();
+        StopCoroutine(WalkCoroutine());
 
         // 타겟(플레이어)를 향해서 이동
         transform.position = Vector3.MoveTowards(transform.position, player.transform.position, runSpeed * Time.deltaTime);
 
         // 공격범위 내로 들어왔을 경우
-        if (Vector3.Distance(transform.position, player.transform.position) <= attackRage)
+        if (Vector3.Distance(transform.position, player.transform.position) < attackRage)
         {
             animator.SetBool("isRunning", false);
             curState = State.Attack;
         }
 
         // 일정 범위 내에 플레이어가 넘어갈 경우
-        else if (Vector3.Distance(transform.position, player.transform.position) >= rage)
+        else if (Vector3.Distance(transform.position, player.transform.position) > rage)
         {
             animator.SetBool("isRunning", false);  // 애니메이션 취소
             curState = State.Idle;   // 추적상태로 변환
@@ -200,10 +201,9 @@ public class MonsterState : MonoBehaviour
         // 스폰포인트에 도착했을 경우
         else if (transform.position == spawnPoint)
         {
-            animator.SetBool("isWalking", false);
-            animator.SetBool("isRunning", false);
-            curState = State.Idle;
             Flip();
+            animator.SetBool("isWalking", false);
+            curState = State.Idle;
         }
     }
 
@@ -217,29 +217,26 @@ public class MonsterState : MonoBehaviour
 
         // 원거리 일 경우
         // 한번만 실행시켜야하는데 공격상태일때 계속 반복(수정필요)
-        if (attackType == true)
-        {
-            StartCoroutine(ShootCoroutine());
-        }
 
-        animator.SetBool("isAttacking", false);
-        curState = State.Running;
-        // 공격범위 벗어났을 경우
-        if (Vector3.Distance(transform.position, player.transform.position) >= attackRage)
+
+        // 공격범위 내로 들어왔을 경우
+        if (Vector3.Distance(transform.position, player.transform.position) > attackRage)
         {
+            animator.SetBool("isAttacking", false);
+            curState = State.Running;
         }
     }
 
     // 원거리 공격용 코루틴 작성?
     // n초 뒤에 공격을 한번 실행?
+
     IEnumerator ShootCoroutine()
     {
         Debug.Log("코루틴 시작");
 
-        // 공격 사이 간격 임시 지정
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
 
-        GameObject bullet = Instantiate(bulletPrefab, transform.forward, transform.rotation);
+        GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
         Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
         rigidbody.velocity = bullet.transform.forward * attackSpeed;
     }
@@ -261,8 +258,14 @@ public class MonsterState : MonoBehaviour
         // 걷기 애니메이션 
         animator.SetBool("isWalking", true);
 
-        // 앞으로 이동?
-        transform.position += Vector3.left * walkSpeed * Time.deltaTime;
+        if (transform.rotation.eulerAngles.y <= -80)
+        {
+            transform.position += Vector3.left * walkSpeed * Time.deltaTime;
+        }
+        else if (transform.rotation.eulerAngles.y >= 80)
+        {
+            transform.position += Vector3.right * walkSpeed * Time.deltaTime;
+        }
 
         // 걷기 코루틴 정지 & 되돌아가기 코루틴 시작
         StopCoroutine(WalkCoroutine());
@@ -271,8 +274,8 @@ public class MonsterState : MonoBehaviour
         // 일정 범위 내에 플레이어가 들어왔을 경우
         if (Vector3.Distance(transform.position, player.transform.position) < rage)
         {
-           
-            animator.SetBool("isIdle", false);  // 애니메이션 취소
+
+            animator.SetBool("isWalking", false);  // 애니메이션 취소
             curState = State.Running;   // 추적상태로 변환
         }
     }
@@ -302,6 +305,9 @@ public class MonsterState : MonoBehaviour
             curState = State.Dead;
         }
 
+        // 스턴 공격을 맞았을 경우
+        // 스턴함수 실행
+
     }
 
     // 충돌 감지
@@ -317,7 +323,6 @@ public class MonsterState : MonoBehaviour
     // 회전
     public void Flip()
     {
-        Debug.Log("플립");
         // 원래 지점으로 이동을 위한 회전
         if (transform.rotation.eulerAngles.y <= -80)
         {
@@ -327,6 +332,21 @@ public class MonsterState : MonoBehaviour
         {
             transform.rotation = transform.rotation * Quaternion.Euler(0, 180f, 0);
         }
+    }
+
+    public void Stun()
+    {
+        animator.SetBool("isStun", true);
+        animator.SetBool("isStun", false);
+    }
+
+    // 둔화 
+    public void Delay(float ice)
+    {
+        // 둔화 스킬에 걸렸을 경우 이속 감소?
+        // 원래대로 돌릴 방법 필요
+        walkSpeed -= ice;
+        runSpeed -= ice;
     }
 
 }
