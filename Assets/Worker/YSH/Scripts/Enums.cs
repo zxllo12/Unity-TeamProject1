@@ -6,6 +6,7 @@ public static class Enums
 {
     public enum SkillType
     {
+        Basic,      // 기본
         Fire,       // 불
         Water,      // 물
         Thunder,    // 번개
@@ -14,6 +15,7 @@ public static class Enums
 
     public enum Grade
     {
+        Basic,      // 기본
         Low,        // 하급
         Mid,        // 중급
         High        // 상급
