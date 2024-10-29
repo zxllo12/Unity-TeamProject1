@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SkillHandler : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class SkillHandler : MonoBehaviour
     public SkillBase[] PlayerSkillSlot { get { return _playerSkillSlot; } }
 
     Coroutine _castRoutine;
+
+    public UnityAction OnChangedSkillSlot;
 
     public void EquipSkill(int skillID, Enums.PlayerSkillSlot slot)
     {
@@ -37,6 +40,8 @@ public class SkillHandler : MonoBehaviour
             UnEquipSkill(slot);
 
         _playerSkillSlot[(int)slot] = skill;
+
+        OnChangedSkillSlot?.Invoke();
     }
 
     public void UnEquipSkill(Enums.PlayerSkillSlot slot)
@@ -49,6 +54,8 @@ public class SkillHandler : MonoBehaviour
 
         // slot에서 삭제
         _playerSkillSlot[(int)slot] = null;
+
+        OnChangedSkillSlot?.Invoke();
     }
 
     public void DoSkill(Enums.PlayerSkillSlot slot, Transform startPos, float attackPoint)
