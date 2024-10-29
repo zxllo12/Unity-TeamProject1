@@ -11,7 +11,7 @@ public class SkillBase : MonoBehaviour
     [SerializeField] protected Projectile projectilePrefab;
     [SerializeField] protected ParticleSystem castEffect;
 
-    ParticleSystem _castEffectInstance;
+    protected ParticleSystem _castEffectInstance;
 
     protected Vector3 _startPos;
     protected GameObject _user;
@@ -54,13 +54,9 @@ public class SkillBase : MonoBehaviour
 
         if (_castEffectInstance == null)
         {
-            ParticleSystem particle = Instantiate(castEffect, StartPos, Quaternion.identity);
+            //ParticleSystem particle = Instantiate(castEffect, StartPos, Quaternion.identity);
+            ParticleSystem particle = Instantiate(castEffect);
             _castEffectInstance = particle;
-        }
-        else
-        {
-            _castEffectInstance.transform.position = StartPos;
-            _castEffectInstance.Play();
         }
     }
 
