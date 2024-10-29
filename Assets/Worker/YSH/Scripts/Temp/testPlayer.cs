@@ -33,7 +33,7 @@ public class testPlayer : MonoBehaviour
         {
             if (Input.GetKeyDown(skillKeys[i]))
             {
-                handler.DoSkill((Enums.PlayerSkillSlot)i, firePos.position, _attackPoint);
+                handler.DoSkill((Enums.PlayerSkillSlot)i, firePos.transform, _attackPoint);
             }
         }
     }

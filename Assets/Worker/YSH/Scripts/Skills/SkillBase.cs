@@ -12,12 +12,12 @@ public class SkillBase : MonoBehaviour
 
     protected ParticleSystem _castEffectInstance;
 
-    protected Vector3 _startPos;
+    protected Transform _startPos;
     protected GameObject _user;
     
     // 유저의 방향을 알 수 있는 변수 필요
 
-    public Vector3 StartPos { get { return _startPos; } set { _startPos = value; } }
+    public Transform StartPos { get { return _startPos; } set { _startPos = value; } }
     public GameObject User { get { return _user; } set { _user = value; } }
 
     public SkillData SkillData { get { return _skillData; } }

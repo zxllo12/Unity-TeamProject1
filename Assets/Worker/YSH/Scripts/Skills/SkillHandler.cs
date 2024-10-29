@@ -49,7 +49,7 @@ public class SkillHandler : MonoBehaviour
         _playerSkillSlot[(int)slot] = null;
     }
 
-    public void DoSkill(Enums.PlayerSkillSlot slot, Vector3 startPos, float attackPoint)
+    public void DoSkill(Enums.PlayerSkillSlot slot, Transform startPos, float attackPoint)
     {
         // 슬롯에 스킬이 존재하는지 비교
         if (_playerSkillSlot[(int)slot] == null)
@@ -65,7 +65,7 @@ public class SkillHandler : MonoBehaviour
         Cast(slot, startPos, attackPoint);
     }
 
-    public void Cast(Enums.PlayerSkillSlot slot, Vector3 startPos, float attackPoint)
+    public void Cast(Enums.PlayerSkillSlot slot, Transform startPos, float attackPoint)
     {
         _playerSkillSlot[(int)slot].StartPos = startPos;
         _playerSkillSlot[(int)slot].User = gameObject;
