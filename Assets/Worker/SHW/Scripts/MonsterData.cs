@@ -25,8 +25,8 @@ public class MonsterData : IDataLoader
         AttackRage = float.Parse(fields[3]);        // 공격 범위
         Rage = int.Parse(fields[4]);                // 추적거리
         CanSkill = bool.Parse(fields[5]);           // 스킬여부
-        Attack = float.Parse(fields[6]);              // 공격력
-        Defense = float.Parse(fields[7]);             // 방어력
+        Attack = float.Parse(fields[6]);            // 공격력
+        Defense = float.Parse(fields[7]);           // 방어력
         Hp = float.Parse(fields[8]);                // 체력
         AttackSpeed = float.Parse(fields[9]);       // 공속
         WalkSpeed = float.Parse(fields[10]);        // 걷기속도
