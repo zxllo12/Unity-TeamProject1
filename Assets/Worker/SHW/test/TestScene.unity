@@ -332,12 +332,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curState: 0
   player: {fileID: 486070238}
-  startPos: {fileID: 833238010}
+  spawnPoint: {x: 0, y: 0, z: 0}
+  bulletPrefab: {fileID: 0}
   animator: {fileID: 0}
   attack: 3
   def: 0
   hp: 100
-  speed: 1
+  curHp: 0
+  walkSpeed: 0
+  runSpeed: 0
   attackSpeed: 1
   rage: 5
   attackRage: 0.5
@@ -624,17 +627,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curState: 0
   player: {fileID: 486070238}
-  startPos: {fileID: 0}
+  spawnPoint: {x: 0, y: 0, z: 0}
+  bulletPrefab: {fileID: 7388910518196718470, guid: 77b9ff79397a4b841ad8c32cd0f2928f, type: 3}
   animator: {fileID: 1261927657}
   attack: 3
   def: 0
   hp: 100
-  speed: 1
+  curHp: 0
+  walkSpeed: 1
+  runSpeed: 1
   attackSpeed: 1
   rage: 5
   attackRage: 0.5
   canSkill: 0
-  attackType: 0
+  attackType: 1
 --- !u!65 &1261927660
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -662,7 +668,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!1 &1560293139
 GameObject:
