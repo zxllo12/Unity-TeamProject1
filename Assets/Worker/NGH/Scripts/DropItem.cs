@@ -11,11 +11,20 @@ public class DropItem : MonoBehaviour
     public int goldAmount;
     public int skillID;
 
-    public void Initialize(ItemType itemType, int skillID, int gold = 0 )
+    public void Initialize(ItemType itemType, int value)
     {
-        type = itemType;
-        goldAmount = gold;
-        this.skillID = skillID;
-        // 추가 설정 로직
+        this.type = itemType;
+        switch (itemType)
+        {
+            case ItemType.Skill:
+                skillID = value;
+                image.sprite = DataManager.Instance.SkillDict[skillID].SkillIcon;
+                break;
+            case ItemType.Gold:
+                goldAmount = value;
+                break;
+            case ItemType.Potion:
+                break;
+        }
     }
 }

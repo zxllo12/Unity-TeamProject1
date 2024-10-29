@@ -40,6 +40,11 @@ public class Player_Controller : MonoBehaviour
     private void Start()
     {
         DataManager.Instance.OnLoadCompleted += testInit;
+        
+    }
+
+    private void OnEnable()
+    {
         GameManager.Instance.SetPlayer(this);
     }
 

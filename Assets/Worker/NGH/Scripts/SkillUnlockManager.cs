@@ -4,7 +4,7 @@ using UnityEngine;
 public class SkillUnlockManager : MonoBehaviour
 {
     public static SkillUnlockManager Instance;
-    private HashSet<int> unlockedSkills = new HashSet<int>();
+    public List<int> unlockedSkills = new List<int>();
 
     private void Awake()
     {
@@ -17,6 +17,11 @@ public class SkillUnlockManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        
     }
 
     public bool IsSkillUnlocked(int skillID)

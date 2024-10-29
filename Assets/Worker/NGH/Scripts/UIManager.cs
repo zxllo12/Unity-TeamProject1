@@ -55,8 +55,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    
-
     private void UnlockSkillInShop(int skillID)
     {
         int cost = skillCosts[skillID];
