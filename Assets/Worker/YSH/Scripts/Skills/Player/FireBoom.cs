@@ -21,8 +21,6 @@ public class FireBoom : SkillBase
 
     public override void DoSkill(float attackPoint)
     {
-        //AreaProjectile projectile = Instantiate(projectilePrefab, _user.transform.position + transform.right * _skillData.Range, Quaternion.identity) as AreaProjectile;
-
         Vector3 dist = new Vector3(_skillData.Range, -1f, 0);
         AreaProjectile projectile = Instantiate(projectilePrefab, _user.transform.position + dist, Quaternion.identity) as AreaProjectile;
         projectile.SetDamage(_skillData.Damage * attackPoint);

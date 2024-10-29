@@ -13,7 +13,7 @@ public class ResourceManager : Singleton<ResourceManager>
 
     public T Load<T>(in string path) where T : Object
     {
-        string key = path.Substring(path.LastIndexOf('/') + 1);
+        string key = path.Substring(path.LastIndexOf('/') + 1).Trim();
 
         _resources.TryGetValue(key, out Object resource);
         if (resource != null)
@@ -24,7 +24,7 @@ public class ResourceManager : Singleton<ResourceManager>
 
         Debug.Log($"Load : Can't found Cache data : {key}");
         Debug.Log($"Load : Load New Resource : {key}");
-        resource = Resources.Load<T>(path);
+        resource = Resources.Load<T>(path.Trim());
         if (resource == null)
         {
             Debug.LogWarning("Resource Load Fail...");

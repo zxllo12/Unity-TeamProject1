@@ -21,7 +21,7 @@ public class SkillData : IDataLoader
     public float CastTime;              // 시전시간
     public int ProjectileSpeed;         // 투사체 속도
     public bool CanPenetration;         // 관통 여부
-    //public float ProjectileSize;        // 투사체 크기 (아직 사용여부 확인 안 됨)
+    public Sprite SkillIcon;            // 스킬 아이콘 이미지
 
     public void Load(string[] fields)
     {
@@ -38,9 +38,11 @@ public class SkillData : IDataLoader
         Second = int.Parse(fields[10]);             // Parse Second
         Tick = float.Parse(fields[11]);             // Parse Tick
         Range = int.Parse(fields[12]);              // Parse Range
-        CastTime = float.Parse(fields[13]);           // Parse CastTime
+        CastTime = float.Parse(fields[13]);         // Parse CastTime
         ProjectileSpeed = int.Parse(fields[14]);    // Parse Projectile Speed
         CanPenetration = bool.Parse(fields[15]);    // Parse Can Penetration
-        //ProjectileSize = float.Parse(fields[16]);   // Parse Projectile Size
+
+        // Parse Skill Icon Image
+        SkillIcon = ResourceManager.Instance.Load<Sprite>($"Images/{fields[16]}");
     }
 }

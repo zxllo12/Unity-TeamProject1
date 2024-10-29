@@ -7,7 +7,6 @@ public class SkillBase : MonoBehaviour
 {
     // 스킬 데이터
     protected SkillData _skillData;
-    [SerializeField] protected Sprite _icon;
     [SerializeField] protected Projectile projectilePrefab;
     [SerializeField] protected ParticleSystem castEffect;
 
@@ -22,7 +21,6 @@ public class SkillBase : MonoBehaviour
     public GameObject User { get { return _user; } set { _user = value; } }
 
     public SkillData SkillData { get { return _skillData; } }
-    public Sprite Icon { get { return _icon; } }
 
     // 고정된 데이터가 아닌 실제 진행중인 쿨타임
     protected float _currentCoolTime;
@@ -54,7 +52,6 @@ public class SkillBase : MonoBehaviour
 
         if (_castEffectInstance == null)
         {
-            //ParticleSystem particle = Instantiate(castEffect, StartPos, Quaternion.identity);
             ParticleSystem particle = Instantiate(castEffect);
             _castEffectInstance = particle;
         }
