@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _icon: {fileID: 21300000, guid: 44f320d83b6c7f04bb15ccce324b290b, type: 3}
   projectilePrefab: {fileID: 4085288649280319164, guid: 28f8bff85b17b2e43876e7d5e9e0bfac, type: 3}
-  castEffect: {fileID: 198184529653262718, guid: 88c4b93ed20385f4db531fc08b5fad2b, type: 3}
+  castEffect: {fileID: 299190385437311252, guid: 5e499894c4da48b41b4d45fc1ad5f50d, type: 3}

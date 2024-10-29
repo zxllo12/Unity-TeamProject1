@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6579230691246165056}
   - component: {fileID: 4915033703955313570}
   m_Layer: 0
-  m_Name: Archer_Explosion_Ice
+  m_Name: IceArrowHit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

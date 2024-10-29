@@ -8,11 +8,13 @@ using UnityEngine.Events;
 
 public class DataManager : Singleton<DataManager>
 {
-    Dictionary<int, SkillData> _skillDict = new Dictionary<int, SkillData>();
+    Dictionary<int, SkillData> _skillData = new Dictionary<int, SkillData>();
     Dictionary<int, MonsterData> _monsterData = new Dictionary<int, MonsterData>();
+    Dictionary<int, DropData> _dropData = new Dictionary<int, DropData>();
 
-    public Dictionary<int, SkillData> SkillDict { get { return _skillDict; } }
+    public Dictionary<int, SkillData> SkillDict { get { return _skillData; } }
     public Dictionary<int, MonsterData> MonsterDict { get { return _monsterData; } }
+    public Dictionary<int, DropData> DropDict { get { return _dropData; } }
 
     public UnityAction OnLoadCompleted;
 
@@ -25,6 +27,7 @@ public class DataManager : Singleton<DataManager>
     {
         bool bSuccess = false;
 
+        #region SkillData Load
         // SkillData Load
         IEnumerator LoadEnumerator = LoadSkillData();
         yield return StartCoroutine(LoadEnumerator);
@@ -36,7 +39,9 @@ public class DataManager : Singleton<DataManager>
             Debug.LogError("Skill Data Load Fail...");
             yield break;
         }
+        #endregion
 
+        #region MonsterData Load
         // MonsterData Load
         LoadEnumerator = LoadMonsterData();
         yield return StartCoroutine(LoadEnumerator);
@@ -48,6 +53,21 @@ public class DataManager : Singleton<DataManager>
             Debug.LogError("Monster Data Load Fail...");
             yield break;
         }
+        #endregion
+
+        #region DropData Load
+        // DropData Load
+        LoadEnumerator = LoadDropData();
+        yield return StartCoroutine(LoadEnumerator);
+
+        bSuccess = (LoadEnumerator.Current as string) != null;
+
+        if (!bSuccess)
+        {
+            Debug.LogError("Drop Data Load Fail...");
+            yield break;
+        }
+        #endregion
 
         Debug.Log("Data Load Complete");
         OnLoadCompleted?.Invoke();
@@ -77,7 +97,7 @@ public class DataManager : Singleton<DataManager>
             SkillData skillData = new SkillData();
             skillData.Load(lines[line].Split(','));
 
-            _skillDict.Add(skillData.ID, skillData);
+            _skillData.Add(skillData.ID, skillData);
         }
 
         Debug.Log("SkillData Load OK!");
@@ -113,6 +133,37 @@ public class DataManager : Singleton<DataManager>
 
         Debug.Log("MonsterData Load OK!");
         yield return monsterText;
+    }
+
+    IEnumerator LoadDropData()
+    {
+        IEnumerator dropDataEnumerator = CSVDownload.DropDataDownloadRoutine();
+        yield return StartCoroutine(dropDataEnumerator);
+
+        string dropText = dropDataEnumerator.Current as string;
+        if (dropText == null)
+        {
+            yield return null;
+            yield break;
+        }
+
+        if (CSVParser.GetDataStringWithWeb(dropText, out string[] lines) == false)
+        {
+            Debug.Log("Drop Data Parse Error!");
+            yield return null;
+            yield break;
+        }
+
+        for (int line = 1; line < lines.Length; line++)
+        {
+            DropData dropData = new DropData();
+            dropData.Load(lines[line].Split(','));
+
+            _dropData.Add(dropData.ID, dropData);
+        }
+
+        Debug.Log("DropData Load OK!");
+        yield return dropText;
     }
 }
 
