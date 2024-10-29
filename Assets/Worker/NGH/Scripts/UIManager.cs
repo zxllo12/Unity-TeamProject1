@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 using TMPro;
+using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class UIManager : MonoBehaviour
     [Header("MagicShop UI")]
     public GameObject magicShopScreen;
     public Button magicShopExit;
+    public Button[] skillButtons; // 상점 UI에 있는 각 스킬 버튼 배열
+    public int[] skillCosts;      // 각 스킬의 해금 비용
 
     // 스테이터스 업그레이드 상점 UI 요소
     [Header("StatusUpgradeShop UI")]
@@ -29,6 +32,9 @@ public class UIManager : MonoBehaviour
     // 배틀쪽 UI 요소
     [Header("Battle UI")]
     public GameObject battleUI;
+
+    // QWER 키에 등록된 스킬 ID를 배열로 저장
+    private int[] registeredSkills = new int[4];
 
     private void Awake()
     {
@@ -42,6 +48,12 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        // 임의의 스킬 ID 초기화 예제 (QWER에 스킬 할당, 필요시 변경 가능)
+        registeredSkills[0] = 0; // Q 스킬 ID
+        registeredSkills[1] = 3; // W 스킬 ID
+        registeredSkills[2] = 5; // E 스킬 ID
+        registeredSkills[3] = 7; // R 스킬 ID
     }
 
     public void LinkButton()
@@ -100,5 +112,11 @@ public class UIManager : MonoBehaviour
     private void CloseOptionWindow()
     {
 
+    }
+
+    // QWER에 등록된 스킬 ID 리스트 반환
+    public List<int> GetRegisteredSkills()
+    {
+        return new List<int>(registeredSkills);
     }
 }
