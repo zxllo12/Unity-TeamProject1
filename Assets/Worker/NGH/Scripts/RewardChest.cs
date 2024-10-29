@@ -39,11 +39,11 @@ public class RewardChest : MonoBehaviour
         List<int> availableHighSkills = new List<int> { 6, 7, 8 };
 
         // QWER에 등록된 스킬 ID를 가져와서 위의 목록에서 제거합니다.
-        List<int> registeredSkills = UIManager.Instance.GetRegisteredSkills(); // QWER 스킬 리스트 함수
+        //List<int> registeredSkills = UIManager.Instance.GetRegisteredSkills(); // QWER 스킬 리스트 함수
 
-        availableLowSkills.RemoveAll(skill => registeredSkills.Contains(skill));
-        availableMidSkills.RemoveAll(skill => registeredSkills.Contains(skill));
-        availableHighSkills.RemoveAll(skill => registeredSkills.Contains(skill));
+        //availableLowSkills.RemoveAll(skill => registeredSkills.Contains(skill));
+        //availableMidSkills.RemoveAll(skill => registeredSkills.Contains(skill));
+        //availableHighSkills.RemoveAll(skill => registeredSkills.Contains(skill));
 
         // 스킬 드랍 확률 체크
         float skillRoll = Random.value;
