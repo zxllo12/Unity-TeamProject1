@@ -56,6 +56,30 @@ public class UIManager : MonoBehaviour
         registeredSkills[3] = 7; // R 스킬 ID
     }
 
+    private void Start()
+    {
+        for (int i = 0; i < skillButtons.Length; i++)
+        {
+            int skillID = i;
+            skillButtons[i].onClick.AddListener(() => UnlockSkillInShop(skillID));
+        }
+    }
+
+    private void UnlockSkillInShop(int skillID)
+    {
+        int cost = skillCosts[skillID];
+
+        if (GameManager.Instance.HasEnoughGold(cost))
+        {
+            GameManager.Instance.SpendGold(cost);
+            SkillUnlockManager.Instance.UnlockSkill(skillID);
+        }
+        else
+        {
+            Debug.Log("골드가 부족합니다.");
+        }
+    }
+
     public void LinkButton()
     {
         // 버튼에 메서드 연결
