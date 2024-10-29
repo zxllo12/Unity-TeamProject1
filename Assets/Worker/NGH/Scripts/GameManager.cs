@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        // 테스트용 로비 전환
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
             ReturnToLobby();
@@ -35,11 +36,13 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
+        // 씬이 로드되면 호출될 이벤트 등록
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
+        // 비활성화 되면 이벤트 제거
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
@@ -83,10 +86,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // 씬이 로드됐을때 호출되는 함수
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("Scene Loaded : " + scene.name);
 
+        // 씬 로드후 초기화
         if(scene.name == "BattleTest")
         {
             InitializeBattleScene();
@@ -98,6 +103,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // 씬 전환후 연결 초기화
     private void InitializeBattleScene()
     {
         UIManager.Instance.lobbyScreen = null;
@@ -108,6 +114,7 @@ public class GameManager : MonoBehaviour
 
     private void InitializeLobbyScene()
     {
+        // 인스펙터 상 각 오브젝트 연결
         UIManager.Instance.lobbyScreen = GameObject.FindWithTag("Lobby");
         GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
 
