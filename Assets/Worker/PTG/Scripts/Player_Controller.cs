@@ -17,7 +17,7 @@ public class Player_Controller : MonoBehaviour
     public Animator animator;
     public Transform model;
 
-    SkillHandler handler;
+    public SkillHandler handler;
 
     [SerializeField] Transform firePos;
 
@@ -36,9 +36,11 @@ public class Player_Controller : MonoBehaviour
     {
         handler = GetComponent<SkillHandler>();
     }
+
     private void Start()
     {
         DataManager.Instance.OnLoadCompleted += testInit;
+        GameManager.Instance.SetPlayer(this);
     }
 
     public void testInit()
