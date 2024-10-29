@@ -11,6 +11,7 @@ public class SkillBase : MonoBehaviour
     [SerializeField] protected ParticleSystem castEffect;
 
     protected ParticleSystem _castEffectInstance;
+    protected Vector3 _castPos;
 
     protected Transform _startPos;
     protected GameObject _user;
@@ -18,6 +19,8 @@ public class SkillBase : MonoBehaviour
     // 유저의 방향을 알 수 있는 변수 필요
 
     public Transform StartPos { get { return _startPos; } set { _startPos = value; } }
+    public Vector3 CastPos { get { return _castPos; } }
+
     public GameObject User { get { return _user; } set { _user = value; } }
 
     public SkillData SkillData { get { return _skillData; } }
