@@ -69,7 +69,7 @@ public class Player_Controller : MonoBehaviour
         {
             if (Input.GetKeyDown(skillKeys[i]))
             {
-                handler.DoSkill((Enums.PlayerSkillSlot)i, firePos.position, stats.attackPower);
+                handler.DoSkill((Enums.PlayerSkillSlot)i, firePos, stats.attackPower);
             }
         }
 
