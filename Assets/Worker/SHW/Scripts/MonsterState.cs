@@ -18,17 +18,15 @@ public class MonsterState : MonoBehaviour
     // 재생할 에니메이터
     [SerializeField] Animator animator;
 
-    // 데이터 테이블로 블러올 내용들
-    // 사거리, 스킬여부, 공격력, 방어력, 체력, 공속, 이속, 스킬 쿨
-
     // 이하는 임시적으로 작성된 스텟들임
     [Header("State")]
+    [SerializeField] int id;
     [SerializeField] float attack;  // 공격력
     [SerializeField] float def; // 방어력
     [SerializeField] float hp;  // 체력
     public float curHp;
-    public float walkSpeed;   // 걷기이속
-    public float runSpeed;   // 뛰기이속
+    [SerializeField] float walkSpeed;   // 걷기이속
+    [SerializeField] float runSpeed;   // 뛰기이속
     [SerializeField] float attackSpeed; // 이속
     [SerializeField] float rage;    // 추적거리
     [SerializeField] float attackRage;   // 공격 사거리
@@ -36,8 +34,8 @@ public class MonsterState : MonoBehaviour
     [SerializeField] bool attackType;  // 공격 타입 true일 경우 원거리
 
     // 임시 구역
-    [Header("Test")]
-    [SerializeField] float damage;  // 체력감소에 쓰일 데미지(임시)
+    protected MonsterData _monsterData;
+    public MonsterData MonsterData { get { return _monsterData; } }
 
     private void Awake()
     {
@@ -48,10 +46,45 @@ public class MonsterState : MonoBehaviour
         spawnPoint = transform.position;
 
         // 플레이어 확인(일단 이름으로 플레이어 오브젝트 찾는다)
-        player = GameObject.Find("Player");
+        player = GameObject.Find("testPlayer");
 
         // 현재 체력 = 설정체력으로 설정
         curHp = hp;
+    }
+    private void Start()
+    {
+        LoadMonsterData(id);
+    }
+
+    public void LoadMonsterData(int id)
+    {
+        // id 지정
+        // id로 데이터메이저에 딕셔너리 접근 value값을 가져온다
+
+        // 오류 확인용
+        Debug.Log($"MonsterDict에 저장된 데이터 개수: {_monsterData.ID}");
+        Debug.Log($"요청된 몬스터 ID: {id}");
+
+        // id에 해당하는 데이터가 존재하는지 확인하고, 존재하지 않을 경우 오류 출력
+        if (DataManager.Instance.MonsterDict.TryGetValue(id, out MonsterData data) == false)
+        {
+            Debug.LogError($"MonsterData를 찾을 수 없습니다. ID: {id}");
+            return;
+        }
+   
+        _monsterData = data;
+
+        // 가져온 값은 선언한 몬스터 데이터에 할당한다.
+        attack = _monsterData.Attack;
+        def = _monsterData.Defense;
+        hp = _monsterData.Hp;
+        walkSpeed = _monsterData.WalkSpeed;
+        runSpeed = _monsterData.RunSpeed;
+        attackSpeed = _monsterData.AttackSpeed;
+        rage = _monsterData.Rage;
+        attackRage = _monsterData.AttackRage;
+        canSkill = _monsterData.CanSkill;
+        attackType = _monsterData.AttackType;
     }
 
     private void Update()
@@ -80,9 +113,10 @@ public class MonsterState : MonoBehaviour
             case State.Walking: // 이동 = 배회
                 Walking();
                 return;
-            case State.IsHit:   // 피격
-                IsHit();
-                return;
+            /*
+        case State.IsHit:   // 피격
+            IsHit();
+            return;*/
             case State.Dead:  // (임시) 사망
                 Dead();
                 return;
@@ -134,6 +168,7 @@ public class MonsterState : MonoBehaviour
             animator.SetBool("isRunning", false);
             curState = State.Attack;
         }
+
         // 일정 범위 내에 플레이어가 넘어갈 경우
         else if (Vector3.Distance(transform.position, player.transform.position) >= rage)
         {
@@ -200,6 +235,9 @@ public class MonsterState : MonoBehaviour
         }
     }
 
+    // 원거리 공격용 코루틴 작성?
+    // n초 뒤에 공격을 한번 실행?
+
     public void Dead()
     {
         // 사망 애니메이션
@@ -241,7 +279,7 @@ public class MonsterState : MonoBehaviour
     }
 
     // 피격시 출력할 함수
-    public void IsHit()
+    public void IsHit(float damage)
     {
         // 피격 애니메이션 출력
         animator.SetBool("isHit", true);
