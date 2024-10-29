@@ -12,6 +12,8 @@ public class Player_Controller : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundLayer;
 
+    public bool AbleDoubleJump = true;
+
     public Animator animator;
     public Transform model;
 
@@ -51,6 +53,8 @@ public class Player_Controller : MonoBehaviour
         if (isGrounded)
         {
             direction.y = -1;
+            AbleDoubleJump = true;
+
             if (Input.GetButton("Jump"))
             {
                 Jump();
@@ -59,6 +63,10 @@ public class Player_Controller : MonoBehaviour
         else
         {
             direction.y += gravity * Time.deltaTime;//Add Gravity
+            if (AbleDoubleJump && Input.GetButtonDown("Jump"))
+            {
+                DoubleJump();
+            }
         }
 
         //Flip the player
@@ -76,6 +84,14 @@ public class Player_Controller : MonoBehaviour
     {
         //Jump
         direction.y = jumpForce;
+    }
+
+    private void DoubleJump()
+    {
+        //Double Jump
+        Debug.Log("test");
+        direction.y = jumpForce;
+        AbleDoubleJump = false;
     }
 
     private void Atk()
