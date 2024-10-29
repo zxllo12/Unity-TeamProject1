@@ -10,6 +10,7 @@ public class PlayerStats
     public float maxHealth = 100f;
     public float currentHealth;
 
+    //체력 초기화
     public PlayerStats()
     {
         currentHealth = maxHealth;
