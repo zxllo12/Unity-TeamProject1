@@ -7,6 +7,7 @@ public static class CSVDownload
 {
     const string skillDataUrl = "https://docs.google.com/spreadsheets/d/1KKp21OkOGInFUfQvvE-ZlDCtzdnPYfzevhZbfoynPkQ/export?gid=367973711&format=csv";
     const string monsterDataUrl = "https://docs.google.com/spreadsheets/d/1NXzXEfqV4n5AN5xSIf0AOBBvnqDwgKlSXRmfL1Ra3gs/export?gid=0&format=csv";
+    const string dropDataUrl = "https://docs.google.com/spreadsheets/d/1Rlhk9E_9iojPdKPChQ2onZpu_D9cBKOQcgabaQ2OJdo/export?gid=857470714&format=csv";
 
     public static IEnumerator SkillDataDownloadRoutine()
     {
@@ -44,5 +45,22 @@ public static class CSVDownload
 
         Debug.Log("Monster Data Download OK");
         yield return monsterTableText;
+    }
+
+    public static IEnumerator DropDataDownloadRoutine()
+    {
+        UnityWebRequest dropDataRequest = UnityWebRequest.Get(dropDataUrl);
+
+        yield return dropDataRequest.SendWebRequest();
+
+        string dropTableText = dropDataRequest.downloadHandler.text;
+        if (dropTableText == null)
+        {
+            Debug.LogError("Drop Data Download Error!");
+            yield break;
+        }
+
+        Debug.Log("Drop Data Download OK");
+        yield return dropTableText;
     }
 }
