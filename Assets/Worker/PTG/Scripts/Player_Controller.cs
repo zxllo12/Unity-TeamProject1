@@ -17,8 +17,14 @@ public class Player_Controller : MonoBehaviour
     public Animator animator;
     public Transform model;
 
+    SkillHandler handler;
+
+    [SerializeField] Transform firePos;
+
+    [SerializeField] KeyCode[] skillKeys = new KeyCode[(int)Enums.PlayerSkillSlot.Length];
+
     //테스트코드
-    //public PlayerStats stats = new PlayerStats();
+    public PlayerStats stats = new PlayerStats();
 
     //private void Start()
     //{
@@ -26,6 +32,29 @@ public class Player_Controller : MonoBehaviour
     //}
     //테스트코드
 
+    private void Awake()
+    {
+        handler = GetComponent<SkillHandler>();
+    }
+    private void Start()
+    {
+        DataManager.Instance.OnLoadCompleted += testInit;
+    }
+
+    public void testInit()
+    {
+        handler.EquipSkill(0, Enums.PlayerSkillSlot.Slot1);
+        handler.EquipSkill(1, Enums.PlayerSkillSlot.Slot2);
+    }
+
+
+    private void OnDisable()
+    {
+        if (DataManager.Instance != null)
+        {
+            DataManager.Instance.OnLoadCompleted += testInit;
+        }
+    }
     void Update()
     {
         //테스트코드
@@ -35,6 +64,14 @@ public class Player_Controller : MonoBehaviour
         //    Debug.Log("현재 체력: " + stats.currentHealth);
         //}
         //테스트코드
+
+        for (int i = 0; i < skillKeys.Length; i++)
+        {
+            if (Input.GetKeyDown(skillKeys[i]))
+            {
+                handler.DoSkill((Enums.PlayerSkillSlot)i, firePos.position, stats.attackPower);
+            }
+        }
 
         //좌우 입력
         float hInput = Input.GetAxis("Horizontal");
