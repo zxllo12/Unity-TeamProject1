@@ -1,10 +1,10 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_Controller : MonoBehaviour
 {
-    public CharacterController controller;
+    public Rigidbody rigid;
     private Vector3 direction;
     public float speed = 8;
     public float jumpForce = 10;
@@ -23,14 +23,14 @@ public class Player_Controller : MonoBehaviour
 
     [SerializeField] KeyCode[] skillKeys = new KeyCode[(int)Enums.PlayerSkillSlot.Length];
 
-    //Å×½ºÆ®ÄÚµå
+    //ï¿½×½ï¿½Æ®ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í½ï¿½
     public PlayerStats stats = new PlayerStats();
 
     //private void Start()
     //{
-    //    Debug.Log("ÃÊ±â Ã¼·Â: " + stats.currentHealth);
+    //    Debug.Log("ï¿½Ê±ï¿½ Ã¼ï¿½ï¿½: " + stats.currentHealth);
     //}
-    //Å×½ºÆ®ÄÚµå
+    //ï¿½×½ï¿½Æ®ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í½ï¿½
 
     private void Awake()
     {
@@ -39,8 +39,8 @@ public class Player_Controller : MonoBehaviour
 
     private void Start()
     {
+
         DataManager.Instance.OnLoadCompleted += testInit;
-        
     }
 
     private void OnEnable()
@@ -64,13 +64,15 @@ public class Player_Controller : MonoBehaviour
     }
     void Update()
     {
-        //Å×½ºÆ®ÄÚµå
+        //ï¿½×½ï¿½Æ®ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í½ï¿½
         //if (Input.GetKeyDown(KeyCode.C))
         //{
         //    stats.TakeDamage(20f);
-        //    Debug.Log("ÇöÀç Ã¼·Â: " + stats.currentHealth);
+        //    animator.SetTrigger("damage");
+        //
+        //    Debug.Log("ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½: " + stats.currentHealth);
         //}
-        //Å×½ºÆ®ÄÚµå
+        //ï¿½×½ï¿½Æ®ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í½ï¿½
 
         for (int i = 0; i < skillKeys.Length; i++)
         {
@@ -80,12 +82,13 @@ public class Player_Controller : MonoBehaviour
             }
         }
 
-        //ÁÂ¿ì ÀÔ·Â
-        float hInput = Input.GetAxis("Horizontal");
+        //ï¿½Â¿ï¿½ ï¿½Ô·ï¿½
+        float hInput = Input.GetAxisRaw("Horizontal");
         direction.x = hInput * speed;
+
         animator.SetFloat("speed", Mathf.Abs(hInput));
 
-        //¶¥¿¡ ÀÖ´ÂÁö È®ÀÎ
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
         bool isGrounded = Physics.CheckSphere(groundCheck.position, 0.15f, groundLayer);
         animator.SetBool("isGrounded", isGrounded);
 
@@ -99,48 +102,47 @@ public class Player_Controller : MonoBehaviour
             direction.y = -1;
             AbleDoubleJump = true;
 
-            if (Input.GetButton("Jump"))
+            if (Input.GetButtonDown("Jump"))
             {
                 Jump();
             }
         }
         else
         {
-            direction.y += gravity * Time.deltaTime; //Áß·Â 
             if (AbleDoubleJump && Input.GetButtonDown("Jump"))
             {
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
                 DoubleJump();
             }
         }
 
-        //Ä³¸¯ÅÍ ÁÂ¿ì¹ÝÀü
+        //Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½Â¿ï¿½ï¿½ï¿½ï¿½
         if (hInput != 0)
         {
             Quaternion newRotation = Quaternion.LookRotation(new Vector3(hInput, 0, 0));
             model.rotation = newRotation;
         }
 
-        //Ä³¸¯ÅÍ ¿òÁ÷ÀÓ
-        controller.Move(direction * Time.deltaTime);
+        //Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        rigid.AddForce(Vector3.right * direction.x);
     }
 
     private void Jump()
     {
-        //Á¡ÇÁ
-        direction.y = jumpForce;
+        //ï¿½ï¿½ï¿½ï¿½
+        rigid.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
     private void DoubleJump()
     {
-        //´õºí Á¡ÇÁ
-        Debug.Log("test");
-        direction.y = jumpForce;
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        rigid.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         AbleDoubleJump = false;
     }
 
     private void Atk()
     {
-        //°ø°Ý
+        //ï¿½ï¿½ï¿½ï¿½
         animator.SetTrigger("Atk");
     }
 }
