@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigid: {fileID: 1553730149}
-  speed: 8
+  speed: 15
   jumpForce: 5
   gravity: -20
   groundCheck: {fileID: 1017205870}
