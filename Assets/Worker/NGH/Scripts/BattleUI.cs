@@ -16,15 +16,32 @@ public class BattleUI : MonoBehaviour
 
     private void Awake()
     {
-        hpBar.minValue = 0;
-        hpBar.maxValue = GameManager.Instance.player.stats.maxHealth;
+        
     }
 
     private void Start()
     {
+        // hpBar초기화
+        hpBar.minValue = 0;
+        hpBar.maxValue = GameManager.Instance.player.stats.maxHealth;
+
         // 이벤트 등록
         GameManager.Instance.player.handler.OnChangedSkillSlot += UpdateSkill;
         GameManager.Instance.OnGoldChanged += UpdateGold;
+    }
+
+    private void OnEnable()
+    {
+        
+    }
+
+    private void Update()
+    {
+        // gold UI TEST Code
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            GameManager.Instance.AddGold(100);
+        }
     }
 
     private void OnDisable()

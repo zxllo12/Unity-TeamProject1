@@ -145,7 +145,7 @@ public class RewardChest : MonoBehaviour
         {
             int bounsGoldAmount = Random.Range(table.MinGold, table.MaxGold) * 10;
             Vector3 bonusGoldPosition = new Vector3(transform.position.x + 2f, transform.position.y + 0.5f, 0);
-            GameObject bonusGoldDrop = Instantiate(rareGoldPrefab, transform.position, Quaternion.identity);
+            GameObject bonusGoldDrop = Instantiate(rareGoldPrefab, bonusGoldPosition, Quaternion.identity);
             bonusGoldDrop.GetComponent<DropItem>().Initialize(DropItem.ItemType.Gold, bounsGoldAmount);
         }
     }

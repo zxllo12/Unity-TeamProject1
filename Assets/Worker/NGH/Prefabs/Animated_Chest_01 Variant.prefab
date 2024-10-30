@@ -7,9 +7,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2606965776783581128, guid: 9ce5c2e99770a4348bb50786d65f3212, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2869315549498329262, guid: 9ce5c2e99770a4348bb50786d65f3212, type: 3}
       propertyPath: m_Name
-      value: Animated_Chest_01
+      value: Animated_Chest_01 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2869315549498561678, guid: 9ce5c2e99770a4348bb50786d65f3212, type: 3}
       propertyPath: m_RootOrder
