@@ -8,45 +8,38 @@ public class RewardChest : MonoBehaviour
     public int dataIndex; // 사용할 테이블 인덱스
     public GameObject hpItemPrefab, skillPrefab, goldPrefab, rareGoldPrefab;
 
-    [SerializeField] private bool isOpened;
+    public bool isOpened;
     [SerializeField] Animator animator;
     [SerializeField] float chestOpenDelay = 1f;
 
     private void Awake()
     {
         isOpened = false;
+        //Test();
     }
 
-    private void Start()
-    {
-        DataManager.Instance.OnLoadCompleted += Test;
-    }
-
-    private void Test()
-    {
+    //private void Test()
+    //{
         
-        for (int i = 0; DataManager.Instance.SkillDict.Count > i; i++)
-        {
-            if (!SkillUnlockManager.Instance.IsSkillUnlocked(i))
-            {
-                SkillUnlockManager.Instance.UnlockSkill(i);
-            }
+        //for (int i = 0; DataManager.Instance.SkillDict.Count > i; i++)
+        //{
+        //    if (!SkillUnlockManager.Instance.IsSkillUnlocked(i))
+        //    {
+        //        SkillUnlockManager.Instance.UnlockSkill(i);
+        //    }
             
-        }
-        OpenChest();
-    }
-
-    private void OnDisable()
-    {
-        DataManager.Instance.OnLoadCompleted -= Test;
-    }
+        //}
+       // OpenChest();
+    //}
 
     public void OpenChest()
     {
-        Debug.Log("상자 열림");
+        
 
         if (isOpened) return; // 이미 열린 상자는 다시 열리지 않도록
         isOpened = true;
+
+        Debug.Log("상자 열림");
 
         // 상자 오픈 애니메이션 재생
         animator.SetTrigger("Open");
@@ -160,21 +153,5 @@ public class RewardChest : MonoBehaviour
         Vector3 skillPosition = new Vector3(transform.position.x + 1f, transform.position.y + 0.5f, 0);
         GameObject skillDrop = Instantiate(skillPrefab, skillPosition, Quaternion.identity);
         skillDrop.GetComponent<DropItem>().Initialize(skillType, skillID);
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-           
-        }
     }
 }

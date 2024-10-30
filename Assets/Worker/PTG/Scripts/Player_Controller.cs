@@ -30,31 +30,32 @@ public class Player_Controller : MonoBehaviour
     private void Awake()
     {
         handler = GetComponent<SkillHandler>();
+        GameManager.Instance.SetPlayer(this);
     }
 
     private void Start()
     {
-        DataManager.Instance.OnLoadCompleted += testInit;
+        //DataManager.Instance.OnLoadCompleted += testInit;
     }
 
     private void OnEnable()
     {
-        GameManager.Instance.SetPlayer(this);
+        
     }
 
-    public void testInit()
-    {
-        handler.EquipSkill(0, Enums.PlayerSkillSlot.Slot1);
-        handler.EquipSkill(1, Enums.PlayerSkillSlot.Slot2);
-    }
+    //public void testInit()
+    //{
+    //    handler.EquipSkill(0, Enums.PlayerSkillSlot.Slot1);
+    //    handler.EquipSkill(1, Enums.PlayerSkillSlot.Slot2);
+    //}
 
-    private void OnDisable()
-    {
-        if (DataManager.Instance != null)
-        {
-            DataManager.Instance.OnLoadCompleted += testInit;
-        }
-    }
+    //private void OnDisable()
+    //{
+    //    if (DataManager.Instance != null)
+    //    {
+    //        DataManager.Instance.OnLoadCompleted += testInit;
+    //    }
+    //}
 
     void Update()
     {
@@ -107,6 +108,21 @@ public class Player_Controller : MonoBehaviour
 
         //캐릭터 움직임
         rigid.AddForce(Vector3.right * direction.x);
+
+        // Get Item Test
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if (rewardChest != null)
+            {
+                rewardChest.OpenChest();
+                rewardChest = null;
+            }
+            else if(curDropItem != null)
+            {
+                curDropItem.GetItem();
+                curDropItem = null;
+            }
+        }
     }
 
     private void Jump()
@@ -127,5 +143,39 @@ public class Player_Controller : MonoBehaviour
     {
         //占쏙옙占쏙옙
         animator.SetTrigger("Atk");
+    }
+
+    DropItem curDropItem;
+    RewardChest rewardChest;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("RewardChest"))
+        {
+            RewardChest reward = other.GetComponent<RewardChest>();
+            if (reward.isOpened == false)
+            {
+                rewardChest = other.GetComponent<RewardChest>();
+            }
+        }
+        else if (other.gameObject.CompareTag("DropItem"))
+        {
+            curDropItem = other.GetComponent<DropItem>();
+        }
+        
+        
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (rewardChest == other.gameObject) 
+        {
+            rewardChest = null;
+        }
+        else if (curDropItem == other.gameObject)
+        {
+            curDropItem = null;
+        }
+        
     }
 }

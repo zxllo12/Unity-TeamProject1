@@ -15,11 +15,29 @@ public class GameManager : MonoBehaviour
     public void SetPlayer(Player_Controller player)
     {
         this.player = player;
+
+        for(int i = 0; i < playerSkillSlotID.Length; i++)
+        {
+            if (playerSkillSlotID[i] != null)
+            {
+                player.handler.EquipSkill((int)playerSkillSlotID[i], (Enums.PlayerSkillSlot)i);
+            }
+        } 
+    }
+
+    public BattleUI battleUI;
+
+    public void SetBattleUI(BattleUI battleUI)
+    {
+        this.battleUI = battleUI;
     }
 
     [SerializeField] private int gold;
 
     public UnityAction OnGoldChanged;
+
+    int?[] playerSkillSlotID;
+    public int?[] PlayerSkillSlotID { get { return playerSkillSlotID; } }
 
     private void Awake()
     {
@@ -42,6 +60,11 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
             ReturnToLobby();
+        }
+        // 테스트용 배틀 씬 전환
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            TestGame();
         }
     }
 
@@ -77,6 +100,26 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // 게임 시작 시 타이틀 화면에서 호출
+    public void TestGame()
+    {
+        // 게임 로딩 시작
+        StartCoroutine(LoadTestGame());
+    }
+
+    // 메인 게임 비동기 로딩
+    private IEnumerator LoadTestGame()
+    {
+        // 메인 게임 씬을 비동기로 로드
+        AsyncOperation operation = SceneManager.LoadSceneAsync("BattleTest 2");
+
+        // 로딩 진행 상황 업데이트
+        while (!operation.isDone)
+        {
+            yield return null;
+        }
+    }
+
     // 로비 화면으로 귀환
     public void ReturnToLobby()
     {
@@ -103,10 +146,10 @@ public class GameManager : MonoBehaviour
         Debug.Log("Scene Loaded : " + scene.name);
 
         // 씬 로드후 초기화
-        if(scene.name == "BattleTest")
-        {
-            InitializeBattleScene();
-        }
+        //if(scene.name == "BattleTest")
+        //{
+        //    InitializeBattleScene();
+        //}
 
         if(scene.name == "LobbyTest")
         {
@@ -122,7 +165,7 @@ public class GameManager : MonoBehaviour
 
     private void InitializeLobbyScene()
     {
-        
+        playerSkillSlotID = new int?[(int)Enums.PlayerSkillSlot.Length];
     }
 
     // 골드를 추가하는 메서드

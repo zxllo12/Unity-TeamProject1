@@ -13,10 +13,12 @@ public class BattleUI : MonoBehaviour
     public Slider hpBar;
     public TextMeshProUGUI hpText;
     public TextMeshProUGUI goldText;
+    public SkillSlotUI skillSlotUI;
 
     private void Awake()
     {
-        
+        skillSlotUI.gameObject.SetActive(false);
+        GameManager.Instance.SetBattleUI(this);
     }
 
     private void Start()
@@ -27,7 +29,12 @@ public class BattleUI : MonoBehaviour
 
         // 이벤트 등록
         GameManager.Instance.player.handler.OnChangedSkillSlot += UpdateSkill;
+        GameManager.Instance.player.stats.OnChangedHP += UpdateHp;
         GameManager.Instance.OnGoldChanged += UpdateGold;
+
+        UpdateGold();
+        UpdateHp();
+        UpdateSkill();
     }
 
     private void OnEnable()
@@ -42,13 +49,27 @@ public class BattleUI : MonoBehaviour
         {
             GameManager.Instance.AddGold(100);
         }
+
+        // hp UI TEST Code
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            GameManager.Instance.player.stats.TakeDamage(10);
+        }
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
+        Debug.Log($"BattleUI 파괴됨 {gameObject.name}");
         // 이벤트 해제
         GameManager.Instance.player.handler.OnChangedSkillSlot -= UpdateSkill;
+        GameManager.Instance.player.stats.OnChangedHP -= UpdateHp;
         GameManager.Instance.OnGoldChanged -= UpdateGold;
+    }
+
+    public void ShowSkillSlotUI(int skillID)
+    {
+        skillSlotUI.SetInfo(skillID);
+        skillSlotUI.gameObject.SetActive(true);
     }
 
     // 전투중 QWER스킬중 하나가 바뀌었을때 작동되는 코드
