@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player_Controller : MonoBehaviour
 {
-    public CharacterController controller;
+    public Rigidbody rigid;
     private Vector3 direction;
     public float speed = 8;
     public float jumpForce = 10;
@@ -41,6 +41,10 @@ public class Player_Controller : MonoBehaviour
     {
         
         DataManager.Instance.OnLoadCompleted += testInit;
+    }
+
+    private void OnEnable()
+    {
         GameManager.Instance.SetPlayer(this);
     }
 
@@ -79,8 +83,9 @@ public class Player_Controller : MonoBehaviour
         }
 
         //좌우 입력
-        float hInput = Input.GetAxis("Horizontal");
+        float hInput = Input.GetAxisRaw("Horizontal");
         direction.x = hInput * speed;
+
         animator.SetFloat("speed", Mathf.Abs(hInput));
 
         //땅에 있는지 확인
@@ -97,16 +102,16 @@ public class Player_Controller : MonoBehaviour
             direction.y = -1;
             AbleDoubleJump = true;
 
-            if (Input.GetButton("Jump"))
+            if (Input.GetButtonDown("Jump"))
             {
                 Jump();
             }
         }
         else
         {
-            direction.y += gravity * Time.deltaTime; //중력 
             if (AbleDoubleJump && Input.GetButtonDown("Jump"))
             {
+                Debug.Log("더블점프 실행");
                 DoubleJump();
             }
         }
@@ -119,19 +124,19 @@ public class Player_Controller : MonoBehaviour
         }
 
         //캐릭터 움직임
-        controller.Move(direction * Time.deltaTime);
+        rigid.AddForce(Vector3.right * direction.x);
     }
 
     private void Jump()
     {
         //점프
-        direction.y = jumpForce;
+        rigid.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
     private void DoubleJump()
     {
         //더블 점프
-        direction.y = jumpForce;
+        rigid.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         AbleDoubleJump = false;
     }
 
