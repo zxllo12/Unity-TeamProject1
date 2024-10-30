@@ -38,6 +38,9 @@ public class MonsterState : MonoBehaviour
     bool canAttack = true;
     float attackTimer;
 
+    // 사망확인용
+    bool isdead = false;
+
     [SerializeField] AttackTrigger trigger;
 
     [SerializeField] float bulletSpeed;
@@ -106,9 +109,9 @@ public class MonsterState : MonoBehaviour
         attackRage = _monsterData.AttackRage;
         canSkill = _monsterData.CanSkill;
         attackType = _monsterData.AttackType;
-        if(trigger != null)
+        if (trigger != null)
         {
-        trigger.SetDamage(attack);
+            trigger.SetDamage(attack);
         }
 
     }
@@ -148,7 +151,7 @@ public class MonsterState : MonoBehaviour
                 break;
         }
 
-    
+
 
         if (canAttack == false)
         {
@@ -246,14 +249,14 @@ public class MonsterState : MonoBehaviour
             // 공격 애니메이션
             animator.SetBool("isAttacking", true);
 
-            
+
 
             if (attackType == true)
             {
                 GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
                 Bullet instance = bullet.GetComponent<Bullet>();
                 instance.SetSpeed(bulletSpeed);
-                instance.SetDamage(attack);              
+                instance.SetDamage(attack);
             }
             else
             {
@@ -268,7 +271,7 @@ public class MonsterState : MonoBehaviour
             canAttack = false;
         }
 
-  
+
         // 공격범위 내로 들어왔을 경우
         if (Vector3.Distance(transform.position, player.transform.position) > attackRage)
         {
@@ -286,15 +289,27 @@ public class MonsterState : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        
+
 
     }
 
     public void Dead()
     {
+        // 이전 어느상태든 에니메이션 끄기
+        AllAnimationOff();
+
         // 사망 애니메이션
-        animator.SetBool("isDead", true);
-        animator.SetBool("isDead", false);
+        if (isdead == false)
+        {
+            animator.SetBool("isDead", true);
+            isdead = true;
+        }
+        else
+        {
+            animator.SetBool("isDead", false);
+            Destroy(gameObject,3f);
+        }
+
     }
 
     public void Skill()
@@ -341,6 +356,9 @@ public class MonsterState : MonoBehaviour
     // 피격시 출력할 함수
     public void IsHit(float damage)
     {
+        // 이전 어느상태든 에니메이션 끄기
+        AllAnimationOff();
+
         // 피격 애니메이션 출력
         animator.SetBool("isHit", true);
         animator.SetBool("isHit", false);
@@ -387,6 +405,9 @@ public class MonsterState : MonoBehaviour
 
     public void Stun()
     {
+        // 이전 어느상태든 에니메이션 끄기
+        AllAnimationOff();
+
         animator.SetBool("isStun", true);
         animator.SetBool("isStun", false);
     }
@@ -400,5 +421,16 @@ public class MonsterState : MonoBehaviour
         runSpeed -= ice;
     }
 
+    // 애니메이션 전부 끄는 함수
+    public void AllAnimationOff()
+    {
+        animator.SetBool("isIdle", false);
+        animator.SetBool("isWalking", false);
+        animator.SetBool("isRunning", false);
+        animator.SetBool("isHit", false);
+        animator.SetBool("isAttacking", false);
+        animator.SetBool("isDead", false);
+        animator.SetBool("isStun", false);
+    }
 }
 
