@@ -1,4 +1,4 @@
-﻿using System.Collections;
+癤using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,14 +23,16 @@ public class Player_Controller : MonoBehaviour
 
     [SerializeField] KeyCode[] skillKeys = new KeyCode[(int)Enums.PlayerSkillSlot.Length];
 
-    //�׽�Ʈ�ڵ� �������ͽ�
+
+    //테스트코드 스테이터스
     public PlayerStats stats = new PlayerStats();
 
     //private void Start()
     //{
-    //    Debug.Log("�ʱ� ü��: " + stats.currentHealth);
+    //    Debug.Log("占십깍옙 체占쏙옙: " + stats.currentHealth);
     //}
-    //�׽�Ʈ�ڵ� �������ͽ�
+    //테스트코드 스테이터스
+
 
     private void Awake()
     {
@@ -39,7 +41,6 @@ public class Player_Controller : MonoBehaviour
 
     private void Start()
     {
-
         DataManager.Instance.OnLoadCompleted += testInit;
     }
 
@@ -64,15 +65,15 @@ public class Player_Controller : MonoBehaviour
     }
     void Update()
     {
-        //�׽�Ʈ�ڵ� �������ͽ�
+        //테스트코드 스테이터스
         //if (Input.GetKeyDown(KeyCode.C))
         //{
         //    stats.TakeDamage(20f);
         //    animator.SetTrigger("damage");
         //
-        //    Debug.Log("���� ü��: " + stats.currentHealth);
+        //    Debug.Log("현재 체력: " + stats.currentHealth);
         //}
-        //�׽�Ʈ�ڵ� �������ͽ�
+        //테스트코드 스테이터스
 
         for (int i = 0; i < skillKeys.Length; i++)
         {
@@ -82,13 +83,13 @@ public class Player_Controller : MonoBehaviour
             }
         }
 
-        //�¿� �Է�
+        //좌우 입력
         float hInput = Input.GetAxisRaw("Horizontal");
         direction.x = hInput * speed;
 
         animator.SetFloat("speed", Mathf.Abs(hInput));
 
-        //���� �ִ��� Ȯ��
+        //占쏙옙占쏙옙 占쌍댐옙占쏙옙 확占쏙옙
         bool isGrounded = Physics.CheckSphere(groundCheck.position, 0.15f, groundLayer);
         animator.SetBool("isGrounded", isGrounded);
 
@@ -111,38 +112,38 @@ public class Player_Controller : MonoBehaviour
         {
             if (AbleDoubleJump && Input.GetButtonDown("Jump"))
             {
-                Debug.Log("�������� ����");
+                Debug.Log("더블점프 실행");
                 DoubleJump();
             }
         }
 
-        //ĳ���� �¿����
+        //캐占쏙옙占쏙옙 占승울옙占쏙옙占
         if (hInput != 0)
         {
             Quaternion newRotation = Quaternion.LookRotation(new Vector3(hInput, 0, 0));
             model.rotation = newRotation;
         }
 
-        //ĳ���� ������
+        //캐릭터 움직임
         rigid.AddForce(Vector3.right * direction.x);
     }
 
     private void Jump()
     {
-        //����
+        //점프
         rigid.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
     private void DoubleJump()
     {
-        //���� ����
+        //더블 점프
         rigid.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         AbleDoubleJump = false;
     }
 
     private void Atk()
     {
-        //����
+        //占쏙옙占쏙옙
         animator.SetTrigger("Atk");
     }
 }
