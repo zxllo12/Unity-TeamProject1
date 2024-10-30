@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [System.Serializable]
 public class PlayerStats
@@ -22,16 +23,18 @@ public class PlayerStats
 
     void Update()
     {
-        // 무적 시간 관리
-        if (isInvincible)
-        {
-            invincibleTimer -= Time.deltaTime;
-            if (invincibleTimer <= 0)
-            {
-                isInvincible = false;
-            }
-        }
+        //// 무적 시간 관리
+        //if (isInvincible)
+        //{
+        //    invincibleTimer -= Time.deltaTime;
+        //    if (invincibleTimer <= 0)
+        //    {
+        //        isInvincible = false;
+        //    }
+        //}
     }
+
+    public UnityAction OnChangedHP;
 
     //데미지 계산
     public void TakeDamage(float damage)
@@ -43,9 +46,13 @@ public class PlayerStats
             return; // 무적 상태일 때는 피해 무시
         }
         */
+
         float actualDamage = damage - defense;
         actualDamage = Mathf.Clamp(actualDamage, 0, actualDamage);
         currentHealth -= actualDamage;
+
+        OnChangedHP?.Invoke();
+
         Debug.Log($"피격 당함! : 현재 체력 = {currentHealth}");
 
         invincibleTimer = invincibleDuration;

@@ -4,35 +4,28 @@ using UnityEngine;
 
 public class Player_Controller : MonoBehaviour
 {
-    public Rigidbody rigid;
     private Vector3 direction;
-    public float speed = 8;
-    public float jumpForce = 10;
-    public float gravity = -20;
+
+    public Rigidbody rigid;
     public Transform groundCheck;
     public LayerMask groundLayer;
 
-    public bool AbleDoubleJump = true;
+    [SerializeField] float speed = 8;
+    [SerializeField] float jumpForce = 10;
 
     public Animator animator;
+
     public Transform model;
 
     public SkillHandler handler;
+
+    bool AbleDoubleJump = true;
 
     [SerializeField] Transform firePos;
 
     [SerializeField] KeyCode[] skillKeys = new KeyCode[(int)Enums.PlayerSkillSlot.Length];
 
-
-    //테스트코드 스테이터스
     public PlayerStats stats = new PlayerStats();
-
-    //private void Start()
-    //{
-    //    Debug.Log("占십깍옙 체占쏙옙: " + stats.currentHealth);
-    //}
-    //테스트코드 스테이터스
-
 
     private void Awake()
     {
@@ -55,7 +48,6 @@ public class Player_Controller : MonoBehaviour
         handler.EquipSkill(1, Enums.PlayerSkillSlot.Slot2);
     }
 
-
     private void OnDisable()
     {
         if (DataManager.Instance != null)
@@ -63,18 +55,9 @@ public class Player_Controller : MonoBehaviour
             DataManager.Instance.OnLoadCompleted += testInit;
         }
     }
+
     void Update()
     {
-        //테스트코드 스테이터스
-        //if (Input.GetKeyDown(KeyCode.C))
-        //{
-        //    stats.TakeDamage(20f);
-        //    animator.SetTrigger("damage");
-        //
-        //    Debug.Log("현재 체력: " + stats.currentHealth);
-        //}
-        //테스트코드 스테이터스
-
         for (int i = 0; i < skillKeys.Length; i++)
         {
             if (Input.GetKeyDown(skillKeys[i]))
@@ -100,7 +83,6 @@ public class Player_Controller : MonoBehaviour
 
         if (isGrounded)
         {
-            direction.y = -1;
             AbleDoubleJump = true;
 
             if (Input.GetButtonDown("Jump"))
@@ -112,7 +94,6 @@ public class Player_Controller : MonoBehaviour
         {
             if (AbleDoubleJump && Input.GetButtonDown("Jump"))
             {
-                Debug.Log("더블점프 실행");
                 DoubleJump();
             }
         }
@@ -138,6 +119,7 @@ public class Player_Controller : MonoBehaviour
     {
         //더블 점프
         rigid.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
         AbleDoubleJump = false;
     }
 
