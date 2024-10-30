@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -17,6 +18,8 @@ public class GameManager : MonoBehaviour
     }
 
     [SerializeField] private int gold;
+
+    public UnityAction OnGoldChanged;
 
     private void Awake()
     {
@@ -168,6 +171,8 @@ public class GameManager : MonoBehaviour
     {
         gold += amount;
         Debug.Log("°ñµå Ãß°¡: " + amount + ", ÇöÀç °ñµå: " + gold);
+
+        OnGoldChanged?.Invoke();
     }
 
     // °ñµå¸¦ Â÷°¨ÇÏ´Â ¸Þ¼­µå
@@ -177,6 +182,8 @@ public class GameManager : MonoBehaviour
         {
             gold -= amount;
             Debug.Log("°ñµå Â÷°¨: " + amount + ", ³²Àº °ñµå: " + gold);
+
+            OnGoldChanged?.Invoke();
         }
         else
         {
