@@ -23,14 +23,14 @@ public class Player_Controller : MonoBehaviour
 
     [SerializeField] KeyCode[] skillKeys = new KeyCode[(int)Enums.PlayerSkillSlot.Length];
 
-    //테스트코드
+    //테스트코드 스테이터스
     public PlayerStats stats = new PlayerStats();
 
     //private void Start()
     //{
     //    Debug.Log("초기 체력: " + stats.currentHealth);
     //}
-    //테스트코드
+    //테스트코드 스테이터스
 
     private void Awake()
     {
@@ -39,6 +39,7 @@ public class Player_Controller : MonoBehaviour
 
     private void Start()
     {
+        
         DataManager.Instance.OnLoadCompleted += testInit;
         GameManager.Instance.SetPlayer(this);
     }
@@ -59,13 +60,15 @@ public class Player_Controller : MonoBehaviour
     }
     void Update()
     {
-        //테스트코드
+        //테스트코드 스테이터스
         //if (Input.GetKeyDown(KeyCode.C))
         //{
         //    stats.TakeDamage(20f);
+        //    animator.SetTrigger("damage");
+        //
         //    Debug.Log("현재 체력: " + stats.currentHealth);
         //}
-        //테스트코드
+        //테스트코드 스테이터스
 
         for (int i = 0; i < skillKeys.Length; i++)
         {
@@ -128,7 +131,6 @@ public class Player_Controller : MonoBehaviour
     private void DoubleJump()
     {
         //더블 점프
-        Debug.Log("test");
         direction.y = jumpForce;
         AbleDoubleJump = false;
     }
