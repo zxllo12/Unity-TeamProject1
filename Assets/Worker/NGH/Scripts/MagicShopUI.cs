@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,9 +8,9 @@ public class MagicShopUI : MonoBehaviour
 {
     // 마법 상점 UI 요소
     [Header("MagicShop UI")]
-    public Button magicShopExit;
     public Button[] skillButtons; // 상점 UI에 있는 각 스킬 버튼 배열
     public int[] skillCosts;      // 각 스킬의 해금 비용
+    public TextMeshProUGUI[] skillPrice;
 
     private void Start()
     {

@@ -8,7 +8,7 @@ public class RewardChest : MonoBehaviour
     public int dataIndex; // 사용할 테이블 인덱스
     public GameObject hpItemPrefab, skillPrefab, goldPrefab, rareGoldPrefab;
 
-    private bool isOpened;
+    [SerializeField] private bool isOpened;
     [SerializeField] Animator animator;
     [SerializeField] float chestOpenDelay = 1f;
 
@@ -24,9 +24,14 @@ public class RewardChest : MonoBehaviour
 
     private void Test()
     {
+        
         for (int i = 0; DataManager.Instance.SkillDict.Count > i; i++)
         {
-            SkillUnlockManager.Instance.UnlockSkill(i);
+            if (!SkillUnlockManager.Instance.IsSkillUnlocked(i))
+            {
+                SkillUnlockManager.Instance.UnlockSkill(i);
+            }
+            
         }
         OpenChest();
     }
