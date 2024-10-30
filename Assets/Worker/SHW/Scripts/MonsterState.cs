@@ -54,16 +54,26 @@ public class MonsterState : MonoBehaviour
     }
     private void Start()
     {
-        LoadMonsterData(id);
+        // LoadMonsterData(id);
+        DataManager.Instance.OnLoadCompleted += Test;
+
     }
 
+    private void OnDisable()
+    {
+        DataManager.Instance.OnLoadCompleted -= Test;
+    }
+
+    public void Test()
+    {
+        LoadMonsterData(id);
+    }
     public void LoadMonsterData(int id)
     {
         // id 지정
         // id로 데이터메이저에 딕셔너리 접근 value값을 가져온다
 
         // 오류 확인용
-        Debug.Log($"MonsterDict에 저장된 데이터 개수: {_monsterData.ID}");
         Debug.Log($"요청된 몬스터 ID: {id}");
 
         // id에 해당하는 데이터가 존재하는지 확인하고, 존재하지 않을 경우 오류 출력
