@@ -54,11 +54,11 @@ public class Projectile : MonoBehaviour
         if (hitEffect != null)
             Instantiate(hitEffect, other.transform.position, Quaternion.identity);
 
-        //MonsterState monster = other.GetComponent<MonsterState>();
-        //if (monster != null)
-        //{
-        //    monster.IsHit(_damage);
-        //}
+        MonsterState monster = other.GetComponent<MonsterState>();
+        if (monster != null)
+        {
+            monster.IsHit(_damage);
+        }
 
         Debug.Log($"Projectile Damage : {_damage}");
 
