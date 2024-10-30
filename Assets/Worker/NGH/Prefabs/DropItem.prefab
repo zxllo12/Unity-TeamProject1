@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6114050030749146312}
   - component: {fileID: 5553887615911429747}
   - component: {fileID: 8885939967606952556}
+  - component: {fileID: -4659744805185271041}
   m_Layer: 5
   m_Name: DropItem
   m_TagString: Untagged
@@ -39,7 +40,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 461.5, y: 259.5}
-  m_SizeDelta: {x: 25, y: 25}
+  m_SizeDelta: {x: 2, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &6844841789451709728
 Canvas:
@@ -85,7 +86,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &5553887615911429747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,8 +115,25 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 0.01}
+  m_Size: {x: 0.5, y: 0.5, z: 0.01}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-4659744805185271041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3282520202563579510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2328dd09d6c572c44a38ef38e901a62f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  image: {fileID: 4753300475153998713}
+  potionSprite: {fileID: 21300000, guid: 386480a3c50919f49ad40b844b9c64b5, type: 3}
+  goldAmount: 0
+  skillID: 0
 --- !u!1 &8581257910597334037
 GameObject:
   m_ObjectHideFlags: 0
