@@ -1,4 +1,4 @@
-using System.Collections;
+ç™¤using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -66,13 +66,13 @@ public class Player_Controller : MonoBehaviour
             }
         }
 
-        //ÁÂ¿ì ÀÔ·Â
+        //ì¢Œìš° ì…ë ¥
         float hInput = Input.GetAxisRaw("Horizontal");
         direction.x = hInput * speed;
 
         animator.SetFloat("speed", Mathf.Abs(hInput));
 
-        //¶¥¿¡ ÀÖ´ÂÁö È®ÀÎ
+        //å ì™ì˜™å ì™ì˜™ å ìŒëŒì˜™å ì™ì˜™ í™•å ì™ì˜™
         bool isGrounded = Physics.CheckSphere(groundCheck.position, 0.15f, groundLayer);
         animator.SetBool("isGrounded", isGrounded);
 
@@ -98,26 +98,26 @@ public class Player_Controller : MonoBehaviour
             }
         }
 
-        //Ä³¸¯ÅÍ ÁÂ¿ì¹İÀü
+        //ìºå ì™ì˜™å ì™ì˜™ å ìŠ¹ìš¸ì˜™å ì™ì˜™å 
         if (hInput != 0)
         {
             Quaternion newRotation = Quaternion.LookRotation(new Vector3(hInput, 0, 0));
             model.rotation = newRotation;
         }
 
-        //Ä³¸¯ÅÍ ¿òÁ÷ÀÓ
+        //ìºë¦­í„° ì›€ì§ì„
         rigid.AddForce(Vector3.right * direction.x);
     }
 
     private void Jump()
     {
-        //Á¡ÇÁ
+        //ì í”„
         rigid.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
     private void DoubleJump()
     {
-        //´õºí Á¡ÇÁ
+        //ë”ë¸” ì í”„
         rigid.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
         AbleDoubleJump = false;
@@ -125,7 +125,7 @@ public class Player_Controller : MonoBehaviour
 
     private void Atk()
     {
-        //°ø°İ
+        //å ì™ì˜™å ì™ì˜™
         animator.SetTrigger("Atk");
     }
 }

@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 62312186}
   - component: {fileID: 62312185}
   - component: {fileID: 62312184}
+  - component: {fileID: 62312188}
   m_Layer: 5
   m_Name: StatusUpgradeShop
   m_TagString: Statusshop
@@ -225,6 +226,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &62312188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62312183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec6146f0e58124439c7b170d86c3983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &66513216
 GameObject:
   m_ObjectHideFlags: 0
@@ -993,8 +1006,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1559819953}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 546173650}
+        m_TargetAssemblyTypeName: LobbyUI, Assembly-CSharp
         m_MethodName: EnterMagicShop
         m_Mode: 1
         m_Arguments:
@@ -2902,13 +2915,14 @@ GameObject:
   - component: {fileID: 546173648}
   - component: {fileID: 546173647}
   - component: {fileID: 546173646}
+  - component: {fileID: 546173650}
   m_Layer: 5
   m_Name: Lobby
   m_TagString: Lobby
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &546173646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2996,6 +3010,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &546173650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546173645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a03e346a738f4f14889c43f76e1d7a3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  magicShop: {fileID: 2125828815}
+  statusUpgradeShop: {fileID: 62312183}
+  StartButton: {fileID: 1196386604}
 --- !u!1 &559707267
 GameObject:
   m_ObjectHideFlags: 0
@@ -3665,6 +3694,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &805736805
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 805736807}
+  - component: {fileID: 805736806}
+  m_Layer: 0
+  m_Name: SkillUnlockManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &805736806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805736805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e994f887d03359419f0d7ff5a3589fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unlockedSkills: 
+--- !u!4 &805736807
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805736805}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.0419567, y: 1.6694537, z: -1.6724776}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832770173
 GameObject:
   m_ObjectHideFlags: 0
@@ -3923,6 +3997,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 847371898}
   m_CullTransparentMesh: 1
+--- !u!1 &874986544
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 874986546}
+  - component: {fileID: 874986545}
+  m_Layer: 0
+  m_Name: DataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &874986545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874986544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94b35b1b2939c4643b9b6b8f3da1e005, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &874986546
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874986544}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &926054501
 GameObject:
   m_ObjectHideFlags: 0
@@ -5613,8 +5731,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1559819953}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 546173650}
+        m_TargetAssemblyTypeName: LobbyUI, Assembly-CSharp
         m_MethodName: ExitStatusShop
         m_Mode: 1
         m_Arguments:
@@ -7231,8 +7349,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1559819953}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 546173650}
+        m_TargetAssemblyTypeName: LobbyUI, Assembly-CSharp
         m_MethodName: EnterStatusShop
         m_Mode: 1
         m_Arguments:
@@ -7361,7 +7479,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1521101978}
   m_CullTransparentMesh: 1
---- !u!1 &1559819952
+--- !u!1 &1559707533
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7369,61 +7487,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1559819954}
-  - component: {fileID: 1559819953}
+  - component: {fileID: 1559707535}
+  - component: {fileID: 1559707534}
   m_Layer: 0
-  m_Name: UIManager
+  m_Name: ResourceManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1559819953
+--- !u!114 &1559707534
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1559819952}
+  m_GameObject: {fileID: 1559707533}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a03e346a738f4f14889c43f76e1d7a3c, type: 3}
+  m_Script: {fileID: 11500000, guid: d03d2fe406efc83439ff3ee1df67c0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lobbyScreen: {fileID: 546173645}
-  magicShopButton: {fileID: 146074804}
-  statusUpgradeShopButton: {fileID: 1512530655}
-  gameStartButton: {fileID: 1196386604}
-  magicShopScreen: {fileID: 2125828815}
-  magicShopExit: {fileID: 2118679865}
-  skillButtons:
-  - {fileID: 1587611457}
-  - {fileID: 419383743}
-  - {fileID: 1103026153}
-  - {fileID: 165063509}
-  - {fileID: 192019917}
-  - {fileID: 1468606726}
-  - {fileID: 1380534534}
-  - {fileID: 705772697}
-  - {fileID: 847371900}
-  skillCosts: 320000003200000032000000f4010000f4010000f4010000881300008813000088130000
-  statusUpgradeShopScreen: {fileID: 62312183}
-  statusUpgradeShopExit: {fileID: 1238127098}
-  battleUI: {fileID: 0}
---- !u!4 &1559819954
+--- !u!4 &1559707535
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1559819952}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_GameObject: {fileID: 1559707533}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1578090722
 GameObject:
@@ -7943,7 +8041,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1634384656
 MonoBehaviour:
@@ -7957,6 +8055,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ef052b46811a04588ef6bfcc158c5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   gold: 10000
 --- !u!1 &1640605463
 GameObject:
@@ -9913,8 +10012,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1559819953}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 546173650}
+        m_TargetAssemblyTypeName: LobbyUI, Assembly-CSharp
         m_MethodName: ExitMagicShop
         m_Mode: 1
         m_Arguments:
@@ -9981,7 +10080,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2125828816
 MonoBehaviour:
   m_ObjectHideFlags: 0

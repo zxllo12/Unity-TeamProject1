@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -17,6 +18,8 @@ public class GameManager : MonoBehaviour
     }
 
     [SerializeField] private int gold;
+
+    public UnityAction OnGoldChanged;
 
     private void Awake()
     {
@@ -114,53 +117,12 @@ public class GameManager : MonoBehaviour
     // 씬 전환후 연결 초기화
     private void InitializeBattleScene()
     {
-        UIManager.Instance.lobbyScreen = null;
-        UIManager.Instance.magicShopScreen = null;
-        UIManager.Instance.statusUpgradeShopScreen = null;
+        
     }
 
     private void InitializeLobbyScene()
     {
-        // 인스펙터 상 각 오브젝트 연결
-        UIManager.Instance.lobbyScreen = GameObject.FindWithTag("Lobby");
-        GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
-
-        foreach (GameObject obj in allObjects)
-        {
-            if (obj.CompareTag("Magicshop"))
-            {
-                UIManager.Instance.magicShopScreen = obj;
-            }
-            if (obj.CompareTag("Statusshop"))
-            {
-                UIManager.Instance.statusUpgradeShopScreen = obj;
-            }
-        }
-        Button[] allButtons = Resources.FindObjectsOfTypeAll<Button>();
-        foreach (Button button in allButtons)
-        {
-            if(button.CompareTag("Gamestart"))
-            {
-                UIManager.Instance.gameStartButton = button;
-            }
-            if (button.CompareTag("Magicshopenter"))
-            {
-                UIManager.Instance.magicShopButton = button;
-            }
-            if(button.CompareTag("Statusshopenter"))
-            {
-                UIManager.Instance.statusUpgradeShopButton = button;
-            }
-            if(button.CompareTag("Magicshopexit"))
-            {
-                UIManager.Instance.magicShopExit = button;
-            }
-            if (button.CompareTag("Statusshopexit"))
-            {
-                UIManager.Instance.statusUpgradeShopExit = button;
-            }
-        }
-        UIManager.Instance.LinkButton();
+        
     }
 
     // 골드를 추가하는 메서드
@@ -168,6 +130,8 @@ public class GameManager : MonoBehaviour
     {
         gold += amount;
         Debug.Log("골드 추가: " + amount + ", 현재 골드: " + gold);
+
+        OnGoldChanged?.Invoke();
     }
 
     // 골드를 차감하는 메서드
@@ -177,6 +141,8 @@ public class GameManager : MonoBehaviour
         {
             gold -= amount;
             Debug.Log("골드 차감: " + amount + ", 남은 골드: " + gold);
+
+            OnGoldChanged?.Invoke();
         }
         else
         {
