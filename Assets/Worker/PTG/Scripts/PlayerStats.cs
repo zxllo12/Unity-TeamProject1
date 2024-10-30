@@ -36,12 +36,17 @@ public class PlayerStats
     //데미지 계산
     public void TakeDamage(float damage)
     {
+        /*
         if (isInvincible)
+        {
+            Debug.Log("무적상태입니다.");
             return; // 무적 상태일 때는 피해 무시
-
+        }
+        */
         float actualDamage = damage - defense;
         actualDamage = Mathf.Clamp(actualDamage, 0, actualDamage);
         currentHealth -= actualDamage;
+        Debug.Log($"피격 당함! : 현재 체력 = {currentHealth}");
 
         invincibleTimer = invincibleDuration;
         isInvincible = true;

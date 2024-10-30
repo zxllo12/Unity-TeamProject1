@@ -9,7 +9,7 @@ public class MonsterState : MonoBehaviour
     // 현상태
     [SerializeField] State curState;
     // 추적할 플레이어(임시)
-    [SerializeField] GameObject player;
+    [SerializeField] Player_Controller player;
     // 기본 위치(임시)
     public Vector3 spawnPoint;
     // 원거리 공격시 발사할 프리팹
@@ -35,6 +35,13 @@ public class MonsterState : MonoBehaviour
     [SerializeField] bool canSkill; // 스킬여부
     [SerializeField] bool attackType;  // 공격 타입 true일 경우 원거리
 
+    bool canAttack = true;
+    float attackTimer;
+
+    [SerializeField] AttackTrigger trigger;
+
+    [SerializeField] float bulletSpeed;
+
     protected MonsterData _monsterData;
     public MonsterData MonsterData { get { return _monsterData; } }
 
@@ -47,16 +54,19 @@ public class MonsterState : MonoBehaviour
         spawnPoint = transform.position;
 
         // 플레이어 확인(일단 이름으로 플레이어 오브젝트 찾는다)
-        player = GameObject.Find("testPlayer");
+        //  player = GameObject.Find("testPlayer");
 
         // 현재 체력 = 설정체력으로 설정
         curHp = hp;
+
+
     }
     private void Start()
     {
         // LoadMonsterData(id);
         DataManager.Instance.OnLoadCompleted += Test;
 
+        player = GameManager.Instance.player;
     }
 
     private void OnDisable()
@@ -96,12 +106,17 @@ public class MonsterState : MonoBehaviour
         attackRage = _monsterData.AttackRage;
         canSkill = _monsterData.CanSkill;
         attackType = _monsterData.AttackType;
+        if(trigger != null)
+        {
+        trigger.SetDamage(attack);
+        }
+
     }
 
     private void Update()
     {
         // 상태 확인용 디버그 로그
-        Debug.Log(curState);
+        // Debug.Log(curState);
 
         // 상태패턴
         switch (curState)
@@ -114,28 +129,34 @@ public class MonsterState : MonoBehaviour
                 break;
             case State.Return:  // 리턴 = 되돌아가기
                 Return();
-                return;
+                break;
             case State.Attack: // 공격
                 Attack();
-                return;
+                break;
             case State.Skill: // 스킬
                 Skill();
-                return;
+                break;
             case State.Walking: // 이동 = 배회
                 Walking();
-                return;
+                break;
             /*
         case State.IsHit:   // 피격
             IsHit();
             return;*/
             case State.Dead:  // (임시) 사망
                 Dead();
-                return;
+                break;
         }
 
-        if (curState == State.Attack && attackType == true)
+    
+
+        if (canAttack == false)
         {
-            StartCoroutine(ShootCoroutine());
+            attackTimer -= Time.deltaTime;
+            if (attackTimer <= 0)
+            {
+                canAttack = true;
+            }
         }
     }
 
@@ -219,16 +240,35 @@ public class MonsterState : MonoBehaviour
 
     public void Attack()
     {
-        // 공격 애니메이션
-        animator.SetBool("isAttacking", true);
+        if (canAttack == true)
+        {
+            // Debug.Log("공격성공");
+            // 공격 애니메이션
+            animator.SetBool("isAttacking", true);
 
-        // 공격시 플레이어 공격에 대해 어떤식으로 할지 논의 필요
-        // (임시) 가져온 플레이어의 체력을 가져와서 깎는 방식
+            
 
-        // 원거리 일 경우
-        // 한번만 실행시켜야하는데 공격상태일때 계속 반복(수정필요)
+            if (attackType == true)
+            {
+                GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
+                Bullet instance = bullet.GetComponent<Bullet>();
+                instance.SetSpeed(bulletSpeed);
+                instance.SetDamage(attack);              
+            }
+            else
+            {
+                // 플레이어 공격
+                trigger.TirggerOnOff();
+
+            }
 
 
+            attackTimer = attackSpeed;
+
+            canAttack = false;
+        }
+
+  
         // 공격범위 내로 들어왔을 경우
         if (Vector3.Distance(transform.position, player.transform.position) > attackRage)
         {
@@ -246,9 +286,8 @@ public class MonsterState : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
-        Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
-        rigidbody.velocity = bullet.transform.forward * attackSpeed;
+        
+
     }
 
     public void Dead()
@@ -268,11 +307,11 @@ public class MonsterState : MonoBehaviour
         // 걷기 애니메이션 
         animator.SetBool("isWalking", true);
 
-        if (transform.rotation.eulerAngles.y <= -80)
+        if (transform.rotation.eulerAngles.y >= -80)
         {
             transform.position += Vector3.left * walkSpeed * Time.deltaTime;
         }
-        else if (transform.rotation.eulerAngles.y >= 80)
+        else if (transform.rotation.eulerAngles.y <= 80)
         {
             transform.position += Vector3.right * walkSpeed * Time.deltaTime;
         }
@@ -323,12 +362,14 @@ public class MonsterState : MonoBehaviour
     // 충돌 감지
     private void OnCollisionEnter(Collision collision)
     {
-        // 충돌한 물체가 발사체일 경우(플레이어의 공격일 경우)
-        if (collision.gameObject.tag == "attack")   // 임의로 정해놓은 상태
+        Debug.Log($"몬스터 충돌 : {collision.gameObject.name}");
+        if (collision.gameObject == GameManager.Instance.player.gameObject)
         {
-            curState = State.IsHit;
+            GameManager.Instance.player.stats.TakeDamage(attack);
         }
     }
+
+
 
     // 회전
     public void Flip()
