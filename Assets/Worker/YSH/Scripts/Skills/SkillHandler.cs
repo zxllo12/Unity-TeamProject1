@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -41,6 +42,8 @@ public class SkillHandler : MonoBehaviour
 
         _playerSkillSlot[(int)slot] = skill;
 
+        GameManager.Instance.PlayerSkillSlotID[(int)slot] = skill.SkillData.ID;
+
         OnChangedSkillSlot?.Invoke();
     }
 
@@ -54,6 +57,8 @@ public class SkillHandler : MonoBehaviour
 
         // slot에서 삭제
         _playerSkillSlot[(int)slot] = null;
+
+        GameManager.Instance.PlayerSkillSlotID[(int)slot] = null;
 
         OnChangedSkillSlot?.Invoke();
     }

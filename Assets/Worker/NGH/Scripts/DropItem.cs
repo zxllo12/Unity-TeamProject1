@@ -46,4 +46,22 @@ public class DropItem : MonoBehaviour
             Debug.Log(type + "과 충돌 해제");
         }
     }
+
+    public void GetItem()
+    {
+        switch (type) 
+        { 
+            case ItemType.Skill :
+                GameManager.Instance.battleUI.ShowSkillSlotUI(skillID);
+                break;
+            case ItemType.Gold :
+                GameManager.Instance.AddGold(goldAmount);
+                break;
+            case ItemType.Potion :
+                //GameManager.Instance.player.stats.HealHP();
+                break;
+        }
+
+        Destroy(gameObject);
+    }
 }
