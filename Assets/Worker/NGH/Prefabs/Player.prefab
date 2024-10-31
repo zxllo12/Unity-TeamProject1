@@ -537,7 +537,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 536871424
   speed: 200
-  jumpForce: 5
+  jumpForce: 6
   animator: {fileID: 6532796352496338134}
   model: {fileID: 885251442279898796}
   handler: {fileID: 0}
