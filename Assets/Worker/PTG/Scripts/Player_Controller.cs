@@ -10,7 +10,7 @@ public class Player_Controller : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundLayer;
 
-    [SerializeField] float speed = 8;
+    [SerializeField] float speed = 200;
     [SerializeField] float jumpForce = 10;
 
     public Animator animator;
@@ -35,27 +35,9 @@ public class Player_Controller : MonoBehaviour
 
     private void Start()
     {
-        //DataManager.Instance.OnLoadCompleted += testInit;
+        GameManager.Instance.player.stats.OnChangedHP += TakeDamageAnimation;
+        GameManager.Instance.player.stats.Dead += PlayerDead;
     }
-
-    private void OnEnable()
-    {
-        
-    }
-
-    //public void testInit()
-    //{
-    //    handler.EquipSkill(0, Enums.PlayerSkillSlot.Slot1);
-    //    handler.EquipSkill(1, Enums.PlayerSkillSlot.Slot2);
-    //}
-
-    //private void OnDisable()
-    //{
-    //    if (DataManager.Instance != null)
-    //    {
-    //        DataManager.Instance.OnLoadCompleted += testInit;
-    //    }
-    //}
 
     void Update()
     {
@@ -76,11 +58,6 @@ public class Player_Controller : MonoBehaviour
         //占쏙옙占쏙옙 占쌍댐옙占쏙옙 확占쏙옙
         bool isGrounded = Physics.CheckSphere(groundCheck.position, 0.15f, groundLayer);
         animator.SetBool("isGrounded", isGrounded);
-
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            Atk();
-        }
 
         if (isGrounded)
         {
@@ -136,6 +113,13 @@ public class Player_Controller : MonoBehaviour
         rigid.AddForce(Vector3.right * direction.x);
     }
 
+    private void OnDestroy()
+    {
+        // 이벤트 해제
+        GameManager.Instance.player.stats.OnChangedHP -= TakeDamageAnimation;
+        GameManager.Instance.player.stats.Dead -= PlayerDead;
+    }
+
     private void Jump()
     {
         //점프
@@ -150,10 +134,16 @@ public class Player_Controller : MonoBehaviour
         AbleDoubleJump = false;
     }
 
-    private void Atk()
+    private void TakeDamageAnimation()
     {
-        //占쏙옙占쏙옙
-        animator.SetTrigger("Atk");
+        animator.SetTrigger("damage");
+    }
+
+    private void PlayerDead()
+    {
+        animator.SetTrigger("die");
+
+        Destroy(gameObject, 3f);
     }
 
     DropItem curDropItem;
