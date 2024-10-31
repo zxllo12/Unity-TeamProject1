@@ -15,22 +15,7 @@ public class RewardChest : MonoBehaviour
     private void Awake()
     {
         isOpened = false;
-        //Test();
     }
-
-    //private void Test()
-    //{
-        
-        //for (int i = 0; DataManager.Instance.SkillDict.Count > i; i++)
-        //{
-        //    if (!SkillUnlockManager.Instance.IsSkillUnlocked(i))
-        //    {
-        //        SkillUnlockManager.Instance.UnlockSkill(i);
-        //    }
-            
-        //}
-       // OpenChest();
-    //}
 
     public void OpenChest()
     {
@@ -102,8 +87,6 @@ public class RewardChest : MonoBehaviour
         }
 
         // 스킬 ID 리스트 (0~8까지)에서 QWER에 등록되지 않은 스킬만 선택하기 위해 목록을 구성합니다.
-
-        // TEST
         List<int> equippedSkills = new List<int>();
         for (int i = 0; i < (int)Enums.PlayerSkillSlot.Length; i++)
         {
@@ -115,7 +98,6 @@ public class RewardChest : MonoBehaviour
         availableLowSkills.RemoveAll(skill => equippedSkills.Contains(skill));
         availableMidSkills.RemoveAll(skill => equippedSkills.Contains(skill));
         availableHighSkills.RemoveAll(skill => equippedSkills.Contains(skill));
-        //
 
         // 스킬 드랍 확률 체크
         float skillRoll = Random.value;
