@@ -542,6 +542,7 @@ MonoBehaviour:
   model: {fileID: 885251442279898796}
   handler: {fileID: 0}
   firePos: {fileID: 4123675066705990902}
+  basicSkillKey: 122
   skillKeys: 71000000770000006500000072000000
   stats:
     attackPower: 10
