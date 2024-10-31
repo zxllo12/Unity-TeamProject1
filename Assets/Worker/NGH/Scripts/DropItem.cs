@@ -58,7 +58,7 @@ public class DropItem : MonoBehaviour
                 GameManager.Instance.AddGold(goldAmount);
                 break;
             case ItemType.Potion :
-                //GameManager.Instance.player.stats.HealHP();
+                GameManager.Instance.player.stats.Heal();
                 break;
         }
 
