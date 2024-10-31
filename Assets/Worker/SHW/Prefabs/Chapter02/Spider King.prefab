@@ -1067,9 +1067,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1818569843717202659}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 6.237351, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1818569843717701313}
   - {fileID: 1818569843717701317}
@@ -1110,7 +1110,7 @@ Animator:
   m_GameObject: {fileID: 1818569843717202659}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: d2be7501b2c5da34798024d07c8d2c73, type: 3}
-  m_Controller: {fileID: 9100000, guid: 6b1cc0f82166a3a44af6f71e055538a6, type: 2}
+  m_Controller: {fileID: 9100000, guid: 142dd04c9df91fc41883c4ae0d16ab43, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1135,7 +1135,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 92
   m_CollisionDetection: 0
 --- !u!136 &7406655132794978802
 CapsuleCollider:
@@ -1163,12 +1163,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf4065deb79fb84ab6d2415d269118f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curState: 0
   player: {fileID: 0}
-  spawnPoint: {x: 0, y: 0, z: 0}
   bulletPrefab: {fileID: 7388910518196718470, guid: 77b9ff79397a4b841ad8c32cd0f2928f, type: 3}
   shootPoint: {fileID: 7406655132303181981}
   animator: {fileID: 1818569843726684451}
+  trigger: {fileID: 0}
+  curState: 0
+  spawnPoint: {x: 0, y: 0, z: 0}
   id: 6
   attack: 0
   def: 0
@@ -1181,7 +1182,6 @@ MonoBehaviour:
   attackRage: 0
   canSkill: 0
   attackType: 0
-  trigger: {fileID: 0}
   bulletSpeed: 3
 --- !u!1 &1818569843717202661
 GameObject:
