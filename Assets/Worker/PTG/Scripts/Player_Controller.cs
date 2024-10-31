@@ -106,9 +106,6 @@ public class Player_Controller : MonoBehaviour
             model.rotation = newRotation;
         }
 
-        //캐릭터 움직임
-        rigid.AddForce(Vector3.right * direction.x);
-
         //무적 상태
         stats.UpdateInvincibleTime(Time.deltaTime);
 
@@ -125,7 +122,18 @@ public class Player_Controller : MonoBehaviour
                 curDropItem.GetItem();
                 curDropItem = null;
             }
+            else if (gate != null)
+            {
+                gate.MoveNextScene();
+                gate = null;
+            }
         }
+    }
+
+    private void FixedUpdate()
+    {
+        //캐릭터 움직임
+        rigid.AddForce(Vector3.right * direction.x);
     }
 
     private void Jump()
@@ -150,10 +158,11 @@ public class Player_Controller : MonoBehaviour
 
     DropItem curDropItem;
     RewardChest rewardChest;
+    Gate gate;
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("RewardChest"))
+        if (other.gameObject.CompareTag("RewardChest"))
         {
             RewardChest reward = other.GetComponent<RewardChest>();
             if (reward.isOpened == false)
@@ -164,21 +173,29 @@ public class Player_Controller : MonoBehaviour
         else if (other.gameObject.CompareTag("DropItem"))
         {
             curDropItem = other.GetComponent<DropItem>();
+            Debug.Log($"{other.gameObject.name} 등록");
         }
-        
+        else if (other.gameObject.CompareTag("Gate"))
+        {
+            gate = other.GetComponent<Gate>();
+        }
         
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (rewardChest == other.gameObject) 
+        if (rewardChest != null && rewardChest.gameObject == other.gameObject) 
         {
             rewardChest = null;
         }
-        else if (curDropItem == other.gameObject)
+        else if (curDropItem != null && curDropItem.gameObject == other.gameObject)
         {
             curDropItem = null;
+            Debug.Log($"{other.gameObject.name} 해제");
         }
-        
+        else if (gate != null && gate.gameObject == other.gameObject)
+        {
+            gate = null;
+        }
     }
 }
