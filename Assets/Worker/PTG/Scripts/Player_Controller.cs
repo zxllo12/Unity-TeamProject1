@@ -23,6 +23,7 @@ public class Player_Controller : MonoBehaviour
 
     [SerializeField] Transform firePos;
 
+    [SerializeField] KeyCode basicSkillKey;
     [SerializeField] KeyCode[] skillKeys = new KeyCode[(int)Enums.PlayerSkillSlot.Length];
 
     public PlayerStats stats = new PlayerStats();
@@ -41,11 +42,18 @@ public class Player_Controller : MonoBehaviour
 
     void Update()
     {
-        for (int i = 0; i < skillKeys.Length; i++)
+        if (Input.GetKeyDown(basicSkillKey))
         {
-            if (Input.GetKeyDown(skillKeys[i]))
+            handler.DoBasicSkill(firePos, stats.attackPower);
+        }
+        else
+        {
+            for (int i = 0; i < skillKeys.Length; i++)
             {
-                handler.DoSkill((Enums.PlayerSkillSlot)i, firePos, stats.attackPower);
+                if (Input.GetKeyDown(skillKeys[i]))
+                {
+                    handler.DoSkill((Enums.PlayerSkillSlot)i, firePos, stats.attackPower);
+                }
             }
         }
 

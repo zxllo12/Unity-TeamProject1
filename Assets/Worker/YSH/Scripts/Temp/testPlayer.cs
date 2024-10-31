@@ -20,7 +20,7 @@ public class testPlayer : MonoBehaviour
 
     public void testInit()
     {
-        handler.SetBasicSkill(9);
+        //handler.SetBasicSkill(9);
         handler.EquipSkill(0, Enums.PlayerSkillSlot.Slot1);
         handler.EquipSkill(1, Enums.PlayerSkillSlot.Slot2);
     }

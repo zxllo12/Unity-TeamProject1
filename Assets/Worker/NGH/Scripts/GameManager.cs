@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     {
         this.player = player;
 
+        // 추후 수정 필요 (데이터에서 기본스킬 찾도록)
+        player.handler.SetBasicSkill(9);
+
         for(int i = 0; i < playerSkillSlotID.Length; i++)
         {
             if (playerSkillSlotID[i] != null)
