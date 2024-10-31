@@ -266,6 +266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  battleUI: {fileID: 0}
   gold: 0
 --- !u!4 &550593482
 Transform:
@@ -468,14 +469,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigid: {fileID: 1553730149}
-  speed: 15
-  jumpForce: 5
-  gravity: -20
   groundCheck: {fileID: 1017205870}
   groundLayer:
     serializedVersion: 2
     m_Bits: 16
-  AbleDoubleJump: 1
+  speed: 15
+  jumpForce: 5
   animator: {fileID: 1553730143}
   model: {fileID: 1553730144}
   handler: {fileID: 0}

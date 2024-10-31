@@ -109,6 +109,9 @@ public class Player_Controller : MonoBehaviour
         //캐릭터 움직임
         rigid.AddForce(Vector3.right * direction.x);
 
+        //무적 상태
+        stats.UpdateInvincibleTime(Time.deltaTime);
+
         // Get Item Test
         if (Input.GetKeyDown(KeyCode.F))
         {
