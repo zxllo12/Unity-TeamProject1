@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator LoadMainGame()
     {
         // 메인 게임 씬을 비동기로 로드
-        AsyncOperation operation = SceneManager.LoadSceneAsync("BattleTest");
+        AsyncOperation operation = SceneManager.LoadSceneAsync("Stage1-1");
 
         // 로딩 진행 상황 업데이트
         while (!operation.isDone)
