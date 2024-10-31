@@ -6,44 +6,37 @@ public class MonsterState : MonoBehaviour
     // 대기, 추적, 공격, 사망, 되돌아가기, 스킬, 이동, 피격
     public enum State { Idle, Running, Attack, Return, Skill, Walking, Dead, IsHit }
 
-    // 현상태
-    [SerializeField] State curState;
-    // 추적할 플레이어(임시)
-    [SerializeField] Player_Controller player;
-    // 기본 위치(임시)
-    public Vector3 spawnPoint;
-    // 원거리 공격시 발사할 프리팹
-    [SerializeField] GameObject bulletPrefab;
-    // 발사 포인트
-    [SerializeField] Transform shootPoint;
+    [Header("Setting")]
+    [SerializeField] Player_Controller player;    // 추적할 플레이어
+    [SerializeField] GameObject bulletPrefab;     // 원거리 공격시 발사할 프리팹
+    [SerializeField] Transform shootPoint;        // 발사 포인트
+    [SerializeField] Animator animator;           // 재생할 에니메이터
+    [SerializeField] AttackTrigger trigger;       // 공격 범위 확인 트리거
 
-    // 재생할 에니메이터
-    [SerializeField] Animator animator;
 
-    // 이하는 임시적으로 작성된 스텟들임
     [Header("State")]
-    [SerializeField] int id;
-    [SerializeField] float attack;  // 공격력
-    [SerializeField] float def; // 방어력
-    [SerializeField] float hp;  // 체력
-    public float curHp;
-    [SerializeField] float walkSpeed;   // 걷기이속
-    [SerializeField] float runSpeed;   // 뛰기이속
-    [SerializeField] float attackSpeed; // 이속
-    [SerializeField] float rage;    // 추적거리
-    [SerializeField] float attackRage;   // 공격 사거리
-    [SerializeField] bool canSkill; // 스킬여부
-    [SerializeField] bool attackType;  // 공격 타입 true일 경우 원거리
+    [SerializeField] State curState;         // 현상태
+    public Vector3 spawnPoint;               // 기본 위치(임시)
 
-    bool canAttack = true;
-    float attackTimer;
+    [SerializeField] int id;
+    [SerializeField] float attack;           // 공격력
+    [SerializeField] float def;              // 방어력
+    [SerializeField] float hp;               // 체력
+    public float curHp;                      // 실제 현재 체력
+    [SerializeField] float walkSpeed;        // 걷기이속
+    [SerializeField] float runSpeed;         // 뛰기이속
+    [SerializeField] float attackSpeed;      // 이속
+    [SerializeField] float rage;             // 추적거리
+    [SerializeField] float attackRage;       // 공격 사거리
+    [SerializeField] bool canSkill;          // 스킬여부
+    [SerializeField] bool attackType;        // 공격 타입 true일 경우 원거리
+    [SerializeField] float bulletSpeed;      // 투사체 발사 속도
+
+    bool canAttack = true;      // 공격 확인
+    float attackTimer;          // 공격 타이머
 
     // 사망확인용
     bool isdead = false;
-
-    [SerializeField] AttackTrigger trigger;
-
-    [SerializeField] float bulletSpeed;
 
     protected MonsterData _monsterData;
     public MonsterData MonsterData { get { return _monsterData; } }
@@ -55,14 +48,6 @@ public class MonsterState : MonoBehaviour
 
         // 스폰 포인트 저장
         spawnPoint = transform.position;
-
-        // 플레이어 확인(일단 이름으로 플레이어 오브젝트 찾는다)
-        //  player = GameObject.Find("testPlayer");
-
-        // 현재 체력 = 설정체력으로 설정
-        curHp = hp;
-
-
     }
     private void Start()
     {
@@ -83,11 +68,8 @@ public class MonsterState : MonoBehaviour
     }
     public void LoadMonsterData(int id)
     {
-        // id 지정
-        // id로 데이터메이저에 딕셔너리 접근 value값을 가져온다
-
         // 오류 확인용
-        Debug.Log($"요청된 몬스터 ID: {id}");
+        // Debug.Log($"요청된 몬스터 ID: {id}");
 
         // id에 해당하는 데이터가 존재하는지 확인하고, 존재하지 않을 경우 오류 출력
         if (DataManager.Instance.MonsterDict.TryGetValue(id, out MonsterData data) == false)
@@ -96,12 +78,13 @@ public class MonsterState : MonoBehaviour
             return;
         }
 
+        // 가져온 값은 선언한 몬스터 데이터에 할당한다.
         _monsterData = data;
 
-        // 가져온 값은 선언한 몬스터 데이터에 할당한다.
         attack = _monsterData.Attack;
         def = _monsterData.Defense;
         hp = _monsterData.Hp;
+        curHp = hp;  // 현재 체력 = 설정체력으로 설정
         walkSpeed = _monsterData.WalkSpeed;
         runSpeed = _monsterData.RunSpeed;
         attackSpeed = _monsterData.AttackSpeed;
@@ -109,11 +92,11 @@ public class MonsterState : MonoBehaviour
         attackRage = _monsterData.AttackRage;
         canSkill = _monsterData.CanSkill;
         attackType = _monsterData.AttackType;
+
         if (trigger != null)
         {
             trigger.SetDamage(attack);
         }
-
     }
 
     private void Update()
@@ -150,8 +133,6 @@ public class MonsterState : MonoBehaviour
                 Dead();
                 break;
         }
-
-
 
         if (canAttack == false)
         {
@@ -217,12 +198,12 @@ public class MonsterState : MonoBehaviour
     {
         // 되돌아가는 상태 = 걷는 모션
         animator.SetBool("isWalking", true);
-        // 스폰지점으로 다시 돌아감
-        transform.position = Vector3.MoveTowards(transform.position, spawnPoint, walkSpeed * Time.deltaTime);
 
         // 플립 반복되는 부분 한번만 실행하도록 설정
         StopAllCoroutines();
 
+        // 스폰지점으로 다시 돌아감
+        transform.position = Vector3.MoveTowards(transform.position, spawnPoint, walkSpeed * Time.deltaTime);
 
         // 일정 범위 내에 플레이어가 들어왔을 경우
         if (Vector3.Distance(transform.position, player.transform.position) < rage)
@@ -233,7 +214,7 @@ public class MonsterState : MonoBehaviour
         }
 
         // 스폰포인트에 도착했을 경우
-        else if (transform.position == spawnPoint)
+        else if (transform.position.x == spawnPoint.x)
         {
             Flip();
             animator.SetBool("isWalking", false);
@@ -249,8 +230,6 @@ public class MonsterState : MonoBehaviour
             // 공격 애니메이션
             animator.SetBool("isAttacking", true);
 
-
-
             if (attackType == true)
             {
                 GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
@@ -262,9 +241,7 @@ public class MonsterState : MonoBehaviour
             {
                 // 플레이어 공격
                 trigger.TirggerOnOff();
-
             }
-
 
             attackTimer = attackSpeed;
 
@@ -306,10 +283,9 @@ public class MonsterState : MonoBehaviour
         }
         else
         {
-            animator.SetBool("isDead", false);
+           // animator.SetBool("isDead", false);
             Destroy(gameObject,3f);
         }
-
     }
 
     public void Skill()
@@ -338,7 +314,6 @@ public class MonsterState : MonoBehaviour
         // 일정 범위 내에 플레이어가 들어왔을 경우
         if (Vector3.Distance(transform.position, player.transform.position) < rage)
         {
-
             animator.SetBool("isWalking", false);  // 애니메이션 취소
             curState = State.Running;   // 추적상태로 변환
         }
