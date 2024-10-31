@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
 
     public UnityAction OnGoldChanged;
 
-    int?[] playerSkillSlotID;
+    int?[] playerSkillSlotID = new int?[(int)Enums.PlayerSkillSlot.Length];
     public int?[] PlayerSkillSlotID { get { return playerSkillSlotID; } }
 
     public int monsterCount = 0;
