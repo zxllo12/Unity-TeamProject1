@@ -28,8 +28,13 @@ public class Player_Controller : MonoBehaviour
 
     public PlayerStats stats = new PlayerStats();
 
+    [SerializeField] float ignoreHalfBlockDelay;
+    GameObject currentPlatform = null;
+    CapsuleCollider _collider;
+
     private void Awake()
     {
+        _collider = GetComponent<CapsuleCollider>();
         handler = GetComponent<SkillHandler>();
         GameManager.Instance.SetPlayer(this);
     }
@@ -113,6 +118,24 @@ public class Player_Controller : MonoBehaviour
                 gate = null;
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (currentPlatform != null)
+            {
+                StartCoroutine(CoDownJump());
+            }
+        }
+    }
+
+    IEnumerator CoDownJump()
+    {
+        Collider col;
+        col = currentPlatform.GetComponent<Collider>();
+
+        Physics.IgnoreCollision(_collider, col, true);
+        yield return new WaitForSeconds(ignoreHalfBlockDelay);
+        Physics.IgnoreCollision(_collider, col, false);
     }
 
     private void FixedUpdate()
@@ -177,7 +200,6 @@ public class Player_Controller : MonoBehaviour
         {
             gate = other.GetComponent<Gate>();
         }
-        
     }
 
     private void OnTriggerExit(Collider other)
@@ -194,6 +216,22 @@ public class Player_Controller : MonoBehaviour
         else if (gate != null && gate.gameObject == other.gameObject)
         {
             gate = null;
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("HalfBlock"))
+        {
+            currentPlatform = other.gameObject;
+        }
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("HalfBlock"))
+        {
+            currentPlatform = null;
         }
     }
 }
