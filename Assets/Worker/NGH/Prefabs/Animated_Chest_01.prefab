@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d949d85b6c7ca0e458ce6053049af9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataIndex: 3
+  dataIndex: 0
   hpItemPrefab: {fileID: 3282520202563579510, guid: 52bacc114f1b2114a959231f9f02af7c, type: 3}
   skillPrefab: {fileID: 3282520202563579510, guid: 52bacc114f1b2114a959231f9f02af7c, type: 3}
   goldPrefab: {fileID: 3282520202563579510, guid: 52bacc114f1b2114a959231f9f02af7c, type: 3}
