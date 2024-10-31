@@ -12,15 +12,17 @@ public class RewardChest : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] float chestOpenDelay = 1f;
 
+    [SerializeField] GameObject gate;
+
     private void Awake()
     {
         isOpened = false;
+        GameManager.Instance.SetRewardChest(gameObject);
+        gameObject.SetActive(false);
     }
 
     public void OpenChest()
     {
-        
-
         if (isOpened) return; // 이미 열린 상자는 다시 열리지 않도록
         isOpened = true;
 
@@ -46,6 +48,8 @@ public class RewardChest : MonoBehaviour
 
         // 보상 생성 후 상자 비활성화
         gameObject.SetActive(false);
+
+        gate.SetActive(true);
     }
 
     private void GenerateRewards(DropData table)

@@ -41,9 +41,29 @@ public class GameManager : MonoBehaviour
 
     public int monsterCount = 0;
 
+    GameObject rewardChest;
+
+    public void SetRewardChest(GameObject rewardChest)
+    {
+        this.rewardChest = rewardChest;
+    }
+
     public void SetMonster(MonsterState monster)
     {
         monsterCount++;
+        monster.OnDead += DecreaseMonster;
+    }
+
+    public void DecreaseMonster(MonsterState monster)
+    {
+        monsterCount--;
+        Debug.Log($"{monster.gameObject.name} 사망");
+        monster.OnDead -= DecreaseMonster;
+        if(monsterCount == 0 && rewardChest != null)
+        {
+            rewardChest.SetActive(true);
+            rewardChest = null;
+        }
     }
 
     private void Awake()
@@ -126,6 +146,26 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // 게임 시작 시 타이틀 화면에서 호출
+    public void LoadScene(string sceneName)
+    {
+        // 게임 로딩 시작
+        StartCoroutine(LoadSceneRoutine(sceneName));
+    }
+
+    // 메인 게임 비동기 로딩
+    private IEnumerator LoadSceneRoutine(string sceneName)
+    {
+        // 메인 게임 씬을 비동기로 로드
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+
+        // 로딩 진행 상황 업데이트
+        while (!operation.isDone)
+        {
+            yield return null;
+        }
+    }
+
     // 로비 화면으로 귀환
     public void ReturnToLobby()
     {
@@ -151,16 +191,15 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Scene Loaded : " + scene.name);
 
-        // 씬 로드후 초기화
-        //if(scene.name == "BattleTest")
-        //{
-        //    InitializeBattleScene();
-        //}
-
         if(scene.name == "LobbyTest")
         {
             InitializeLobbyScene();
+            return;
         }
+
+        // 씬 로드후 초기화
+        InitializeBattleScene();
+        
     }
 
     // 씬 전환후 연결 초기화
@@ -171,6 +210,7 @@ public class GameManager : MonoBehaviour
 
     private void InitializeLobbyScene()
     {
+        monsterCount = 0;
         playerSkillSlotID = new int?[(int)Enums.PlayerSkillSlot.Length];
     }
 

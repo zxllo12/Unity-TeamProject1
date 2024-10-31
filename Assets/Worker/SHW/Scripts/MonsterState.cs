@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MonsterState : MonoBehaviour
 {
@@ -41,31 +42,31 @@ public class MonsterState : MonoBehaviour
     protected MonsterData _monsterData;
     public MonsterData MonsterData { get { return _monsterData; } }
 
+    public UnityAction<MonsterState> OnDead;
+
     private void Awake()
     {
         // 애니메이터 갖고오기
         animator = GetComponent<Animator>();
 
+        LoadMonsterData(id);
+
         // 스폰 포인트 저장
         spawnPoint = transform.position;
+
+        GameManager.Instance.SetMonster(this);
     }
     private void Start()
     {
         // LoadMonsterData(id);
-        DataManager.Instance.OnLoadCompleted += Test;
-
         player = GameManager.Instance.player;
     }
 
     private void OnDisable()
     {
-        DataManager.Instance.OnLoadCompleted -= Test;
+        
     }
 
-    public void Test()
-    {
-        LoadMonsterData(id);
-    }
     public void LoadMonsterData(int id)
     {
         // 오류 확인용
@@ -283,6 +284,7 @@ public class MonsterState : MonoBehaviour
         }
         else
         {
+            OnDead?.Invoke(this);
            // animator.SetBool("isDead", false);
             Destroy(gameObject,3f);
         }

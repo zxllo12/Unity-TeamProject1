@@ -8,13 +8,11 @@ TagManager:
   - Battle
   - Magicshop
   - Statusshop
-  - Magicshopexit
-  - Statusshopexit
-  - Magicshopenter
-  - Statusshopenter
   - Gamestart
   - DropItem
   - RewardChest
+  - Animal
+  - Gate
   layers:
   - Default
   - TransparentFX
@@ -25,7 +23,7 @@ TagManager:
   - MonsterBullet
   - Monster
   - 
-  - 
+  - Ground
   - 
   - 
   - 
