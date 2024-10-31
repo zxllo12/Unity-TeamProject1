@@ -13,7 +13,11 @@ public class ConfirmWindow : MonoBehaviour
     private void Start()
     {
         cancelButton.onClick.AddListener(() => gameObject.SetActive(false));
-        confirmButton.onClick.AddListener(() => UnlockSkillInShop());
+        confirmButton.onClick.AddListener(() => 
+        { 
+            UnlockSkillInShop(); 
+            gameObject.SetActive(false);
+        });
     }
 
     public void SetInfo(int skillID)
@@ -31,7 +35,11 @@ public class ConfirmWindow : MonoBehaviour
     {
         int cost = DataManager.Instance.SkillDict[skillID].Price;
 
-        if (GameManager.Instance.HasEnoughGold(cost))
+        if (SkillUnlockManager.Instance.IsSkillUnlocked(skillID))
+        {
+            Debug.Log("이미 해금된 스킬입니다.");
+        }
+        else if (GameManager.Instance.HasEnoughGold(cost))
         {
             GameManager.Instance.SpendGold(cost);
             SkillUnlockManager.Instance.UnlockSkill(skillID);

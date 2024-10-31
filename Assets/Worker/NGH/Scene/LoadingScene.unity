@@ -196,6 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  battleUI: {fileID: 0}
   gold: 0
 --- !u!4 &647749624
 Transform:
