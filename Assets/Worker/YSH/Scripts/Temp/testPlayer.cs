@@ -7,6 +7,7 @@ public class testPlayer : MonoBehaviour
     SkillHandler handler;
     [SerializeField] Transform firePos;
 
+    [SerializeField] KeyCode basicSkillKey;
     [SerializeField] KeyCode[] skillKeys = new KeyCode[(int)Enums.PlayerSkillSlot.Length];
 
     [SerializeField] float _attackPoint;
@@ -14,35 +15,31 @@ public class testPlayer : MonoBehaviour
     private void Awake()
     {
         handler = GetComponent<SkillHandler>();
-    }
-
-    private void Start()
-    {
-        DataManager.Instance.OnLoadCompleted += testInit;
+        testInit();
     }
 
     public void testInit()
     {
+        handler.SetBasicSkill(9);
         handler.EquipSkill(0, Enums.PlayerSkillSlot.Slot1);
         handler.EquipSkill(1, Enums.PlayerSkillSlot.Slot2);
     }
 
     private void Update()
     {
-        for (int i = 0; i < skillKeys.Length; i++)
+        if (Input.GetKeyDown(basicSkillKey))
         {
-            if (Input.GetKeyDown(skillKeys[i]))
-            {
-                handler.DoSkill((Enums.PlayerSkillSlot)i, firePos.transform, _attackPoint);
-            }
+            handler.DoBasicSkill(firePos.transform, _attackPoint);
         }
-    }
-
-    private void OnDisable()
-    {
-        if (DataManager.Instance != null)
+        else
         {
-            DataManager.Instance.OnLoadCompleted += testInit;
+            for (int i = 0; i < skillKeys.Length; i++)
+            {
+                if (Input.GetKeyDown(skillKeys[i]))
+                {
+                    handler.DoSkill((Enums.PlayerSkillSlot)i, firePos.transform, _attackPoint);
+                }
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7087231312278243060}
   - component: {fileID: 5187181296931773519}
   - component: {fileID: 2127052230772805948}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4834,7 +4834,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1758197764047588375}
   - component: {fileID: 1758197764047588374}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4929,7 +4929,7 @@ GameObject:
   - component: {fileID: 1758197765624867059}
   - component: {fileID: 1758197765624867057}
   - component: {fileID: 1758197765624867056}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Ice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9753,7 +9753,7 @@ GameObject:
   - component: {fileID: 1758197765695130387}
   - component: {fileID: 1758197765695130386}
   - component: {fileID: 1758197765695130389}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Snowflake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14580,7 +14580,7 @@ GameObject:
   - component: {fileID: 1119890370692550483}
   - component: {fileID: 481069452894561051}
   - component: {fileID: 656972868466915564}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: IceArrowProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14710,7 +14710,7 @@ GameObject:
   - component: {fileID: 6410676627481650668}
   - component: {fileID: 6410676627481650669}
   - component: {fileID: 6410676627481650666}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}

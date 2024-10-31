@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4010709701328008930}
   - component: {fileID: 3848051742511912806}
   - component: {fileID: 3846767982963525784}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: CenterGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4839,7 +4839,7 @@ GameObject:
   - component: {fileID: 4014857099691849822}
   - component: {fileID: 3826085957752989580}
   - component: {fileID: 3847196889514878944}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Darkness
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9668,7 +9668,7 @@ GameObject:
   - component: {fileID: 3848106820320976226}
   - component: {fileID: 3908896491454283506}
   - component: {fileID: 3846982335543646880}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: SubSmoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14505,7 +14505,7 @@ GameObject:
   - component: {fileID: 4010689829705598158}
   - component: {fileID: 3848234136826737484}
   - component: {fileID: 3846789340676985500}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: LightningSp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19396,7 +19396,7 @@ GameObject:
   - component: {fileID: 4014688700072381052}
   - component: {fileID: 3847620823084929564}
   - component: {fileID: 3846453560573367244}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Lightning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24278,7 +24278,7 @@ GameObject:
   - component: {fileID: 4014882550641421970}
   - component: {fileID: 3847741960336606198}
   - component: {fileID: 3847339702871332612}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29169,7 +29169,7 @@ GameObject:
   - component: {fileID: 4014487908235001460}
   - component: {fileID: 3847806852639685320}
   - component: {fileID: 3846708011935285040}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: SubSparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33996,7 +33996,7 @@ GameObject:
   - component: {fileID: 3847357570344749742}
   - component: {fileID: 3992075756617085420}
   - component: {fileID: 3910891968064304188}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: LightBallProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -7,6 +7,8 @@ using UnityEngine.Events;
 
 public class SkillHandler : MonoBehaviour
 {
+    SkillBase _basicSkill;
+
     SkillBase[] _playerSkillSlot = new SkillBase[(int)Enums.PlayerSkillSlot.Length];
 
     public SkillBase[] PlayerSkillSlot { get { return _playerSkillSlot; } }
@@ -14,6 +16,30 @@ public class SkillHandler : MonoBehaviour
     Coroutine _castRoutine;
 
     public UnityAction OnChangedSkillSlot;
+
+    public void SetBasicSkill(int skillID)
+    {
+        // ID 검사
+        if (DataManager.Instance.SkillDict.TryGetValue(skillID, out SkillData data) == false)
+        {
+            Debug.LogError($"SkillHandler SetBasicSkill failed... / ID : {skillID}");
+            Debug.LogError("Please Check data");
+            return;
+        }
+
+        SkillBase prefab = ResourceManager.Instance.Load<SkillBase>($"Prefabs/Skills/{data.ClassName}");
+        if (prefab == null)
+        {
+            Debug.LogError($"Can't find SkillBase Component! / ID : {skillID}");
+            return;
+        }
+
+        SkillBase skill = Instantiate(prefab, gameObject.transform.position, Quaternion.identity);
+        skill.SetData(data.ID);
+        skill.transform.SetParent(gameObject.transform);
+
+        _basicSkill = skill;
+    }
 
     public void EquipSkill(int skillID, Enums.PlayerSkillSlot slot)
     {
@@ -61,6 +87,43 @@ public class SkillHandler : MonoBehaviour
         GameManager.Instance.PlayerSkillSlotID[(int)slot] = null;
 
         OnChangedSkillSlot?.Invoke();
+    }
+
+    public void DoBasicSkill(Transform startPos, float attackPoint)
+    {
+        // 스킬이 존재하는지 비교
+        if (_basicSkill == null)
+            return;
+
+        // 쿨타임 체크
+        if (_basicSkill.CurrentCoolTime > 0)
+            return;
+
+        if (_castRoutine != null)
+            return;
+
+        BasicCast(startPos, attackPoint);
+    }
+
+    public void BasicCast(Transform startPos, float attackPoint)
+    {
+        _basicSkill.StartPos = startPos;
+        _basicSkill.User = gameObject;
+        // 유저 방향 설정 필요
+        _castRoutine = StartCoroutine(BasicCastRoutine(attackPoint));
+    }
+
+    IEnumerator BasicCastRoutine(float attackPoint)
+    {
+        WaitForSeconds castTime = new WaitForSeconds(_basicSkill.SkillData.CastTime);
+
+        Debug.Log($"Start Cast : {_basicSkill.SkillData.Name}");
+        _basicSkill.DoCast();
+
+        yield return castTime;
+        _basicSkill.StopCast();
+        _basicSkill.DoSkill(attackPoint);
+        _castRoutine = null;
     }
 
     public void DoSkill(Enums.PlayerSkillSlot slot, Transform startPos, float attackPoint)

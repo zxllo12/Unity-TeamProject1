@@ -23,7 +23,10 @@ public class Projectile : MonoBehaviour
         _ownerSkill = skill;
 
         if (flashEffect != null)
-            Instantiate(flashEffect, startPos, Quaternion.identity);
+        {
+            ParticleSystem effect = Instantiate(flashEffect, startPos, Quaternion.identity);
+            Destroy(effect.gameObject, effect.main.duration);
+        }
 
         _moveRoutine = StartCoroutine(MoveRoutine(skill, startPos, dir, speed));
     }
@@ -52,7 +55,10 @@ public class Projectile : MonoBehaviour
         Debug.Log($"{gameObject.name} hit : {other.name}");
 
         if (hitEffect != null)
-            Instantiate(hitEffect, other.transform.position, Quaternion.identity);
+        {
+            ParticleSystem effect = Instantiate(hitEffect, other.transform.position, Quaternion.identity);
+            Destroy(effect.gameObject, effect.main.duration);
+        }
 
         MonsterState monster = other.GetComponent<MonsterState>();
         if (monster != null)

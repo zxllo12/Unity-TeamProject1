@@ -58,6 +58,10 @@ public class SkillBase : MonoBehaviour
             ParticleSystem particle = Instantiate(castEffect);
             _castEffectInstance = particle;
         }
+        else
+        {
+            _castEffectInstance.gameObject.SetActive(true);
+        }
     }
 
     public virtual void DoSkill(float attackPoint)
@@ -70,6 +74,7 @@ public class SkillBase : MonoBehaviour
     public virtual void StopCast()
     {
         _castEffectInstance?.Stop();
+        _castEffectInstance?.gameObject?.SetActive(false);
     }
 
     public virtual void StopSkill()
