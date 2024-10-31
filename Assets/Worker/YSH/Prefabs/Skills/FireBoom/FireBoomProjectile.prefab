@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4984679953933549581}
   - component: {fileID: 5179806302955999283}
   - component: {fileID: 5179175618010601547}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4902,7 +4902,7 @@ GameObject:
   - component: {fileID: 4986335963189643785}
   - component: {fileID: 5180041418973283813}
   - component: {fileID: 5181184216216974951}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Derbis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9802,7 +9802,7 @@ GameObject:
   - component: {fileID: 4986173505561907451}
   - component: {fileID: 5179847403463051163}
   - component: {fileID: 5179273571056629591}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Rays
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14684,7 +14684,7 @@ GameObject:
   - component: {fileID: 4984548355642560193}
   - component: {fileID: 5179950652335209613}
   - component: {fileID: 5181130073491387801}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Flare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19566,7 +19566,7 @@ GameObject:
   - component: {fileID: 4986235961840795247}
   - component: {fileID: 5179720601190110675}
   - component: {fileID: 5181151566493270567}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: LightPS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24448,7 +24448,7 @@ GameObject:
   - component: {fileID: 4984540936550864717}
   - component: {fileID: 5179526138812141055}
   - component: {fileID: 5181017592060551361}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: ShockWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29348,7 +29348,7 @@ GameObject:
   - component: {fileID: 4986487559135727449}
   - component: {fileID: 5179842354483299261}
   - component: {fileID: 5180973768969811655}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Darkness
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34266,7 +34266,7 @@ GameObject:
   - component: {fileID: 4986538646675655047}
   - component: {fileID: 5180083826370496741}
   - component: {fileID: 5180879605140898187}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Runes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39148,7 +39148,7 @@ GameObject:
   - component: {fileID: 4984630682719110951}
   - component: {fileID: 5179643055504358213}
   - component: {fileID: 5180607842583052639}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Hand2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44030,7 +44030,7 @@ GameObject:
   - component: {fileID: 4984731629531107567}
   - component: {fileID: 5179918526200471641}
   - component: {fileID: 5181075465967896099}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: StartWind
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48921,7 +48921,7 @@ GameObject:
   - component: {fileID: 4984458320233700191}
   - component: {fileID: 5179761193960980105}
   - component: {fileID: 5180956417855267303}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Hand1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53802,7 +53802,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4986258169941429575}
   - component: {fileID: 4945384299713189265}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53897,7 +53897,7 @@ GameObject:
   - component: {fileID: 4986323027350290479}
   - component: {fileID: 5180213559705606895}
   - component: {fileID: 5181304977230690761}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Ray
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58815,7 +58815,7 @@ GameObject:
   - component: {fileID: 4986291448725784427}
   - component: {fileID: 5179576615490911045}
   - component: {fileID: 5179170340611999105}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Stones
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63697,7 +63697,7 @@ GameObject:
   - component: {fileID: 4984466361213811813}
   - component: {fileID: 5179792938784089861}
   - component: {fileID: 5179178398557413817}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68651,7 +68651,7 @@ GameObject:
   - component: {fileID: 4986101297814544567}
   - component: {fileID: 5179769835608939869}
   - component: {fileID: 5180881494065094541}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Wind
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73545,7 +73545,7 @@ GameObject:
   - component: {fileID: 4085288649280319164}
   - component: {fileID: 4503512672933883137}
   - component: {fileID: 1445545848343764660}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: FireBoomProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78490,7 +78490,7 @@ GameObject:
   - component: {fileID: 4986547148161166233}
   - component: {fileID: 5179900601435008245}
   - component: {fileID: 5181114146984635827}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Distortion(Delete for HD and LW)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83372,7 +83372,7 @@ GameObject:
   - component: {fileID: 4986435047262972003}
   - component: {fileID: 5160052300083385163}
   - component: {fileID: 5181342599201112067}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: SparksExpl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88263,7 +88263,7 @@ GameObject:
   - component: {fileID: 4986424553707478207}
   - component: {fileID: 5179934638337625521}
   - component: {fileID: 5180881363336837029}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Clock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93145,7 +93145,7 @@ GameObject:
   - component: {fileID: 4986393172905887793}
   - component: {fileID: 5160126423076768941}
   - component: {fileID: 5181001478220303157}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: SparksMidle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

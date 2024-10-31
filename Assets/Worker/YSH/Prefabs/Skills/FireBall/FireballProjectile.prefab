@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 198971832761314498}
   - component: {fileID: 114822264086722722}
   - component: {fileID: 199265274957548016}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4857,7 +4857,7 @@ GameObject:
   - component: {fileID: 4880521554087078}
   - component: {fileID: 198972288435834998}
   - component: {fileID: 199118803832768436}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: ShockWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9739,7 +9739,7 @@ GameObject:
   - component: {fileID: 4831499067876256}
   - component: {fileID: 198791489903056928}
   - component: {fileID: 199425093718077730}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14567,7 +14567,7 @@ GameObject:
   - component: {fileID: 54729807578932012}
   - component: {fileID: 135951470721667518}
   - component: {fileID: 9124370909991465078}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: FireballProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19577,7 +19577,7 @@ GameObject:
   - component: {fileID: 4473626720661134}
   - component: {fileID: 198193361827360536}
   - component: {fileID: 199946171430480246}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Conus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
