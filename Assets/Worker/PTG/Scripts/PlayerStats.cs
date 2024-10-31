@@ -6,7 +6,7 @@ using UnityEngine.Events;
 [System.Serializable]
 public class PlayerStats
 {
-    public float attackPower = 10f; 
+    public float attackPower = 10f;
     public float defense = 5f;
     public float maxHealth = 100f;
     public float currentHealth;
@@ -16,6 +16,8 @@ public class PlayerStats
     private float invincibleTimer = 0f;
 
     public UnityAction OnChangedHP;
+
+    public UnityAction Dead;
 
     //체력 초기화
     public PlayerStats()
@@ -56,7 +58,7 @@ public class PlayerStats
 
         invincibleTimer = invincibleDuration;
         isInvincible = true;
-        
+
         if (currentHealth <= 0)
         {
             Die();
@@ -79,7 +81,9 @@ public class PlayerStats
     //사망
     private void Die()
     {
-        Debug.Log("플레이어 죽음");  
+        Dead?.Invoke();
+
+        Debug.Log("플레이어 죽음");
     }
 }
 
