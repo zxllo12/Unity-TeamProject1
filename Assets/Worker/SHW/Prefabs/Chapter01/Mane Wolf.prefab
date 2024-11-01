@@ -877,7 +877,7 @@ Animator:
   m_GameObject: {fileID: 2696945076877700492}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b4dc3c74541def84191303ea727d9a51, type: 3}
-  m_Controller: {fileID: 9100000, guid: 7c05beb634bfdce4092d676300bd461d, type: 2}
+  m_Controller: {fileID: 9100000, guid: e036ed3c05771df4d8b5f923611c395c, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 1
   m_ApplyRootMotion: 1
@@ -915,8 +915,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.7333815, z: 1.5720774}
-  m_Center: {x: 4.6866396e-16, y: 0.29012206, z: 0.14664918}
+  m_Size: {x: 1, y: 0.6473444, z: 1.5720774}
+  m_Center: {x: 1.0788455e-15, y: 0.3331406, z: 0.14664915}
 --- !u!114 &2695572424317790118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -936,6 +936,8 @@ MonoBehaviour:
   trigger: {fileID: 2695572424386287858}
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
+  WalkRangePoint: {x: 0, y: 0, z: 0}
+  destination: {x: 0, y: 0, z: 0}
   id: 2
   attack: 0
   def: 0
@@ -944,7 +946,7 @@ MonoBehaviour:
   walkSpeed: 0
   runSpeed: 0
   attackSpeed: 0
-  rage: 0
+  range: 0
   attackRage: 0
   canSkill: 0
   attackType: 0

@@ -118,8 +118,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2434033
-  m_Center: {x: -5.9088425e-16, y: 0.23996566, z: 0.13067427}
+  m_Radius: 0.26563534
+  m_Center: {x: -5.5051466e-16, y: 0.26960853, z: 0.12820405}
 --- !u!114 &2160621722945071744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,6 +139,8 @@ MonoBehaviour:
   trigger: {fileID: 2160621722378822133}
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
+  WalkRangePoint: {x: 0, y: 0, z: 0}
+  destination: {x: 0, y: 0, z: 0}
   id: 0
   attack: 0
   def: 0
@@ -147,7 +149,7 @@ MonoBehaviour:
   walkSpeed: 0
   runSpeed: 0
   attackSpeed: 0
-  rage: 0
+  range: 0
   attackRage: 0
   canSkill: 0
   attackType: 0
