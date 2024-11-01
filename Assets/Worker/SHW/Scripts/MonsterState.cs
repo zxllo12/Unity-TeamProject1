@@ -42,8 +42,8 @@ public class MonsterState : MonoBehaviour
     bool canAttack = true;      // 공격 확인
     float attackTimer;          // 공격 타이머
 
-    bool isDeathWorm; // 데스웜 확인
-    bool isBoss;  // 보스 확인
+   public bool isDeathWorm; // 데스웜 확인
+   public bool isBoss;  // 보스 확인
 
     // 사망확인용
     bool isdead = false;
@@ -215,6 +215,8 @@ public class MonsterState : MonoBehaviour
         if (isDeathWorm == true)
         {
             animator.SetBool("isDisappear", true);
+            // 추적 애니메이션 실행
+            animator.SetBool("isRunning", true);
         }
         // 일반 몹
         else
@@ -226,6 +228,8 @@ public class MonsterState : MonoBehaviour
             // 플레이어의 x축 만 받는 벡터를 만들것
             transform.position = Vector3.MoveTowards(transform.position, towardVector, runSpeed * Time.deltaTime);
         }
+
+        // Debug.Log($"{Vector3.Distance(transform.position, player.transform.position)}");
 
         // 공격범위 내로 들어왔을 경우
         if (Vector3.Distance(transform.position, player.transform.position) < attackRage)
@@ -240,6 +244,11 @@ public class MonsterState : MonoBehaviour
         {
             AllAnimationOff();
             curState = State.Return;   // 스폰지점으로 돌아간다
+
+            if (isDeathWorm == true)
+            {
+                curState = State.Idle;
+            }
         }
     }
 
@@ -271,6 +280,14 @@ public class MonsterState : MonoBehaviour
     {
         if (canAttack == true)
         {
+            if(isDeathWorm == true)
+            {
+                animator.SetBool("isAppear", true);
+                animator.SetBool("isIdle", true);
+
+                AllAnimationOff();
+            }
+
             // 공격 애니메이션
             animator.SetBool("isAttacking", true);
 
@@ -451,7 +468,7 @@ public class MonsterState : MonoBehaviour
 
     private void UpdateHPBar()
     {
-        if(hpBar != null)
+        if (hpBar != null)
         {
             hpBar.value = (float)curHp / hp;
         }
