@@ -520,9 +520,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4341523719760213789}
   - component: {fileID: 4341523719767431421}
-  - component: {fileID: 7751410388299387100}
   - component: {fileID: 7751410388299387101}
   - component: {fileID: 7751410388299387103}
+  - component: {fileID: -587122337399158522}
   m_Layer: 7
   m_Name: Vampire Bat
   m_TagString: Untagged
@@ -584,19 +584,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!135 &7751410388299387100
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4341523719760046909}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.3898574
-  m_Center: {x: 0, y: 1.2968397, z: 0}
 --- !u!54 &7751410388299387101
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -632,6 +619,8 @@ MonoBehaviour:
   trigger: {fileID: 7751410387884236863}
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
+  WalkRangePoint: {x: 0, y: 0, z: 0}
+  destination: {x: 0, y: 0, z: 0}
   id: 5
   attack: 0
   def: 0
@@ -640,11 +629,24 @@ MonoBehaviour:
   walkSpeed: 0
   runSpeed: 0
   attackSpeed: 0
-  rage: 0
+  range: 0
   attackRage: 0
   canSkill: 0
   attackType: 0
   bulletSpeed: 0
+--- !u!65 &-587122337399158522
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4341523719760046909}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.71780014, z: 0.67520386}
+  m_Center: {x: -2.4769626e-18, y: 1.2965226, z: 0.007986799}
 --- !u!1 &4341523719760046913
 GameObject:
   m_ObjectHideFlags: 0
@@ -1352,7 +1354,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7751410387884236861}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1.2273906, z: 0.7230016}

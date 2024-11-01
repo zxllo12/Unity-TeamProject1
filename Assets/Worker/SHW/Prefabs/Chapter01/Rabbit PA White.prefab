@@ -42,8 +42,8 @@ GameObject:
   - component: {fileID: 2157888932874627271}
   - component: {fileID: 2065171681543129705}
   - component: {fileID: 2160621722945071745}
-  - component: {fileID: 2160621722945071746}
   - component: {fileID: 2160621722945071744}
+  - component: {fileID: 2164437255311887455}
   m_Layer: 7
   m_Name: Rabbit PA White
   m_TagString: Untagged
@@ -107,19 +107,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 124
   m_CollisionDetection: 0
---- !u!135 &2160621722945071746
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2159478351848550849}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.2434033
-  m_Center: {x: -5.9088425e-16, y: 0.23996566, z: 0.13067427}
 --- !u!114 &2160621722945071744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,6 +126,8 @@ MonoBehaviour:
   trigger: {fileID: 2160621722378822133}
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
+  WalkRangePoint: {x: 0, y: 0, z: 0}
+  destination: {x: 0, y: 0, z: 0}
   id: 0
   attack: 0
   def: 0
@@ -147,11 +136,24 @@ MonoBehaviour:
   walkSpeed: 0
   runSpeed: 0
   attackSpeed: 0
-  rage: 0
+  range: 0
   attackRage: 0
   canSkill: 0
   attackType: 0
   bulletSpeed: 0
+--- !u!65 &2164437255311887455
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2159478351848550849}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.25840786, z: 0.56518143}
+  m_Center: {x: -7.876877e-16, y: 0.21074034, z: 0.1427167}
 --- !u!1 &2159523031034922061
 GameObject:
   m_ObjectHideFlags: 0
@@ -1222,7 +1224,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2160621722378822135}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 0.24261159, z: 0.2508885}
