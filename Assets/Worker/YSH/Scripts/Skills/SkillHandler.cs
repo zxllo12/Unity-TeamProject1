@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
+using static Enums;
 
 public class SkillHandler : MonoBehaviour
 {
@@ -58,13 +59,13 @@ public class SkillHandler : MonoBehaviour
             return;
         }
 
-        SkillBase skill = Instantiate(prefab, gameObject.transform.position, Quaternion.identity);
-        skill.SetData(data.ID);
-        skill.transform.SetParent(gameObject.transform);
-
         // 해당 슬롯에 스킬이 존재하면 해제한다.
         if (_playerSkillSlot[(int)slot] != null)
             UnEquipSkill(slot);
+
+        SkillBase skill = Instantiate(prefab, gameObject.transform.position, Quaternion.identity);
+        skill.SetData(data.ID);
+        skill.transform.SetParent(gameObject.transform);
 
         _playerSkillSlot[(int)slot] = skill;
 
@@ -75,11 +76,13 @@ public class SkillHandler : MonoBehaviour
 
     public void UnEquipSkill(Enums.PlayerSkillSlot slot)
     {
-        if (_playerSkillSlot[(int)slot] = null)
+        if (_playerSkillSlot[(int)slot] == null)
             return;
 
-        // slot에 있는 스킬을 튀어나오게 해야함 (fix 됨)
+        // slot에 있는 스킬을 Drop 해야함 (fix 됨)
+        DropSkill(_playerSkillSlot[(int)slot].SkillData.ID);
 
+        Destroy(_playerSkillSlot[(int)slot].gameObject);
 
         // slot에서 삭제
         _playerSkillSlot[(int)slot] = null;
@@ -87,6 +90,14 @@ public class SkillHandler : MonoBehaviour
         GameManager.Instance.PlayerSkillSlotID[(int)slot] = null;
 
         OnChangedSkillSlot?.Invoke();
+    }
+
+    public void DropSkill(int skillID)
+    {
+        Vector3 skillPosition = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+        GameObject prefab = ResourceManager.Instance.Load<GameObject>("Prefabs/DropItem");
+        DropItem skillDrop = Instantiate(prefab, skillPosition, Quaternion.identity).GetComponent<DropItem>();
+        skillDrop.Initialize(DropItem.ItemType.Skill, skillID);
     }
 
     public void DoBasicSkill(Transform startPos, float attackPoint)
