@@ -21,7 +21,7 @@ public class Player_Controller : MonoBehaviour
 
     bool AbleDoubleJump = true;
 
-    bool isAlive = true;
+    bool moveStop = false;
 
     [SerializeField] Transform firePos;
 
@@ -52,7 +52,7 @@ public class Player_Controller : MonoBehaviour
 
     void Update()
     {
-        if (!isAlive)
+        if (moveStop)
             return;
 
         //점프 애니메이션
@@ -194,11 +194,21 @@ public class Player_Controller : MonoBehaviour
 
     private void PlayerDead()
     {
-        isAlive = false;
+        Player_Freeze();
 
         animator.SetTrigger("die");
 
         Destroy(gameObject, 3f);
+    }
+
+    private void Player_Freeze()
+    {
+        moveStop = true;
+    }
+
+    private void Player_Release()
+    {
+        moveStop = false;
     }
 
     DropItem curDropItem;
