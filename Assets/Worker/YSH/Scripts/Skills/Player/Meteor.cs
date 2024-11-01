@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireBoom : SkillBase
+public class Meteor : SkillBase
 {
     public override void SetData(int id)
     {
@@ -12,17 +12,14 @@ public class FireBoom : SkillBase
     public override void DoCast()
     {
         base.DoCast();
-
-        _castEffectInstance.transform.position = _castPos;
-
-        _castEffectInstance.Play();
     }
 
     public override void DoSkill(float attackPoint)
     {
         AreaProjectile projectile = Instantiate(projectilePrefab, _castPos, Quaternion.identity) as AreaProjectile;
+        ParticleSystem.ShapeModule shape = projectile.GetComponent<ParticleSystem>().shape;
+        shape.scale = new Vector3(_skillData.Radius, 1f, 1f);
         projectile.SetDamage(_skillData.Damage * attackPoint);
-        projectile.EnableTrigger();
         base.DoSkill(attackPoint);
     }
 }

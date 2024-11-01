@@ -12,7 +12,9 @@ public class AreaProjectile : Projectile
     private void Awake()
     {
         _triggerCollider = GetComponent<BoxCollider>();
-        _triggerCollider.enabled = false;
+
+        if (_triggerCollider != null)
+            _triggerCollider.enabled = false;
 
         _particle = GetComponent<ParticleSystem>();
         _destroyTime = _particle.main.duration;
@@ -35,6 +37,26 @@ public class AreaProjectile : Projectile
     }
 
     protected override void OnTriggerEnter(Collider other)
+    {
+        Debug.Log($"{gameObject.name} hit : {other.name}");
+
+        if (hitEffect != null)
+        {
+            ParticleSystem effect = Instantiate(hitEffect, other.transform.position, Quaternion.identity);
+            Destroy(effect.gameObject, effect.main.duration);
+        }
+
+        MonsterState monster = other.GetComponent<MonsterState>();
+        if (monster != null)
+        {
+            monster.IsHit(_damage);
+        }
+
+        Debug.Log($"Projectile Damage : {_damage}");
+    }
+
+    // 파티클 시스템의 Collision 이용 시 
+    private void OnParticleCollision(GameObject other)
     {
         Debug.Log($"{gameObject.name} hit : {other.name}");
 
