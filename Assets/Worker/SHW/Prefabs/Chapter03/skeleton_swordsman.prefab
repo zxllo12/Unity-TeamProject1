@@ -640,7 +640,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1801455859716319810}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 2.3866954, z: 1.3975197}
@@ -864,6 +864,8 @@ MonoBehaviour:
   trigger: {fileID: 0}
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
+  WalkRangePoint: {x: 0, y: 0, z: 0}
+  destination: {x: 0, y: 0, z: 0}
   id: 10
   attack: 0
   def: 0
@@ -872,7 +874,7 @@ MonoBehaviour:
   walkSpeed: 0
   runSpeed: 0
   attackSpeed: 0
-  rage: 0
+  range: 0
   attackRage: 0
   canSkill: 0
   attackType: 0

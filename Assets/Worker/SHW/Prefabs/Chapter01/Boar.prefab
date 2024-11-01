@@ -238,6 +238,8 @@ MonoBehaviour:
   trigger: {fileID: 7737060135973155032}
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
+  WalkRangePoint: {x: 0, y: 0, z: 0}
+  destination: {x: 0, y: 0, z: 0}
   id: 1
   attack: 0
   def: 0
@@ -246,7 +248,7 @@ MonoBehaviour:
   walkSpeed: 0
   runSpeed: 0
   attackSpeed: 0
-  rage: 0
+  range: 0
   attackRage: 0
   canSkill: 0
   attackType: 0
@@ -2179,7 +2181,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7737060135973155111}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 0.96397746, z: 0.5277036}
