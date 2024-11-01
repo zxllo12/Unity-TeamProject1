@@ -21,6 +21,8 @@ public class Player_Controller : MonoBehaviour
 
     bool AbleDoubleJump = true;
 
+    bool isAlive = true;
+
     [SerializeField] Transform firePos;
 
     [SerializeField] KeyCode basicSkillKey;
@@ -47,6 +49,9 @@ public class Player_Controller : MonoBehaviour
 
     void Update()
     {
+        if (!isAlive)
+            return;
+
         //점프 애니메이션
         float height = rigid.velocity.y;
 
@@ -56,6 +61,8 @@ public class Player_Controller : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X))
         {
             animator.SetTrigger("Atk");
+
+            PlayerDead();//죽음테스트
         }
 
 
@@ -184,6 +191,8 @@ public class Player_Controller : MonoBehaviour
 
     private void PlayerDead()
     {
+        isAlive = false;
+
         animator.SetTrigger("die");
 
         Destroy(gameObject, 3f);
