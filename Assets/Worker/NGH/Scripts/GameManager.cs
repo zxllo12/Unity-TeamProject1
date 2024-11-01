@@ -10,6 +10,13 @@ public class GameManager : MonoBehaviour
     // 싱글톤 인스턴스
     public static GameManager Instance;
 
+    [SerializeField] private int gold;
+
+    public UnityAction OnGoldChanged;
+
+    int?[] playerSkillSlotID = new int?[(int)Enums.PlayerSkillSlot.Length];
+    public int?[] PlayerSkillSlotID { get { return playerSkillSlotID; } }
+
     public Player_Controller player;
 
     public void SetPlayer(Player_Controller player)
@@ -19,13 +26,13 @@ public class GameManager : MonoBehaviour
         // 추후 수정 필요 (데이터에서 기본스킬 찾도록)
         player.handler.SetBasicSkill(9);
 
-        for(int i = 0; i < playerSkillSlotID.Length; i++)
+        for (int i = 0; i < playerSkillSlotID.Length; i++)
         {
             if (playerSkillSlotID[i] != null)
             {
                 player.handler.EquipSkill((int)playerSkillSlotID[i], (Enums.PlayerSkillSlot)i);
             }
-        } 
+        }
     }
 
     public BattleUI battleUI;
@@ -35,21 +42,14 @@ public class GameManager : MonoBehaviour
         this.battleUI = battleUI;
     }
 
-    [SerializeField] private int gold;
-
-    public UnityAction OnGoldChanged;
-
-    int?[] playerSkillSlotID = new int?[(int)Enums.PlayerSkillSlot.Length];
-    public int?[] PlayerSkillSlotID { get { return playerSkillSlotID; } }
-
-    public int monsterCount = 0;
-
     GameObject rewardChest;
 
     public void SetRewardChest(GameObject rewardChest)
     {
         this.rewardChest = rewardChest;
     }
+
+    public int monsterCount = 0;
 
     public void SetMonster(MonsterState monster)
     {
