@@ -14579,7 +14579,7 @@ GameObject:
   - component: {fileID: 6287748451740703779}
   - component: {fileID: 1119890370692550483}
   - component: {fileID: 481069452894561051}
-  - component: {fileID: 656972868466915564}
+  - component: {fileID: 1619631955374805025}
   m_Layer: 31
   m_Name: IceArrowProjectile
   m_TagString: Untagged
@@ -14594,7 +14594,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5495074990949400054}
-  m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 8.6, y: 12.91, z: -25}
   m_LocalScale: {x: 0.5, y: 0.9, z: 0.5}
   m_ConstrainProportionsScale: 0
@@ -14602,7 +14602,7 @@ Transform:
   - {fileID: 6410676627481650668}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &8117288279332923625
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -14665,7 +14665,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 4
@@ -14678,27 +14678,25 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5495074990949400054}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.25
   m_Center: {x: 0, y: 1.82, z: 0}
---- !u!114 &656972868466915564
+--- !u!114 &1619631955374805025
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5495074990949400054}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa3d553e97e135e4aa14ac567e1cb1e8, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d6d4a519aa0c4c43af300541ffb8a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExplosionPrefab: {fileID: 4936562464815890069, guid: 05c2c80a3e4624f4cbb83f1e38f8651e, type: 3}
-  DestroyExplosion: 1.5
-  DestroyChildren: 1
-  Velocity: {x: -12.5, y: 0}
+  flashEffect: {fileID: 2453815093778372606, guid: e28140359083bcf429e4070816c21fa3, type: 3}
+  hitEffect: {fileID: 6579230691246165056, guid: a520385a2b31194469233319899e721c, type: 3}
 --- !u!1 &6410676627481650667
 GameObject:
   m_ObjectHideFlags: 0

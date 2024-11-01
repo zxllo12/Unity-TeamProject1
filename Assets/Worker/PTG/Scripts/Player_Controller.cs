@@ -37,6 +37,9 @@ public class Player_Controller : MonoBehaviour
         _collider = GetComponent<CapsuleCollider>();
         handler = GetComponent<SkillHandler>();
         GameManager.Instance.SetPlayer(this);
+
+        // test
+        handler.EquipSkill(3, Enums.PlayerSkillSlot.Slot1);
     }
 
     private void Start()
