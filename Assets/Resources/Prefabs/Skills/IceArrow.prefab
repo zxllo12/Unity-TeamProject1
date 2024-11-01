@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 501883affd878ec4ea20d3cb24502352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 1619631955374805025, guid: 12bea5a06f5cedb4f8044f090507ca5c, type: 3}
+  projectilePrefab: {fileID: 8896631334159542052, guid: 7eea1c903e1ee844b90eb9af35927126, type: 3}
   castEffect: {fileID: 0}
