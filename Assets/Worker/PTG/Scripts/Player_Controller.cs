@@ -30,6 +30,8 @@ public class Player_Controller : MonoBehaviour
 
     public PlayerStats stats = new PlayerStats();
 
+    public SkillSlotUI skillui = new SkillSlotUI();
+
     [SerializeField] float ignoreHalfBlockDelay;
     GameObject currentPlatform = null;
     CapsuleCollider _collider;
@@ -48,6 +50,8 @@ public class Player_Controller : MonoBehaviour
     {
         GameManager.Instance.player.stats.OnChangedHP += TakeDamageAnimation;
         GameManager.Instance.player.stats.Dead += PlayerDead;
+        GameManager.Instance.player.skillui.Player_Stop += Player_Freeze;
+        GameManager.Instance.player.skillui.Player_Start += Player_Release;
     }
 
     void Update()
@@ -171,6 +175,8 @@ public class Player_Controller : MonoBehaviour
         // 이벤트 해제
         GameManager.Instance.player.stats.OnChangedHP -= TakeDamageAnimation;
         GameManager.Instance.player.stats.Dead -= PlayerDead;
+        GameManager.Instance.player.skillui.Player_Stop -= Player_Freeze;
+        GameManager.Instance.player.skillui.Player_Start -= Player_Release;
     }
 
     private void Jump()
