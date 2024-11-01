@@ -11,10 +11,10 @@ public class Basic : SkillBase
 
     public override void DoSkill(float attackPoint)
     {
-        Projectile projectile = Instantiate(projectilePrefab, StartPos.position, Quaternion.identity);
+        Projectile projectile = Instantiate(projectilePrefab, FireTransform.position, Quaternion.identity);
         projectile.SetDamage(_skillData.Damage * attackPoint);
-        projectile.transform.rotation = Quaternion.LookRotation(_startPos.forward);
-        projectile.Fire(this, _startPos.position, projectile.transform.forward, _skillData.ProjectileSpeed);
+        projectile.transform.rotation = Quaternion.LookRotation(_fireTransform.forward);
+        projectile.Fire(this, _fireTransform.position, projectile.transform.forward, _skillData.ProjectileSpeed);
         base.DoSkill(attackPoint);
     }
 }

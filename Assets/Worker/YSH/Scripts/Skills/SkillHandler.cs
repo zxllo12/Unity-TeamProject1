@@ -116,9 +116,9 @@ public class SkillHandler : MonoBehaviour
         BasicCast(startPos, attackPoint);
     }
 
-    public void BasicCast(Transform startPos, float attackPoint)
+    public void BasicCast(Transform fireTransform, float attackPoint)
     {
-        _basicSkill.StartPos = startPos;
+        _basicSkill.FireTransform = fireTransform;
         _basicSkill.User = gameObject;
         // 유저 방향 설정 필요
         _castRoutine = StartCoroutine(BasicCastRoutine(attackPoint));
@@ -137,7 +137,7 @@ public class SkillHandler : MonoBehaviour
         _castRoutine = null;
     }
 
-    public void DoSkill(Enums.PlayerSkillSlot slot, Transform startPos, float attackPoint)
+    public void DoSkill(Enums.PlayerSkillSlot slot, Transform fireTransform, float attackPoint)
     {
         // 슬롯에 스킬이 존재하는지 비교
         if (_playerSkillSlot[(int)slot] == null)
@@ -150,12 +150,14 @@ public class SkillHandler : MonoBehaviour
         if (_castRoutine != null)
             return;
 
-        Cast(slot, startPos, attackPoint);
+        Cast(slot, fireTransform, attackPoint);
     }
 
-    public void Cast(Enums.PlayerSkillSlot slot, Transform startPos, float attackPoint)
+    public void Cast(Enums.PlayerSkillSlot slot, Transform fireTransform, float attackPoint)
     {
-        _playerSkillSlot[(int)slot].StartPos = startPos;
+        _playerSkillSlot[(int)slot].FireTransform = fireTransform;
+        _playerSkillSlot[(int)slot].StartPos = fireTransform.position;
+        _playerSkillSlot[(int)slot].StartDir = fireTransform.forward.x;
         _playerSkillSlot[(int)slot].User = gameObject;
         // 유저 방향 설정 필요
         _castRoutine = StartCoroutine(CastRoutine(slot, attackPoint));

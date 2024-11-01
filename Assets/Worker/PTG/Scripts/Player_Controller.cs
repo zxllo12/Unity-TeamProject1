@@ -175,6 +175,7 @@ public class Player_Controller : MonoBehaviour
 
     private void Jump()
     {
+        Debug.Log("점프");
         //점프
         rigid.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
