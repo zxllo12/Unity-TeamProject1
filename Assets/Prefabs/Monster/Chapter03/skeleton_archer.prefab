@@ -1998,6 +1998,7 @@ MonoBehaviour:
   shootPoint: {fileID: 7944157225552164556}
   animator: {fileID: 8672418237054443117}
   trigger: {fileID: 0}
+  hpBarPrefab: {fileID: 0}
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   WalkRangePoint: {x: 0, y: 0, z: 0}
@@ -2015,6 +2016,8 @@ MonoBehaviour:
   canSkill: 0
   attackType: 0
   bulletSpeed: 3
+  isDeathWorm: 0
+  isBoss: 0
 --- !u!54 &3253287618294029972
 Rigidbody:
   m_ObjectHideFlags: 0

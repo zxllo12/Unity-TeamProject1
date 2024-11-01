@@ -617,6 +617,7 @@ MonoBehaviour:
   shootPoint: {fileID: 0}
   animator: {fileID: 4341523719767431421}
   trigger: {fileID: 7751410387884236863}
+  hpBarPrefab: {fileID: 0}
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   WalkRangePoint: {x: 0, y: 0, z: 0}
@@ -634,6 +635,8 @@ MonoBehaviour:
   canSkill: 0
   attackType: 0
   bulletSpeed: 0
+  isDeathWorm: 0
+  isBoss: 0
 --- !u!65 &-587122337399158522
 BoxCollider:
   m_ObjectHideFlags: 0
