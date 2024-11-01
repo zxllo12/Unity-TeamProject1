@@ -618,6 +618,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4086540118476887236, guid: 7be06f83210a16e4b978bc1f58b016dd, type: 3}
+      propertyPath: jumpForce
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086540118476887236, guid: 7be06f83210a16e4b978bc1f58b016dd, type: 3}
+      propertyPath: maxFallSpeed
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086540118476887236, guid: 7be06f83210a16e4b978bc1f58b016dd, type: 3}
+      propertyPath: customGravity
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086540118476887236, guid: 7be06f83210a16e4b978bc1f58b016dd, type: 3}
+      propertyPath: fallAcceleration
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086540118476887236, guid: 7be06f83210a16e4b978bc1f58b016dd, type: 3}
+      propertyPath: maxFallMultiplier
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4086540118476887237, guid: 7be06f83210a16e4b978bc1f58b016dd, type: 3}
       propertyPath: m_RootOrder
       value: 7

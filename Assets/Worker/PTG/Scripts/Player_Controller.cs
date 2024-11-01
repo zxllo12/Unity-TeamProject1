@@ -54,6 +54,13 @@ public class Player_Controller : MonoBehaviour
         GameManager.Instance.player.skillui.Player_Start += Player_Release;
     }
 
+
+    [SerializeField] float maxFallSpeed = -10f; // 최대 하강 속도 제한
+    [SerializeField] float fallMultiplier = 2.5f; // 기본 하강 가속도 배율
+    [SerializeField] float fallAcceleration = 1.2f; // 하강 가속도 증가율
+    [SerializeField] float maxFallMultiplier = 10f; // 최대 하강 가속도 배율
+    [SerializeField] float customGravity = -9.81f; // 기본 중력
+
     void Update()
     {
         if (moveStop)
@@ -113,6 +120,25 @@ public class Player_Controller : MonoBehaviour
             {
                 DoubleJump();
             }
+        }
+
+        // 하강 가속도 적용
+        if (rigid.velocity.y < 0) // 하강 중일 때만 적용
+        {
+            // 하강 가속도 점진적으로 증가
+            fallMultiplier = Mathf.Min(fallMultiplier * fallAcceleration, maxFallMultiplier);
+            rigid.AddForce(Vector3.up * customGravity * fallMultiplier, ForceMode.Acceleration);
+        }
+        else if (!isGrounded) // 상승 중일 때 기본 중력 적용
+        {
+            fallMultiplier = 2.5f; // 초기값으로 리셋
+            rigid.AddForce(Vector3.up * customGravity, ForceMode.Acceleration);
+        }
+
+        // 최대 하강 속도 제한
+        if (rigid.velocity.y < maxFallSpeed)
+        {
+            rigid.velocity = new Vector3(rigid.velocity.x, maxFallSpeed, rigid.velocity.z);
         }
 
         //캐占쏙옙占쏙옙 占승울옙占쏙옙占
