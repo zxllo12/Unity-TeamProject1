@@ -50,6 +50,9 @@ public class SkillBase : MonoBehaviour
 
     public virtual void DoCast()
     {
+        Vector3 dist = new Vector3(_startPos.forward.x * _skillData.Range, 0, 0);
+        _castPos = StartPos.position + dist;
+
         if (castEffect == null)
             return;
 

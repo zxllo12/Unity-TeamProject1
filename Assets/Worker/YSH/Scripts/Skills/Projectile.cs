@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Projectile : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Projectile : MonoBehaviour
     protected Coroutine _moveRoutine;
 
     protected float _damage;
+    public float Damage { get { return _damage; } }
 
     protected SkillBase _ownerSkill;
 
@@ -71,5 +73,14 @@ public class Projectile : MonoBehaviour
         // 관통 여부 확인
         if (_ownerSkill.SkillData.CanPenetration == false)
             Destroy(gameObject);
+    }
+
+    public void GenerateEffect(Vector3 pos, Quaternion quaternion)
+    {
+        if (hitEffect != null)
+        {
+            ParticleSystem effect = Instantiate(hitEffect, pos, Quaternion.identity);
+            Destroy(effect.gameObject, effect.main.duration);
+        }
     }
 }
