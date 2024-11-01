@@ -18,6 +18,8 @@ public class MonsterState : MonoBehaviour
     [Header("State")]
     [SerializeField] State curState;         // 현상태
     public Vector3 spawnPoint;               // 기본 위치(임시)
+    public Vector3 WalkRangePoint;  // 이동 위치
+    public Vector3 destination;
 
     [SerializeField] int id;
     [SerializeField] float attack;           // 공격력
@@ -27,7 +29,7 @@ public class MonsterState : MonoBehaviour
     [SerializeField] float walkSpeed;        // 걷기이속
     [SerializeField] float runSpeed;         // 뛰기이속
     [SerializeField] float attackSpeed;      // 이속
-    [SerializeField] float rage;             // 추적거리
+    [SerializeField] float range;             // 추적거리
     [SerializeField] float attackRage;       // 공격 사거리
     [SerializeField] bool canSkill;          // 스킬여부
     [SerializeField] bool attackType;        // 공격 타입 true일 경우 원거리
@@ -35,6 +37,8 @@ public class MonsterState : MonoBehaviour
 
     bool canAttack = true;      // 공격 확인
     float attackTimer;          // 공격 타이머
+
+
 
     // 사망확인용
     bool isdead = false;
@@ -53,6 +57,8 @@ public class MonsterState : MonoBehaviour
 
         // 스폰 포인트 저장
         spawnPoint = transform.position;
+        // 배회시 거리 기존위치 +5
+        WalkRangePoint = new Vector3(spawnPoint.x - 5, spawnPoint.y, spawnPoint.z);
 
         GameManager.Instance.SetMonster(this);
     }
@@ -64,7 +70,7 @@ public class MonsterState : MonoBehaviour
 
     private void OnDisable()
     {
-        
+
     }
 
     public void LoadMonsterData(int id)
@@ -89,7 +95,7 @@ public class MonsterState : MonoBehaviour
         walkSpeed = _monsterData.WalkSpeed;
         runSpeed = _monsterData.RunSpeed;
         attackSpeed = _monsterData.AttackSpeed;
-        rage = _monsterData.Rage;
+        range = _monsterData.Rage;
         attackRage = _monsterData.AttackRage;
         canSkill = _monsterData.CanSkill;
         attackType = _monsterData.AttackType;
@@ -147,16 +153,17 @@ public class MonsterState : MonoBehaviour
 
     public void Idle()
     {
+
         // 대기 애니메이션 모션 출력
         animator.SetBool("isIdle", true);
 
         StartCoroutine(WalkCoroutine());
 
         // 일정 범위 내에 플레이어가 들어왔을 경우
-        if (Vector3.Distance(transform.position, player.transform.position) < rage)
+        if (Vector3.Distance(transform.position, player.transform.position) < range)
         {
             StopAllCoroutines();
-            animator.SetBool("isIdle", false);  // 애니메이션 취소
+            AllAnimationOff(); // 애니메이션 취소
             curState = State.Running;   // 추적상태로 변환
         }
     }
@@ -167,6 +174,10 @@ public class MonsterState : MonoBehaviour
         yield return new WaitForSeconds(3f);
         curState = State.Walking;
         animator.SetBool("isIdle", false);
+
+        // 이거 괜찮나..?
+        // 다음 상태로 넘어갈때 다른 코루틴 전부 종료..?
+        StopAllCoroutines();
     }
 
     public void Running()
@@ -174,23 +185,26 @@ public class MonsterState : MonoBehaviour
         // 추적 애니메이션 실행
         animator.SetBool("isRunning", true);
 
-        StopCoroutine(WalkCoroutine());
+        Flip(player.transform.position);
+        Vector3 towardVector = new Vector3(player.transform.position.x, transform.position.y, 0);
 
         // 타겟(플레이어)를 향해서 이동
-        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, runSpeed * Time.deltaTime);
+        // 플레이어의 x축 만 받는 벡터를 만들것
+        transform.position = Vector3.MoveTowards(transform.position, towardVector, runSpeed * Time.deltaTime);
 
         // 공격범위 내로 들어왔을 경우
         if (Vector3.Distance(transform.position, player.transform.position) < attackRage)
         {
-            animator.SetBool("isRunning", false);
+            AllAnimationOff();
             curState = State.Attack;
         }
 
+        // 추적에서 문제가 혹시 else if 여서 문제인가? 싶어서 일단 if문으로 전환
         // 일정 범위 내에 플레이어가 넘어갈 경우
-        else if (Vector3.Distance(transform.position, player.transform.position) > rage)
+        if (Vector3.Distance(transform.position, player.transform.position) > range)
         {
-            animator.SetBool("isRunning", false);  // 애니메이션 취소
-            curState = State.Idle;   // 추적상태로 변환
+            AllAnimationOff();
+            curState = State.Return;   // 스폰지점으로 돌아간다
         }
     }
 
@@ -200,16 +214,12 @@ public class MonsterState : MonoBehaviour
         // 되돌아가는 상태 = 걷는 모션
         animator.SetBool("isWalking", true);
 
-        // 플립 반복되는 부분 한번만 실행하도록 설정
-        StopAllCoroutines();
-
         // 스폰지점으로 다시 돌아감
         transform.position = Vector3.MoveTowards(transform.position, spawnPoint, walkSpeed * Time.deltaTime);
 
         // 일정 범위 내에 플레이어가 들어왔을 경우
-        if (Vector3.Distance(transform.position, player.transform.position) < rage)
+        if (Vector3.Distance(transform.position, player.transform.position) < range)
         {
-            Flip();
             animator.SetBool("isWalking", false);  // 애니메이션 취소
             curState = State.Running;   // 추적상태로 변환
         }
@@ -217,7 +227,6 @@ public class MonsterState : MonoBehaviour
         // 스폰포인트에 도착했을 경우
         else if (transform.position.x == spawnPoint.x)
         {
-            Flip();
             animator.SetBool("isWalking", false);
             curState = State.Idle;
         }
@@ -258,9 +267,6 @@ public class MonsterState : MonoBehaviour
         }
     }
 
-    // 원거리 공격용 코루틴 작성?
-    // n초 뒤에 공격을 한번 실행?
-
     IEnumerator ShootCoroutine()
     {
         Debug.Log("코루틴 시작");
@@ -285,8 +291,8 @@ public class MonsterState : MonoBehaviour
         else
         {
             OnDead?.Invoke(this);
-           // animator.SetBool("isDead", false);
-            Destroy(gameObject,3f);
+            // animator.SetBool("isDead", false);
+            Destroy(gameObject, 3f);
         }
     }
 
@@ -300,21 +306,24 @@ public class MonsterState : MonoBehaviour
         // 걷기 애니메이션 
         animator.SetBool("isWalking", true);
 
-        if (transform.rotation.eulerAngles.y >= -80)
+        if (transform.position.x >= spawnPoint.x)
         {
-            transform.position += Vector3.left * walkSpeed * Time.deltaTime;
+            destination = WalkRangePoint;
+            Flip(destination);
         }
-        else if (transform.rotation.eulerAngles.y <= 80)
+        else if (transform.position.x <= WalkRangePoint.x)
         {
-            transform.position += Vector3.right * walkSpeed * Time.deltaTime;
+            destination = spawnPoint;
+            Flip(destination);
+
         }
 
-        // 걷기 코루틴 정지 & 되돌아가기 코루틴 시작
-        StopCoroutine(WalkCoroutine());
-        StartCoroutine(returnCoroutine());
+        transform.position = Vector3.MoveTowards(transform.position, destination, walkSpeed * Time.deltaTime);
+
+        StartCoroutine(IdleCoroutine());
 
         // 일정 범위 내에 플레이어가 들어왔을 경우
-        if (Vector3.Distance(transform.position, player.transform.position) < rage)
+        if (Vector3.Distance(transform.position, player.transform.position) < range)
         {
             animator.SetBool("isWalking", false);  // 애니메이션 취소
             curState = State.Running;   // 추적상태로 변환
@@ -322,12 +331,13 @@ public class MonsterState : MonoBehaviour
     }
 
     // 대기모션과 배회모션의 코루틴
-    IEnumerator returnCoroutine()
+    IEnumerator IdleCoroutine()
     {
-        yield return new WaitForSeconds(3f);
-        curState = State.Return;
+        yield return new WaitForSeconds(5f);
+        curState = State.Idle;
         animator.SetBool("isWalking", false);
-        Flip();
+
+        StopAllCoroutines();
     }
 
     // 피격시 출력할 함수
@@ -349,12 +359,9 @@ public class MonsterState : MonoBehaviour
             curState = State.Dead;
         }
 
-        // 스턴 공격을 맞았을 경우
-        // 스턴함수 실행
-
     }
 
-    // 충돌 감지
+    // 충돌 감지 = 플레이어에게 데미지 주는 부분
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log($"몬스터 충돌 : {collision.gameObject.name}");
@@ -364,19 +371,14 @@ public class MonsterState : MonoBehaviour
         }
     }
 
-
-
     // 회전
-    public void Flip()
+    public void Flip(Vector3 lookingPos)
     {
-        // 원래 지점으로 이동을 위한 회전
-        if (transform.rotation.eulerAngles.y <= -80)
+        // 원래는 y값이 기존포지션과 같을때 바라보는 코드
+        // 플레이어 점프했을 때 감지를 위해서 약간 범위 수정?
+        if (transform.position.y == lookingPos.y)
         {
-            transform.rotation = transform.rotation * Quaternion.Euler(0, 180f, 0);
-        }
-        else if (transform.rotation.eulerAngles.y >= 80)
-        {
-            transform.rotation = transform.rotation * Quaternion.Euler(0, 180f, 0);
+            transform.LookAt(lookingPos);
         }
     }
 
@@ -389,8 +391,8 @@ public class MonsterState : MonoBehaviour
         animator.SetBool("isStun", false);
     }
 
-    // 둔화 
-    public void Delay(float ice)
+    // 둔화(임시작성) 
+    public void Slow(float ice)
     {
         // 둔화 스킬에 걸렸을 경우 이속 감소?
         // 원래대로 돌릴 방법 필요
