@@ -186,11 +186,13 @@ public class MonsterState : MonoBehaviour
         animator.SetBool("isRunning", true);
 
         Flip(player.transform.position);
-        Vector3 towardVector = new Vector3(player.transform.position.x, transform.position.y, 0);
+        Vector3 towardVector = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
 
         // 타겟(플레이어)를 향해서 이동
         // 플레이어의 x축 만 받는 벡터를 만들것
         transform.position = Vector3.MoveTowards(transform.position, towardVector, runSpeed * Time.deltaTime);
+
+        Debug.Log($"{Vector3.Distance(transform.position, player.transform.position) }");
 
         // 공격범위 내로 들어왔을 경우
         if (Vector3.Distance(transform.position, player.transform.position) < attackRage)
