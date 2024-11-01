@@ -34,14 +34,14 @@ public class IceArrow : SkillBase
     {
         base.DoSkill(attackPoint);
 
-        float yPos = StartPos.position.y + Yinterval;
-        Vector3 initPos = new Vector3(StartPos.position.x, yPos, StartPos.position.z);
+        float yPos = FireTransform.position.y + Yinterval;
+        Vector3 initPos = new Vector3(StartPos.x, yPos, StartPos.z);
 
         for (int i = 0; i < arrowCount; i++)
         {
             Projectile projectile = Instantiate(projectilePrefab, initPos, Quaternion.identity);
             projectile.SetDamage(_skillData.Damage * attackPoint);
-            projectile.transform.Rotate(0, 0, -(90f * _startPos.forward.x));
+            projectile.transform.Rotate(0, 0, -(90f * StartDir));
             projectile.Fire(this, initPos, projectile.transform.up, _skillData.ProjectileSpeed);
             initPos.y += -Yinterval;
 

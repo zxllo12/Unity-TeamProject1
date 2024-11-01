@@ -13,12 +13,19 @@ public class SkillBase : MonoBehaviour
     protected ParticleSystem _castEffectInstance;
     protected Vector3 _castPos;
 
-    protected Transform _startPos;
+    // firePos의 transform, 계속 변함
+    protected Transform _fireTransform;
+
+    // Vector3형은 값타입이므로 변하지않음
+    protected Vector3 _startPos;
+    protected float _startDir;
     protected GameObject _user;
     
     // 유저의 방향을 알 수 있는 변수 필요
 
-    public Transform StartPos { get { return _startPos; } set { _startPos = value; } }
+    public Transform FireTransform { get { return _fireTransform; } set { _fireTransform = value; } }
+    public Vector3 StartPos { get { return _startPos; } set { _startPos = value; } }
+    public float StartDir { get { return _startDir; } set { _startDir = value; } }
     public Vector3 CastPos { get { return _castPos; } }
 
     public GameObject User { get { return _user; } set { _user = value; } }
@@ -50,8 +57,8 @@ public class SkillBase : MonoBehaviour
 
     public virtual void DoCast()
     {
-        Vector3 dist = new Vector3(_startPos.forward.x * _skillData.Range, 0, 0);
-        _castPos = StartPos.position + dist;
+        Vector3 dist = new Vector3(_fireTransform.forward.x * _skillData.Range, 0, 0);
+        _castPos = FireTransform.position + dist;
 
         if (castEffect == null)
             return;
