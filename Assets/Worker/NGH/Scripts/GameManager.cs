@@ -10,8 +10,10 @@ public class GameManager : MonoBehaviour
     // 싱글톤 인스턴스
     public static GameManager Instance;
 
+    // 플레이어의 골드
     [SerializeField] private int gold;
 
+    // 골드 변화가 있을시 작동하는 이벤트
     public UnityAction OnGoldChanged;
 
     int?[] playerSkillSlotID = new int?[(int)Enums.PlayerSkillSlot.Length];
@@ -81,6 +83,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        PlayerSaveManager.LoadGold(out gold);
     }
 
     private void Update()
@@ -107,6 +110,12 @@ public class GameManager : MonoBehaviour
     {
         // 비활성화 되면 이벤트 제거
         SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log("GameManager 파괴됨");
+        PlayerSaveManager.SaveGold(gold);
     }
 
     // 게임 시작 시 타이틀 화면에서 호출

@@ -29,8 +29,19 @@ public class StatusUpgradeShopUI : MonoBehaviour
 
     private void Start()
     {
+        InitializeStatus();
         SetPrice();
         UpdateUI();
+    }
+
+    private void OnDestroy()
+    {
+        PlayerSaveManager.SavePlayerSattus(upgradedAtk, upgradedDef, upgradedHealth, upgradedCooldown);
+    }
+
+    private void InitializeStatus() 
+    {
+        PlayerSaveManager.LoadPlayerStatus(out upgradedAtk, out upgradedDef, out upgradedHealth, out upgradedCooldown);
     }
 
     public void UpgradeAttack()
@@ -79,24 +90,23 @@ public class StatusUpgradeShopUI : MonoBehaviour
 
     public void SetPrice()
     {
-        attackPrice = upgradedAtk * 10;
-        defensePrice = upgradedDef * 10;
-        healthPrice = upgradedHealth * 10;
-        cooldownPrice = upgradedCooldown * 10;
+        attackPrice = upgradedAtk * 10 + 10;
+        defensePrice = upgradedDef * 10 + 10;
+        healthPrice = upgradedHealth * 10 + 10;
+        cooldownPrice = upgradedCooldown * 10 + 10;
     }
 
 
     private void UpdateUI()
     {
-        attackPriceText.text = $"Attack Price: {attackPrice}";
+        attackPriceText.text = $"{attackPrice}";
         attackIncreaseText.text = $"공격력 {upgradedAtk * 1} +1";
-        defensePriceText.text = $"Defense Price: {defensePrice}";
+        defensePriceText.text = $"{defensePrice}";
         defenseIncreaseText.text = $"방어력 {upgradedDef * 0.5f} +0.5";
-        healthPriceText.text = $"Health Price: {healthPrice}";
+        healthPriceText.text = $"{healthPrice}";
         healthIncreaseText.text = $"체력 {upgradedHealth * 5} +5";
-        cooldownPriceText.text = $"Cooldown Price: {cooldownPrice}";
+        cooldownPriceText.text = $"{cooldownPrice}";
         cooldownIncreaseText.text = $"쿨타임 감소 {upgradedCooldown * 1}% +1%";
         goldText.text = $"Gold: {GameManager.Instance.GetGold()}";
     }
-
 }
