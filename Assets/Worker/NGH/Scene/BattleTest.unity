@@ -2126,9 +2126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ef052b46811a04588ef6bfcc158c5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gold: 0
   player: {fileID: 0}
   battleUI: {fileID: 0}
-  gold: 0
   monsterCount: 0
 --- !u!4 &974339975
 Transform:
