@@ -3428,6 +3428,8 @@ MonoBehaviour:
   trigger: {fileID: 0}
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
+  WalkRangePoint: {x: 0, y: 0, z: 0}
+  destination: {x: 0, y: 0, z: 0}
   id: 8
   attack: 0
   def: 0
@@ -3436,11 +3438,11 @@ MonoBehaviour:
   walkSpeed: 0
   runSpeed: 0
   attackSpeed: 0
-  rage: 0
+  range: 0
   attackRage: 0
   canSkill: 0
   attackType: 0
-  bulletSpeed: 0
+  bulletSpeed: 3
 --- !u!1001 &1329178955981073294
 PrefabInstance:
   m_ObjectHideFlags: 0

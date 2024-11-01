@@ -1994,12 +1994,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  bulletPrefab: {fileID: 7108998634965173498, guid: f684a2abc37104343ab91e9ff9bf8552, type: 3}
+  bulletPrefab: {fileID: 7388910518196718470, guid: 77b9ff79397a4b841ad8c32cd0f2928f, type: 3}
   shootPoint: {fileID: 7944157225552164556}
   animator: {fileID: 8672418237054443117}
   trigger: {fileID: 0}
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
+  WalkRangePoint: {x: 0, y: 0, z: 0}
+  destination: {x: 0, y: 0, z: 0}
   id: 11
   attack: 0
   def: 0
@@ -2008,11 +2010,11 @@ MonoBehaviour:
   walkSpeed: 0
   runSpeed: 0
   attackSpeed: 0
-  rage: 0
+  range: 0
   attackRage: 0
   canSkill: 0
   attackType: 0
-  bulletSpeed: 0
+  bulletSpeed: 3
 --- !u!54 &3253287618294029972
 Rigidbody:
   m_ObjectHideFlags: 0
