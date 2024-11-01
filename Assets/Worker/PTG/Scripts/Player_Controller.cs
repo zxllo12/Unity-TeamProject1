@@ -47,6 +47,18 @@ public class Player_Controller : MonoBehaviour
 
     void Update()
     {
+        //점프 애니메이션
+        float height = rigid.velocity.y;
+
+        animator.SetFloat("height", Mathf.Abs(height));
+
+        //공격 모션 테스트
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            animator.SetTrigger("Atk");
+        }
+
+
         if (Input.GetKeyDown(basicSkillKey))
         {
             handler.DoBasicSkill(firePos, stats.attackPower);
