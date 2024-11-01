@@ -14,6 +14,7 @@ public class MonsterState : MonoBehaviour
     [SerializeField] Transform shootPoint;        // 발사 포인트
     [SerializeField] Animator animator;           // 재생할 에니메이터
     [SerializeField] AttackTrigger trigger;       // 공격 범위 확인 트리거
+    [SerializeField] Collider Collider;           // 데스웜 피격 판정용 콜라이더
     [SerializeField] GameObject hpBarPrefab;
     Slider hpBar;
     Transform hpBarTransform;
@@ -176,6 +177,8 @@ public class MonsterState : MonoBehaviour
 
     public void Idle()
     {
+        AllAnimationOff();
+
         // 대기 애니메이션 모션 출력
         animator.SetBool("isIdle", true);
 
@@ -189,7 +192,6 @@ public class MonsterState : MonoBehaviour
         if (Vector3.Distance(transform.position, player.transform.position) < range)
         {
             StopAllCoroutines();
-            AllAnimationOff(); // 애니메이션 취소
             curState = State.Running;   // 추적상태로 변환
         }
     }
@@ -208,6 +210,8 @@ public class MonsterState : MonoBehaviour
 
     public void Running()
     {
+        AllAnimationOff();
+
         Flip(player.transform.position);
         Vector3 towardVector = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
 
@@ -217,6 +221,9 @@ public class MonsterState : MonoBehaviour
             animator.SetBool("isDisappear", true);
             // 추적 애니메이션 실행
             animator.SetBool("isRunning", true);
+
+            // 들어가있는 동안 피격 판정 없도록
+            Collider.enabled = false;   
         }
         // 일반 몹
         else
@@ -234,7 +241,7 @@ public class MonsterState : MonoBehaviour
         // 공격범위 내로 들어왔을 경우
         if (Vector3.Distance(transform.position, player.transform.position) < attackRage)
         {
-            AllAnimationOff();
+           
             curState = State.Attack;
         }
 
@@ -242,7 +249,6 @@ public class MonsterState : MonoBehaviour
         // 일정 범위 내에 플레이어가 넘어갈 경우
         if (Vector3.Distance(transform.position, player.transform.position) > range)
         {
-            AllAnimationOff();
             curState = State.Return;   // 스폰지점으로 돌아간다
 
             if (isDeathWorm == true)
@@ -255,6 +261,8 @@ public class MonsterState : MonoBehaviour
     // 이동시 스폰지점으로 돌아가는 Return
     public void Return()
     {
+        AllAnimationOff();
+
         // 되돌아가는 상태 = 걷는 모션
         animator.SetBool("isWalking", true);
 
@@ -264,26 +272,28 @@ public class MonsterState : MonoBehaviour
         // 일정 범위 내에 플레이어가 들어왔을 경우
         if (Vector3.Distance(transform.position, player.transform.position) < range)
         {
-            animator.SetBool("isWalking", false);  // 애니메이션 취소
             curState = State.Running;   // 추적상태로 변환
         }
 
         // 스폰포인트에 도착했을 경우
         else if (transform.position.x == spawnPoint.x)
         {
-            animator.SetBool("isWalking", false);
             curState = State.Idle;
         }
     }
 
     public void Attack()
     {
+        AllAnimationOff();
+
         if (canAttack == true)
         {
             if(isDeathWorm == true)
             {
                 animator.SetBool("isAppear", true);
-                animator.SetBool("isIdle", true);
+                // animator.SetBool("isIdle", true);
+
+                Collider.enabled = true;
 
                 AllAnimationOff();
             }
@@ -313,7 +323,6 @@ public class MonsterState : MonoBehaviour
         // 공격범위 내로 들어왔을 경우
         if (Vector3.Distance(transform.position, player.transform.position) > attackRage)
         {
-            animator.SetBool("isAttacking", false);
             curState = State.Running;
         }
     }
@@ -355,6 +364,8 @@ public class MonsterState : MonoBehaviour
 
     public void Walking()
     {
+        AllAnimationOff();
+
         // 걷기 애니메이션 
         animator.SetBool("isWalking", true);
 
@@ -377,7 +388,6 @@ public class MonsterState : MonoBehaviour
         // 일정 범위 내에 플레이어가 들어왔을 경우
         if (Vector3.Distance(transform.position, player.transform.position) < range)
         {
-            animator.SetBool("isWalking", false);  // 애니메이션 취소
             curState = State.Running;   // 추적상태로 변환
         }
     }
