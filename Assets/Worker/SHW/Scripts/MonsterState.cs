@@ -38,7 +38,8 @@ public class MonsterState : MonoBehaviour
     bool canAttack = true;      // 공격 확인
     float attackTimer;          // 공격 타이머
 
-
+    bool isDeathWorm; // 데스웜 확인
+    bool isBoss;  // 보스 확인
 
     // 사망확인용
     bool isdead = false;
@@ -54,6 +55,15 @@ public class MonsterState : MonoBehaviour
         animator = GetComponent<Animator>();
 
         LoadMonsterData(id);
+
+        if (id == 14)
+        {
+            isDeathWorm = true;
+        }
+        if (id >= 15)
+        {
+            isBoss = true;
+        }
 
         // 스폰 포인트 저장
         spawnPoint = transform.position;
@@ -153,11 +163,14 @@ public class MonsterState : MonoBehaviour
 
     public void Idle()
     {
-
         // 대기 애니메이션 모션 출력
         animator.SetBool("isIdle", true);
 
-        StartCoroutine(WalkCoroutine());
+        // 데스웜 제외 걷기 상태 변경
+        if (isDeathWorm == false)
+        {
+            StartCoroutine(WalkCoroutine());
+        }
 
         // 일정 범위 내에 플레이어가 들어왔을 경우
         if (Vector3.Distance(transform.position, player.transform.position) < range)
@@ -173,7 +186,7 @@ public class MonsterState : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         curState = State.Walking;
-        animator.SetBool("isIdle", false);
+        AllAnimationOff();
 
         // 이거 괜찮나..?
         // 다음 상태로 넘어갈때 다른 코루틴 전부 종료..?
@@ -182,17 +195,24 @@ public class MonsterState : MonoBehaviour
 
     public void Running()
     {
-        // 추적 애니메이션 실행
-        animator.SetBool("isRunning", true);
-
         Flip(player.transform.position);
         Vector3 towardVector = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
 
-        // 타겟(플레이어)를 향해서 이동
-        // 플레이어의 x축 만 받는 벡터를 만들것
-        transform.position = Vector3.MoveTowards(transform.position, towardVector, runSpeed * Time.deltaTime);
+        // 데스웜
+        if (isDeathWorm == true)
+        {
+            animator.SetBool("isDisappear", true);
+        }
+        // 일반 몹
+        else
+        {
+            // 추적 애니메이션 실행
+            animator.SetBool("isRunning", true);
 
-        Debug.Log($"{Vector3.Distance(transform.position, player.transform.position) }");
+            // 타겟(플레이어)를 향해서 이동
+            // 플레이어의 x축 만 받는 벡터를 만들것
+            transform.position = Vector3.MoveTowards(transform.position, towardVector, runSpeed * Time.deltaTime);
+        }
 
         // 공격범위 내로 들어왔을 경우
         if (Vector3.Distance(transform.position, player.transform.position) < attackRage)
@@ -238,7 +258,6 @@ public class MonsterState : MonoBehaviour
     {
         if (canAttack == true)
         {
-            // Debug.Log("공격성공");
             // 공격 애니메이션
             animator.SetBool("isAttacking", true);
 
