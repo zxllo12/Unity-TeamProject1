@@ -1050,8 +1050,8 @@ GameObject:
   - component: {fileID: 1818569843717701315}
   - component: {fileID: 1818569843726684451}
   - component: {fileID: 7406655132794978803}
-  - component: {fileID: 7406655132794978802}
   - component: {fileID: 7406655132794978800}
+  - component: {fileID: 1693354311890493631}
   m_Layer: 7
   m_Name: Spider King
   m_TagString: Untagged
@@ -1137,20 +1137,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 124
   m_CollisionDetection: 0
---- !u!136 &7406655132794978802
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1818569843717202659}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.7410354
-  m_Height: 1.4820712
-  m_Direction: 1
-  m_Center: {x: 6.340555e-17, y: 0.7231059, z: -0.020086765}
 --- !u!114 &7406655132794978800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1170,6 +1156,8 @@ MonoBehaviour:
   trigger: {fileID: 0}
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
+  WalkRangePoint: {x: 0, y: 0, z: 0}
+  destination: {x: 0, y: 0, z: 0}
   id: 6
   attack: 0
   def: 0
@@ -1178,11 +1166,24 @@ MonoBehaviour:
   walkSpeed: 0
   runSpeed: 0
   attackSpeed: 0
-  rage: 0
+  range: 0
   attackRage: 0
   canSkill: 0
   attackType: 0
   bulletSpeed: 3
+--- !u!65 &1693354311890493631
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818569843717202659}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.1447382, z: 1.4570675}
+  m_Center: {x: -2.7672302e-18, y: 0.8570018, z: -0.0076177716}
 --- !u!1 &1818569843717202661
 GameObject:
   m_ObjectHideFlags: 0
