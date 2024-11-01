@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class MonsterState : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class MonsterState : MonoBehaviour
     [SerializeField] Transform shootPoint;        // 발사 포인트
     [SerializeField] Animator animator;           // 재생할 에니메이터
     [SerializeField] AttackTrigger trigger;       // 공격 범위 확인 트리거
+    [SerializeField] GameObject hpBarPrefab;
+    Slider hpBar;
+    Transform hpBarTransform;
 
 
     [Header("State")]
@@ -76,6 +80,13 @@ public class MonsterState : MonoBehaviour
     {
         // LoadMonsterData(id);
         player = GameManager.Instance.player;
+
+        GameObject hpBarInstance = Instantiate(hpBarPrefab, transform.position, Quaternion.identity);
+        hpBarInstance.transform.SetParent(GameObject.Find("WorldCanvas").transform);
+        hpBar = hpBarInstance.GetComponent<Slider>();
+
+        hpBarTransform = hpBarInstance.transform;
+        UpdateHPBar();
     }
 
     private void OnDisable()
@@ -159,6 +170,8 @@ public class MonsterState : MonoBehaviour
                 canAttack = true;
             }
         }
+
+        hpBarTransform.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * -1.5f);
     }
 
     public void Idle()
@@ -313,6 +326,7 @@ public class MonsterState : MonoBehaviour
         {
             OnDead?.Invoke(this);
             // animator.SetBool("isDead", false);
+            Destroy(hpBar.gameObject);
             Destroy(gameObject, 3f);
         }
     }
@@ -374,6 +388,8 @@ public class MonsterState : MonoBehaviour
         // Hp 감소
         curHp -= damage;
 
+        UpdateHPBar();
+
         // 죽었을 경우
         if (curHp <= 0)
         {
@@ -431,6 +447,14 @@ public class MonsterState : MonoBehaviour
         animator.SetBool("isAttacking", false);
         animator.SetBool("isDead", false);
         animator.SetBool("isStun", false);
+    }
+
+    private void UpdateHPBar()
+    {
+        if(hpBar != null)
+        {
+            hpBar.value = (float)curHp / hp;
+        }
     }
 }
 
