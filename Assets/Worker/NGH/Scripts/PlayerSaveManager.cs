@@ -43,6 +43,7 @@ public static class PlayerSaveManager
         // PlayerPrefs에 문자열로 저장
         PlayerPrefs.SetString(key, listString);
         PlayerPrefs.Save();
+        Debug.Log("UnlockedSkillList 저장됨");
     }
 
     public static List<int> LoadUnlockedSkillList(string key)
@@ -53,6 +54,7 @@ public static class PlayerSaveManager
         // 저장된 데이터가 없으면 빈 리스트 반환
         if (string.IsNullOrEmpty(listString))
         {
+            Debug.Log("빈 UnlockedSkillList 불러옴");
             return new List<int>();
         }
 
@@ -67,6 +69,7 @@ public static class PlayerSaveManager
                 intlist.Add(value);
             }
         }
+        Debug.Log("UnlockedSkillList 불러옴");
         return intlist;
     }
 }

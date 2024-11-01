@@ -34,6 +34,11 @@ public class StatusUpgradeShopUI : MonoBehaviour
         UpdateUI();
     }
 
+    private void OnDestroy()
+    {
+        PlayerSaveManager.SavePlayerSattus(upgradedAtk, upgradedDef, upgradedHealth, upgradedCooldown);
+    }
+
     private void InitializeStatus() 
     {
         PlayerSaveManager.LoadPlayerStatus(out upgradedAtk, out upgradedDef, out upgradedHealth, out upgradedCooldown);

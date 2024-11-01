@@ -17,11 +17,19 @@ public class SkillUnlockManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        Debug.Log("SkillUnlockManager »ý¼ºµÊ");
+        unlockedSkills = PlayerSaveManager.LoadUnlockedSkillList("UnlockedSkillList");
     }
 
     private void Start()
     {
         
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log("SkillUnlockManager ÆÄ±«µÊ");
+        PlayerSaveManager.SaveUnlockedSkillList("UnlockedSkillList", unlockedSkills);
     }
 
     public bool IsSkillUnlocked(int skillID)
