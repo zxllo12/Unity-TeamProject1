@@ -38,6 +38,7 @@ public class FrozenSword : SkillBase
             ParticleSystem.MainModule main = projectile.gameObject.GetComponent<ParticleSystem>().main;
             main.startDelay = DelayTimes[i];
             projectile.SetDamage(_skillData.Damage * attackPoint);
+            projectile.SetTriggerSize(_skillData.Radius);
             projectile.EnableTrigger();
 
             yield return null;

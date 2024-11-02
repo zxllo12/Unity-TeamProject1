@@ -22,6 +22,7 @@ public class FireBoom : SkillBase
     {
         AreaProjectile projectile = Instantiate(projectilePrefab, _castPos, Quaternion.identity) as AreaProjectile;
         projectile.SetDamage(_skillData.Damage * attackPoint);
+        projectile.SetTriggerSize(_skillData.Radius);
         projectile.EnableTrigger();
         base.DoSkill(attackPoint);
     }

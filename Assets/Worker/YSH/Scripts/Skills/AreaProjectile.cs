@@ -22,6 +22,11 @@ public class AreaProjectile : Projectile
         StartCoroutine(DestroyAreaProjectile());
     }
 
+    public void SetTriggerSize(float xSize)
+    {
+        _triggerCollider.size = new Vector3(xSize, _triggerCollider.size.y, _triggerCollider.size.z);
+    }
+
     public void EnableTrigger()
     {
         //Debug.Log($"Enable Trigger : {gameObject.name}");
