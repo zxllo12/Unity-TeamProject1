@@ -34,7 +34,7 @@ public class IceArrow : SkillBase
     {
         base.DoSkill(attackPoint);
 
-        float yPos = FireTransform.position.y + Yinterval;
+        float yPos = StartPos.y + Yinterval;
         Vector3 initPos = new Vector3(StartPos.x, yPos, StartPos.z);
 
         for (int i = 0; i < arrowCount; i++)

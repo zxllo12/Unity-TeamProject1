@@ -24,9 +24,8 @@ public class AreaProjectile : Projectile
 
     public void EnableTrigger()
     {
-        Debug.Log($"Enable Trigger : {gameObject.name}");
+        //Debug.Log($"Enable Trigger : {gameObject.name}");
         _triggerCollider.enabled = true;
-        //_triggerCollider.enabled = false;
     }
 
     IEnumerator DestroyAreaProjectile()

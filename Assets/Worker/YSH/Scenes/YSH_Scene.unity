@@ -739,6 +739,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d82bae5565f22f4b8e28ad520ebe155, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSpaceWorld: 1
   rotValue: {x: 25, y: 0, z: 0}
 --- !u!65 &663339749
 BoxCollider:
