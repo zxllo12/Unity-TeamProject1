@@ -617,7 +617,8 @@ MonoBehaviour:
   shootPoint: {fileID: 0}
   animator: {fileID: 4341523719767431421}
   trigger: {fileID: 7751410387884236863}
-  hpBarPrefab: {fileID: 0}
+  Collider: {fileID: 0}
+  hpBarPrefab: {fileID: 1273474970888333437, guid: f6e56f2315d945b49ba9ddce93a6345d, type: 3}
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   WalkRangePoint: {x: 0, y: 0, z: 0}
