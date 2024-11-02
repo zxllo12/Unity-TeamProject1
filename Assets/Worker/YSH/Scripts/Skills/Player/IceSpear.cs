@@ -9,12 +9,12 @@ public class IceSpear : SkillBase
         base.SetData(id);
     }
 
-    public override void DoSkill(float attackPoint)
+    public override void DoSkill()
     {
         Projectile projectile = Instantiate(projectilePrefab, StartPos, Quaternion.identity);
-        projectile.SetDamage(_skillData.Damage * attackPoint);
+        projectile.SetDamage(_skillData.Damage * _attackPoint);
         projectile.transform.Rotate(0, 0, -(90f * StartDir));
         projectile.Fire(this, StartPos, projectile.transform.up, _skillData.ProjectileSpeed);
-        base.DoSkill(attackPoint);
+        base.DoSkill();
     }
 }

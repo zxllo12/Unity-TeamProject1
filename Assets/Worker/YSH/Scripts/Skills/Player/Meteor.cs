@@ -14,12 +14,12 @@ public class Meteor : SkillBase
         base.DoCast();
     }
 
-    public override void DoSkill(float attackPoint)
+    public override void DoSkill()
     {
         AreaProjectile projectile = Instantiate(projectilePrefab, _castPos, Quaternion.identity) as AreaProjectile;
         ParticleSystem.ShapeModule shape = projectile.GetComponent<ParticleSystem>().shape;
         shape.scale = new Vector3(_skillData.Radius, 1f, 1f);
-        projectile.SetDamage(_skillData.Damage * attackPoint);
-        base.DoSkill(attackPoint);
+        projectile.SetDamage(_skillData.Damage * _attackPoint);
+        base.DoSkill();
     }
 }

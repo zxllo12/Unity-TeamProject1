@@ -20,6 +20,8 @@ public class SkillBase : MonoBehaviour
     protected Vector3 _startPos;
     protected float _startDir;
     protected GameObject _user;
+
+    protected float _attackPoint;
     
     // 유저의 방향을 알 수 있는 변수 필요
 
@@ -29,6 +31,7 @@ public class SkillBase : MonoBehaviour
     public Vector3 CastPos { get { return _castPos; } }
 
     public GameObject User { get { return _user; } set { _user = value; } }
+    public float AttackPoint { get { return _attackPoint; } set { _attackPoint = value; } } 
 
     public SkillData SkillData { get { return _skillData; } }
 
@@ -74,7 +77,7 @@ public class SkillBase : MonoBehaviour
         }
     }
 
-    public virtual void DoSkill(float attackPoint)
+    public virtual void DoSkill()
     {
         Debug.Log($"Do Skill : {_skillData.Name}");
         // 스킬 사용 시의 공통 행동

@@ -15,18 +15,18 @@ public class FrozenSword : SkillBase
 
     Vector3[] _positions = new Vector3[swordCount];
 
-    public override void DoSkill(float attackPoint)
+    public override void DoSkill()
     {
         if (_skillRoutine != null)
             return;
 
         Debug.Log("IceArrow DoSkill");
-        _skillRoutine = StartCoroutine(SkillRoutine(attackPoint));
+        _skillRoutine = StartCoroutine(SkillRoutine());
     }
 
-    IEnumerator SkillRoutine(float attackPoint)
+    IEnumerator SkillRoutine()
     {
-        base.DoSkill(attackPoint);
+        base.DoSkill();
 
         _positions[0] = new Vector3(CastPos.x, CastPos.y - yInterval, CastPos.z);
         _positions[1] = new Vector3(CastPos.x - xInterval, CastPos.y - yInterval, CastPos.z);
@@ -37,7 +37,7 @@ public class FrozenSword : SkillBase
             AreaProjectile projectile = Instantiate(SwordPrefab[i], _positions[i], Quaternion.identity) as AreaProjectile;
             ParticleSystem.MainModule main = projectile.gameObject.GetComponent<ParticleSystem>().main;
             main.startDelay = DelayTimes[i];
-            projectile.SetDamage(_skillData.Damage * attackPoint);
+            projectile.SetDamage(_skillData.Damage * _attackPoint);
             projectile.SetTriggerSize(_skillData.Radius);
             projectile.EnableTrigger();
 

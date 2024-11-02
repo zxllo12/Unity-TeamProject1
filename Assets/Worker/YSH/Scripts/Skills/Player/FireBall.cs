@@ -10,12 +10,12 @@ public class FireBall : SkillBase
         base.SetData(id);
     }
 
-    public override void DoSkill(float attackPoint)
+    public override void DoSkill()
     {
         Projectile projectile = Instantiate(projectilePrefab, StartPos, Quaternion.identity);
-        projectile.SetDamage(_skillData.Damage * attackPoint);
+        projectile.SetDamage(_skillData.Damage * _attackPoint);
         projectile.transform.rotation = Quaternion.LookRotation(new Vector3(StartDir, 0, 0));
         projectile.Fire(this, StartPos, projectile.transform.forward, _skillData.ProjectileSpeed);
-        base.DoSkill(attackPoint);
+        base.DoSkill();
     }
 }
