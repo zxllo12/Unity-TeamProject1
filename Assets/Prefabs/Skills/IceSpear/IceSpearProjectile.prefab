@@ -13,7 +13,9 @@ GameObject:
   - component: {fileID: 1876011369840663217}
   - component: {fileID: 4810083933674047937}
   - component: {fileID: 5469452009375819145}
-  m_Layer: 0
+  - component: {fileID: -413679712982995925}
+  - component: {fileID: 3957064848775510347}
+  m_Layer: 31
   m_Name: IceSpearProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 74329281888385892}
-  m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 4.5, y: 1.2, z: 0}
   m_LocalScale: {x: 0.5, y: 0.9, z: 1}
   m_ConstrainProportionsScale: 0
@@ -35,7 +37,7 @@ Transform:
   - {fileID: 1566465338194223998}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4461969021945949819
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -98,7 +100,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 4
@@ -111,11 +113,39 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 74329281888385892}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.25
   m_Center: {x: 0, y: 1.82, z: 0}
+--- !u!114 &-413679712982995925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 74329281888385892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d6d4a519aa0c4c43af300541ffb8a55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashEffect: {fileID: 5548562989863330931, guid: f0fcdfc9589fdef4884136f89d1d7812, type: 3}
+  hitEffect: {fileID: 567064712191396584, guid: e6863f703e9397842b112391bd36cf4c, type: 3}
+--- !u!114 &3957064848775510347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 74329281888385892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d82bae5565f22f4b8e28ad520ebe155, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpaceWorld: 1
+  rotValue: {x: 600, y: 0, z: 0}
 --- !u!1 &1566465338194223993
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,7 +157,7 @@ GameObject:
   - component: {fileID: 1566465338194223998}
   - component: {fileID: 1566465338194223999}
   - component: {fileID: 1566465338194223992}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4955,7 +4985,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6137315630393019013}
   - component: {fileID: 6137315630393019012}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5050,7 +5080,7 @@ GameObject:
   - component: {fileID: 6137315632036884065}
   - component: {fileID: 6137315632036884067}
   - component: {fileID: 6137315632036884066}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Ice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9874,7 +9904,7 @@ GameObject:
   - component: {fileID: 6137315632134409601}
   - component: {fileID: 6137315632134409600}
   - component: {fileID: 6137315632134409607}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Snowflake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14698,7 +14728,7 @@ GameObject:
   - component: {fileID: 3391378563019620454}
   - component: {fileID: 772066523159010013}
   - component: {fileID: 5822786232565651374}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
