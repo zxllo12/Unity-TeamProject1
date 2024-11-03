@@ -28,6 +28,7 @@ public class LightChain : SkillBase
         {
             monster.IsHit(_skillData.Damage * _attackPoint);
             Debug.Log($"{gameObject.name} Damage : {_skillData.Damage * _attackPoint}");
+            //monster.Stunned(_skillData.Second);
             ParticleSystem particle = Instantiate(ligthChainEffect, go.transform);
             Destroy(particle.gameObject, particle.main.duration);
         }
