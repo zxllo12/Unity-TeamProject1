@@ -19,6 +19,15 @@ public class MonsterState : MonoBehaviour
     Slider hpBar;
     Transform hpBarTransform;
 
+    [Header("Boss1")]
+    [SerializeField] float healAmount;      // 회복량
+    [SerializeField] float healRange;       // 회복 범위                                 
+    [SerializeField] private GameObject[] monsterPrefabs;    // 소환용 몬스터 프리팹
+
+    [Header("Boss2")]
+    [SerializeField] float buffDuration; // 버프 지속 시간
+    [SerializeField] float attackBuffMultiplier; // 공격력 20% 증가
+    [SerializeField] float defenseBuffMultiplier; // 방어력 20% 증가
 
     [Header("State")]
     [SerializeField] State curState;         // 현상태
@@ -52,8 +61,7 @@ public class MonsterState : MonoBehaviour
 
     public bool skillCoolDown = true;
 
-    // 소환용 몬스터 프리팹
-    [SerializeField] private GameObject[] monsterPrefabs;
+
 
     // 사망확인용
     bool isdead = false;
@@ -376,6 +384,10 @@ public class MonsterState : MonoBehaviour
         {
             RushSkill();
         }
+        if (id == 15)        // 보스1
+        {
+            SummonMonster();
+        }
     }
 
     // 배회
@@ -550,8 +562,11 @@ public class MonsterState : MonoBehaviour
 
         animator.SetBool("isUsingSkill", false);
 
+        StartCoroutine(SkillCoolDown());
+
         // 돌진 후 상태를 기본 상태로 변경
         curState = State.Idle;
+
     }
 
     // 오크법사 
@@ -563,17 +578,17 @@ public class MonsterState : MonoBehaviour
     // 골렘 스킬 = 단단해지기
     public void Harden()
     {
-        if(skillCoolDown == false) { return; }
+        if (skillCoolDown == false) { return; }
 
         int hardenStack = 0;
         int maxStack = 5;
         float StackDuration = 35;
         float amountIncrease = 0.1f;
 
-        if (hardenStack<maxStack)
+        if (hardenStack < maxStack)
         {
             // 뭐라하더라 복리식? 으로 계산된 상황
-           float defIncrease = def * amountIncrease;
+            float defIncrease = def * amountIncrease;
             def += defIncrease;
             hardenStack++;
         }
@@ -590,13 +605,60 @@ public class MonsterState : MonoBehaviour
     // 보스1 몬스터 힐
     public void MonsterHill()
     {
-        
+        if (skillCoolDown == false) { return; }
+
+        // 범위 내의 몬스터 찾기
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, healRange);
+
+        foreach (var hitCollider in hitColliders)
+        {
+            MonsterState monster = hitCollider.GetComponent<MonsterState>();
+
+            // 보스가 아닌 몬스터들만 회복 (자기 자신 제외)
+            if (monster != null && monster != this)
+            {
+                monster.curHp = Mathf.Min(monster.curHp + healAmount, monster.hp); // 최대 체력을 넘지 않도록 회복
+                monster.UpdateHPBar();  // 체력바 업데이트
+            }
+        }
+
+        StartCoroutine(SkillCoolDown());
     }
 
     // 보스2 몬스터 광폭화
     public void MonsterBurserKer()
     {
 
+
+        Collider[] nearbyMonsters = Physics.OverlapSphere(transform.position, 10f); // 반경 10m 내의 몬스터 탐색
+
+        foreach (Collider collider in nearbyMonsters)
+        {
+            MonsterState monster = collider.GetComponent<MonsterState>();
+
+            if (monster != null && monster != this) // 자신을 제외한 몬스터만 적용
+            {
+                StartCoroutine(ApplyBuff(monster, attackBuffMultiplier, defenseBuffMultiplier, buffDuration));
+            }
+        }
+
+        StartCoroutine(SkillCoolDown());
+    }
+
+    IEnumerator ApplyBuff(MonsterState monster, float attackMultiplier, float defenseMultiplier, float duration)
+    {
+        float originalAttack = monster.attack;
+        float originalDefense = monster.def;
+
+        // 공격력과 방어력 증가
+        monster.attack *= attackMultiplier;
+        monster.def *= defenseMultiplier;
+
+        yield return new WaitForSeconds(duration);
+
+        // 원래 상태로 복원
+        monster.attack = originalAttack;
+        monster.def = originalDefense;
     }
 
     // 보스3 몬스터 흡혈
@@ -626,8 +688,11 @@ public class MonsterState : MonoBehaviour
             GameObject monsterPrefab = monsterPrefabs[randomIndex];
 
             // 몬스터 소환
-            Instantiate(monsterPrefab, spawnPosition, Quaternion.identity);
+            Quaternion spawnRotation = Quaternion.Euler(0, -90, 0); // y축 기준으로 90도 회전 // 소환 방향 
+            Instantiate(monsterPrefab, spawnPosition, spawnRotation);
         }
+
+        StartCoroutine(SkillCoolDown());
     }
 
     IEnumerator SkillCoolDown()
