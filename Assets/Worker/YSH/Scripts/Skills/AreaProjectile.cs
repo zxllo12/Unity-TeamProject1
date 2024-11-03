@@ -7,7 +7,7 @@ public class AreaProjectile : Projectile
     BoxCollider _triggerCollider;
 
     ParticleSystem _particle;
-    float _destroyTime;
+    [SerializeField] float _destroyTime;
 
     private void Awake()
     {
@@ -17,7 +17,9 @@ public class AreaProjectile : Projectile
             _triggerCollider.enabled = false;
 
         _particle = GetComponent<ParticleSystem>();
-        _destroyTime = _particle.main.duration;
+
+        if (_particle != null)
+            _destroyTime = _particle.main.duration;
 
         StartCoroutine(DestroyAreaProjectile());
     }
@@ -29,7 +31,6 @@ public class AreaProjectile : Projectile
 
     public void EnableTrigger()
     {
-        //Debug.Log($"Enable Trigger : {gameObject.name}");
         _triggerCollider.enabled = true;
     }
 
@@ -42,40 +43,50 @@ public class AreaProjectile : Projectile
 
     protected override void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"{gameObject.name} hit : {other.name}");
-
-        if (hitEffect != null)
+        if (useCallBack == false)
         {
-            ParticleSystem effect = Instantiate(hitEffect, other.transform.position, Quaternion.identity);
-            Destroy(effect.gameObject, effect.main.duration);
-        }
+            if (hitEffect != null)
+            {
+                ParticleSystem effect = Instantiate(hitEffect, other.transform.position, Quaternion.identity);
+                Destroy(effect.gameObject, effect.main.duration);
+            }
 
-        MonsterState monster = other.GetComponent<MonsterState>();
-        if (monster != null)
+            MonsterState monster = other.GetComponent<MonsterState>();
+            if (monster != null)
+            {
+                monster.IsHit(_damage);
+            }
+
+            Debug.Log($"Projectile Damage : {_damage}");
+        }
+        else
         {
-            monster.IsHit(_damage);
+            OnHit?.Invoke(other.gameObject);
         }
-
-        Debug.Log($"Projectile Damage : {_damage}");
     }
 
     // 파티클 시스템의 Collision 이용 시 
     private void OnParticleCollision(GameObject other)
     {
-        Debug.Log($"{gameObject.name} hit : {other.name}");
-
-        if (hitEffect != null)
+        if (useCallBack == false)
         {
-            ParticleSystem effect = Instantiate(hitEffect, other.transform.position, Quaternion.identity);
-            Destroy(effect.gameObject, effect.main.duration);
-        }
+            if (hitEffect != null)
+            {
+                ParticleSystem effect = Instantiate(hitEffect, other.transform.position, Quaternion.identity);
+                Destroy(effect.gameObject, effect.main.duration);
+            }
 
-        MonsterState monster = other.GetComponent<MonsterState>();
-        if (monster != null)
+            MonsterState monster = other.GetComponent<MonsterState>();
+            if (monster != null)
+            {
+                monster.IsHit(_damage);
+            }
+
+            Debug.Log($"Projectile Damage : {_damage}");
+        }
+        else
         {
-            monster.IsHit(_damage);
+            OnHit?.Invoke(other);
         }
-
-        Debug.Log($"Projectile Damage : {_damage}");
     }
 }

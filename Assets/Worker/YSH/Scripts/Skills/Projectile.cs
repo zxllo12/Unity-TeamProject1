@@ -7,7 +7,7 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] protected ParticleSystem flashEffect;
     [SerializeField] protected ParticleSystem hitEffect;
-    [SerializeField] bool useCallBack = false;
+    [SerializeField] protected bool useCallBack = false;
 
     protected Coroutine _moveRoutine;
 
@@ -57,8 +57,6 @@ public class Projectile : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"{gameObject.name} hit : {other.name}");
-
         if (hitEffect != null)
         {
             ParticleSystem effect = Instantiate(hitEffect, other.transform.position, Quaternion.identity);
