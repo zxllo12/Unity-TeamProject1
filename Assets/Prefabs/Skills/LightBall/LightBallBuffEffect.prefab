@@ -9840,7 +9840,7 @@ GameObject:
   - component: {fileID: 198397783741852124}
   - component: {fileID: 199318267386344112}
   m_Layer: 0
-  m_Name: LightBallPostEffect
+  m_Name: LightBallBuffEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
