@@ -236,6 +236,8 @@ MonoBehaviour:
   shootPoint: {fileID: 0}
   animator: {fileID: 7641833023577835910}
   trigger: {fileID: 7737060135973155032}
+  Collider: {fileID: 0}
+  hpBarPrefab: {fileID: 1273474970888333437, guid: f6e56f2315d945b49ba9ddce93a6345d, type: 3}
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   WalkRangePoint: {x: 0, y: 0, z: 0}
@@ -253,6 +255,9 @@ MonoBehaviour:
   canSkill: 0
   attackType: 0
   bulletSpeed: 0
+  SkillCool: 0
+  isDeathWorm: 0
+  isBoss: 0
 --- !u!1 &7735229569162422912
 GameObject:
   m_ObjectHideFlags: 0
@@ -2198,4 +2203,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce154dafe7621404daa12d513df3bf6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableTime: 0
+  disableTime: 0.8

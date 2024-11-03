@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MonsterState : MonoBehaviour
 {
     // 대기, 추적, 공격, 사망, 되돌아가기, 스킬, 이동, 피격
-    public enum State { Idle, Running, Attack, Return, Skill, Walking, Dead, IsHit }
+    public enum State { Idle, Running, Attack, Return, Skill, Walking, Dead, Stun }
 
     [Header("Setting")]
     [SerializeField] Player_Controller player;    // 추적할 플레이어
@@ -14,6 +14,7 @@ public class MonsterState : MonoBehaviour
     [SerializeField] Transform shootPoint;        // 발사 포인트
     [SerializeField] Animator animator;           // 재생할 에니메이터
     [SerializeField] AttackTrigger trigger;       // 공격 범위 확인 트리거
+    [SerializeField] Collider Collider;           // 데스웜 피격 판정용 콜라이더
     [SerializeField] GameObject hpBarPrefab;
     Slider hpBar;
     Transform hpBarTransform;
@@ -42,8 +43,11 @@ public class MonsterState : MonoBehaviour
     bool canAttack = true;      // 공격 확인
     float attackTimer;          // 공격 타이머
 
-   public bool isDeathWorm; // 데스웜 확인
-   public bool isBoss;  // 보스 확인
+    public bool isDeathWorm; // 데스웜 확인
+    public bool isBoss;  // 보스 확인
+
+    public bool isStun = false;
+    float stunTimer = 0;
 
     // 사망확인용
     bool isdead = false;
@@ -94,6 +98,7 @@ public class MonsterState : MonoBehaviour
 
     }
 
+    // 데이터 불러오는 함수
     public void LoadMonsterData(int id)
     {
         // 오류 확인용
@@ -153,12 +158,11 @@ public class MonsterState : MonoBehaviour
             case State.Walking: // 이동 = 배회
                 Walking();
                 break;
-            /*
-        case State.IsHit:   // 피격
-            IsHit();
-            return;*/
             case State.Dead:  // (임시) 사망
                 Dead();
+                break;
+            case State.Stun:
+                Stun();
                 break;
         }
 
@@ -174,8 +178,11 @@ public class MonsterState : MonoBehaviour
         hpBarTransform.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * -1.5f);
     }
 
+    // 기본 대기상태
     public void Idle()
     {
+        AllAnimationOff();
+
         // 대기 애니메이션 모션 출력
         animator.SetBool("isIdle", true);
 
@@ -189,7 +196,6 @@ public class MonsterState : MonoBehaviour
         if (Vector3.Distance(transform.position, player.transform.position) < range)
         {
             StopAllCoroutines();
-            AllAnimationOff(); // 애니메이션 취소
             curState = State.Running;   // 추적상태로 변환
         }
     }
@@ -206,8 +212,11 @@ public class MonsterState : MonoBehaviour
         StopAllCoroutines();
     }
 
+    // 추적
     public void Running()
     {
+        AllAnimationOff();
+
         Flip(player.transform.position);
         Vector3 towardVector = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
 
@@ -217,6 +226,9 @@ public class MonsterState : MonoBehaviour
             animator.SetBool("isDisappear", true);
             // 추적 애니메이션 실행
             animator.SetBool("isRunning", true);
+
+            // 들어가있는 동안 피격 판정 없도록
+            Collider.enabled = false;
         }
         // 일반 몹
         else
@@ -234,7 +246,7 @@ public class MonsterState : MonoBehaviour
         // 공격범위 내로 들어왔을 경우
         if (Vector3.Distance(transform.position, player.transform.position) < attackRage)
         {
-            AllAnimationOff();
+
             curState = State.Attack;
         }
 
@@ -242,7 +254,6 @@ public class MonsterState : MonoBehaviour
         // 일정 범위 내에 플레이어가 넘어갈 경우
         if (Vector3.Distance(transform.position, player.transform.position) > range)
         {
-            AllAnimationOff();
             curState = State.Return;   // 스폰지점으로 돌아간다
 
             if (isDeathWorm == true)
@@ -255,35 +266,41 @@ public class MonsterState : MonoBehaviour
     // 이동시 스폰지점으로 돌아가는 Return
     public void Return()
     {
-        // 되돌아가는 상태 = 걷는 모션
-        animator.SetBool("isWalking", true);
-
-        // 스폰지점으로 다시 돌아감
-        transform.position = Vector3.MoveTowards(transform.position, spawnPoint, walkSpeed * Time.deltaTime);
+        AllAnimationOff();
 
         // 일정 범위 내에 플레이어가 들어왔을 경우
         if (Vector3.Distance(transform.position, player.transform.position) < range)
         {
-            animator.SetBool("isWalking", false);  // 애니메이션 취소
             curState = State.Running;   // 추적상태로 변환
         }
 
         // 스폰포인트에 도착했을 경우
         else if (transform.position.x == spawnPoint.x)
         {
-            animator.SetBool("isWalking", false);
             curState = State.Idle;
         }
     }
 
+    // 공격
     public void Attack()
     {
+        AllAnimationOff();
+
         if (canAttack == true)
         {
-            if(isDeathWorm == true)
+            // 스킬 발동 여부 확인
+            if (canSkill == true)
+            {
+                Skill();
+                return;
+            }
+
+            if (isDeathWorm == true)
             {
                 animator.SetBool("isAppear", true);
-                animator.SetBool("isIdle", true);
+                // animator.SetBool("isIdle", true);
+
+                Collider.enabled = true;
 
                 AllAnimationOff();
             }
@@ -313,21 +330,11 @@ public class MonsterState : MonoBehaviour
         // 공격범위 내로 들어왔을 경우
         if (Vector3.Distance(transform.position, player.transform.position) > attackRage)
         {
-            animator.SetBool("isAttacking", false);
             curState = State.Running;
         }
     }
 
-    IEnumerator ShootCoroutine()
-    {
-        Debug.Log("코루틴 시작");
-
-        yield return new WaitForSeconds(2f);
-
-
-
-    }
-
+    // 사망
     public void Dead()
     {
         // 이전 어느상태든 에니메이션 끄기
@@ -348,13 +355,24 @@ public class MonsterState : MonoBehaviour
         }
     }
 
+    // 스킬
     public void Skill()
     {
-        // 스킬이 있는 몬스터의 경우
+        AllAnimationOff();
+
+        animator.SetBool("SkillReady", true);
+
+        if (id == 1)      // 멧돼지
+        {
+            RushSkill();
+        }
     }
 
+    // 배회
     public void Walking()
     {
+        AllAnimationOff();
+
         // 걷기 애니메이션 
         animator.SetBool("isWalking", true);
 
@@ -377,7 +395,6 @@ public class MonsterState : MonoBehaviour
         // 일정 범위 내에 플레이어가 들어왔을 경우
         if (Vector3.Distance(transform.position, player.transform.position) < range)
         {
-            animator.SetBool("isWalking", false);  // 애니메이션 취소
             curState = State.Running;   // 추적상태로 변환
         }
     }
@@ -436,13 +453,32 @@ public class MonsterState : MonoBehaviour
         }
     }
 
+    // 스턴 임시작성
     public void Stun()
+    {
+
+        if (stunTimer > 0)
+        {
+            stunTimer -= Time.deltaTime;
+        }
+        else
+        {
+            curState = State.Idle;
+        }
+    }
+
+    public void Stunned(float second)
     {
         // 이전 어느상태든 에니메이션 끄기
         AllAnimationOff();
 
+        stunTimer = second;
+        curState = State.Stun;
+
         animator.SetBool("isStun", true);
         animator.SetBool("isStun", false);
+
+
     }
 
     // 둔화(임시작성) 
@@ -473,5 +509,28 @@ public class MonsterState : MonoBehaviour
             hpBar.value = (float)curHp / hp;
         }
     }
+
+    #region 스킬 모음
+
+    public void RushSkill()
+    {
+        // 플레이어 방향으로 돌진
+        Vector3 rushDirection = (player.transform.position - transform.position).normalized;
+
+        float rushDistance = 5f;  // 돌진 거리 (5m)
+        float rushSpeed = runSpeed * 2.5f;  // 돌진 속도 (기존 속도의 2.5배)
+
+        Vector3 rushStartPos = transform.position;
+
+        transform.position += rushDirection * rushSpeed * Time.deltaTime;
+
+        // 플레이어 공격
+        trigger.TirggerOnOff();
+
+        // 공격 후 기본상태로 변경
+        curState = State.Idle;
+    }
+
+    #endregion
 }
 

@@ -1881,7 +1881,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7944157225552164547}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.01, z: 0.98}
+  m_LocalPosition: {x: 0, y: 1.01, z: 1.024}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1994,11 +1994,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  bulletPrefab: {fileID: 7388910518196718470, guid: 77b9ff79397a4b841ad8c32cd0f2928f, type: 3}
+  bulletPrefab: {fileID: 7108998634965173498, guid: 55de2e788c0df0448b3af7568f141447, type: 3}
   shootPoint: {fileID: 7944157225552164556}
   animator: {fileID: 8672418237054443117}
   trigger: {fileID: 0}
-  hpBarPrefab: {fileID: 0}
+  Collider: {fileID: 0}
+  hpBarPrefab: {fileID: 1273474970888333437, guid: f6e56f2315d945b49ba9ddce93a6345d, type: 3}
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   WalkRangePoint: {x: 0, y: 0, z: 0}
