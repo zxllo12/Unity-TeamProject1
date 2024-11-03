@@ -120,6 +120,7 @@ public class SkillHandler : MonoBehaviour
     {
         _basicSkill.FireTransform = fireTransform;
         _basicSkill.User = gameObject;
+        _basicSkill.AttackPoint = attackPoint;
         // 유저 방향 설정 필요
         _castRoutine = StartCoroutine(BasicCastRoutine(attackPoint));
     }
@@ -133,7 +134,7 @@ public class SkillHandler : MonoBehaviour
 
         yield return castTime;
         _basicSkill.StopCast();
-        _basicSkill.DoSkill(attackPoint);
+        _basicSkill.DoSkill();
         _castRoutine = null;
     }
 
@@ -156,9 +157,11 @@ public class SkillHandler : MonoBehaviour
     public void Cast(Enums.PlayerSkillSlot slot, Transform fireTransform, float attackPoint)
     {
         _playerSkillSlot[(int)slot].FireTransform = fireTransform;
-        _playerSkillSlot[(int)slot].StartPos = fireTransform.position;
+        _playerSkillSlot[(int)slot].StartFirePos = fireTransform.position;
         _playerSkillSlot[(int)slot].StartDir = fireTransform.forward.x;
         _playerSkillSlot[(int)slot].User = gameObject;
+        _playerSkillSlot[(int)slot].StartUserPos = gameObject.transform.position;
+        _playerSkillSlot[(int)slot].AttackPoint = attackPoint;
         // 유저 방향 설정 필요
         _castRoutine = StartCoroutine(CastRoutine(slot, attackPoint));
     }
@@ -172,7 +175,7 @@ public class SkillHandler : MonoBehaviour
 
         yield return castTime;
         _playerSkillSlot[(int)slot].StopCast();
-        _playerSkillSlot[(int)slot].DoSkill(attackPoint);
+        _playerSkillSlot[(int)slot].DoSkill();
         _castRoutine = null;
     }
 
