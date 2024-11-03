@@ -42,8 +42,10 @@ public class Player_Controller : MonoBehaviour
         handler = GetComponent<SkillHandler>();
         GameManager.Instance.SetPlayer(this);
 
-        // test
-        handler.EquipSkill(7, Enums.PlayerSkillSlot.Slot1);
+        // test       
+        handler.EquipSkill(6, Enums.PlayerSkillSlot.Slot1);
+        handler.EquipSkill(7, Enums.PlayerSkillSlot.Slot2);
+        handler.EquipSkill(8, Enums.PlayerSkillSlot.Slot3);
     }
 
     private void Start()
