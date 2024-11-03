@@ -18,16 +18,21 @@ public class MonsterState : MonoBehaviour
     [SerializeField] GameObject hpBarPrefab;
     Slider hpBar;
     Transform hpBarTransform;
+    [SerializeField] private GameObject[] monsterPrefabs;    // 소환용 몬스터 프리팹
 
     [Header("Boss1")]
     [SerializeField] float healAmount;      // 회복량
     [SerializeField] float healRange;       // 회복 범위                                 
-    [SerializeField] private GameObject[] monsterPrefabs;    // 소환용 몬스터 프리팹
 
     [Header("Boss2")]
     [SerializeField] float buffDuration; // 버프 지속 시간
     [SerializeField] float attackBuffMultiplier; // 공격력 20% 증가
     [SerializeField] float defenseBuffMultiplier; // 방어력 20% 증가
+
+    [Header("Boss3")]
+    [SerializeField] float absorbRadius = 10f; // 흡수 범위 (예: 반경 10m)
+    [SerializeField] float absorbAmount = 20f; // 몬스터 한 마리당 흡수하는 체력량
+
 
     [Header("State")]
     [SerializeField] State curState;         // 현상태
@@ -39,7 +44,7 @@ public class MonsterState : MonoBehaviour
     public float attack;           // 공격력
     public float def;              // 방어력
     public float hp;               // 체력
-    public float curHp;                      // 실제 현재 체력
+    public float curHp;           // 실제 현재 체력
     public float walkSpeed;        // 걷기이속
     public float runSpeed;         // 뛰기이속
     public float attackSpeed;      // 이속
@@ -384,9 +389,25 @@ public class MonsterState : MonoBehaviour
         {
             RushSkill();
         }
-        if (id == 15)        // 보스1
+        if(id==9)
+        {
+            Harden();
+        }
+        if (id >= 15)        // 보스 공통의 소환 스킬
         {
             SummonMonster();
+        }
+        if(id == 15)
+        {
+            MonsterHill();
+        }
+        if (id == 16)
+        {
+            MonsterBurserKer();
+        }
+        if (id == 17)
+        {
+            MonsterAbsorb();
         }
     }
 
@@ -628,7 +649,7 @@ public class MonsterState : MonoBehaviour
     // 보스2 몬스터 광폭화
     public void MonsterBurserKer()
     {
-
+        if (skillCoolDown == false) { return; }
 
         Collider[] nearbyMonsters = Physics.OverlapSphere(transform.position, 10f); // 반경 10m 내의 몬스터 탐색
 
@@ -664,7 +685,32 @@ public class MonsterState : MonoBehaviour
     // 보스3 몬스터 흡혈
     public void MonsterAbsorb()
     {
+        // 스킬 쿨타임 중
+        if (skillCoolDown == false) { return; }
 
+        float maxHealth = hp; // 보스 몬스터의 최대 체력
+
+        Collider[] nearbyMonsters = Physics.OverlapSphere(transform.position, absorbRadius);
+
+        foreach (Collider collider in nearbyMonsters)
+        {
+            MonsterState monster = collider.GetComponent<MonsterState>();
+
+            if (monster != null && monster != this && monster.curHp > 0) // 자신을 제외하고 체력이 있는 몬스터만
+            {
+                float actualAbsorb = Mathf.Min(absorbAmount, monster.curHp); // 몬스터의 현재 체력을 초과하지 않게 흡수
+
+                // 몬스터의 체력을 감소시키고, 보스의 체력을 회복
+                monster.curHp -= actualAbsorb;
+                curHp = Mathf.Min(curHp + actualAbsorb, maxHealth); // 보스의 체력은 최대 체력을 넘지 않도록 제한
+
+                // 체력 UI 업데이트
+                monster.UpdateHPBar();
+                UpdateHPBar();
+            }
+        }
+
+        StartCoroutine(SkillCoolDown());
     }
 
     // 보스공통 몬스터 소환
