@@ -157,9 +157,10 @@ public class SkillHandler : MonoBehaviour
     public void Cast(Enums.PlayerSkillSlot slot, Transform fireTransform, float attackPoint)
     {
         _playerSkillSlot[(int)slot].FireTransform = fireTransform;
-        _playerSkillSlot[(int)slot].StartPos = fireTransform.position;
+        _playerSkillSlot[(int)slot].StartFirePos = fireTransform.position;
         _playerSkillSlot[(int)slot].StartDir = fireTransform.forward.x;
         _playerSkillSlot[(int)slot].User = gameObject;
+        _playerSkillSlot[(int)slot].StartUserPos = gameObject.transform.position;
         _playerSkillSlot[(int)slot].AttackPoint = attackPoint;
         // 유저 방향 설정 필요
         _castRoutine = StartCoroutine(CastRoutine(slot, attackPoint));

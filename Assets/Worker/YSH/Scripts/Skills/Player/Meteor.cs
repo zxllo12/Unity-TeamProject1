@@ -16,7 +16,7 @@ public class Meteor : SkillBase
 
     public override void DoSkill()
     {
-        AreaProjectile projectile = Instantiate(projectilePrefab, _castPos, Quaternion.identity) as AreaProjectile;
+        AreaProjectile projectile = Instantiate(projectilePrefab, _areaProjectilePos, Quaternion.identity) as AreaProjectile;
         ParticleSystem.ShapeModule shape = projectile.GetComponent<ParticleSystem>().shape;
         shape.scale = new Vector3(_skillData.Radius, 1f, 1f);
         projectile.SetDamage(_skillData.Damage * _attackPoint);

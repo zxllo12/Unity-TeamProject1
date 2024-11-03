@@ -13,14 +13,14 @@ public class FireBoom : SkillBase
     {
         base.DoCast();
 
-        _castEffectInstance.transform.position = _castPos;
+        _castEffectInstance.transform.position = _areaProjectilePos;
 
         _castEffectInstance.Play();
     }
 
     public override void DoSkill()
     {
-        AreaProjectile projectile = Instantiate(projectilePrefab, _castPos, Quaternion.identity) as AreaProjectile;
+        AreaProjectile projectile = Instantiate(projectilePrefab, _areaProjectilePos, Quaternion.identity) as AreaProjectile;
         projectile.SetDamage(_skillData.Damage * _attackPoint);
         projectile.SetTriggerSize(_skillData.Radius);
         projectile.EnableTrigger();

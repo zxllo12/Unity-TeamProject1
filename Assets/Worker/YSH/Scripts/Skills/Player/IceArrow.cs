@@ -34,8 +34,8 @@ public class IceArrow : SkillBase
     {
         base.DoSkill();
 
-        float yPos = StartPos.y + Yinterval;
-        Vector3 initPos = new Vector3(StartPos.x, yPos, StartPos.z);
+        float yPos = StartFirePos.y + Yinterval;
+        Vector3 initPos = new Vector3(StartFirePos.x, yPos, StartFirePos.z);
 
         for (int i = 0; i < arrowCount; i++)
         {

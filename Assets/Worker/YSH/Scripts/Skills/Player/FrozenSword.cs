@@ -28,9 +28,9 @@ public class FrozenSword : SkillBase
     {
         base.DoSkill();
 
-        _positions[0] = new Vector3(CastPos.x, CastPos.y - yInterval, CastPos.z);
-        _positions[1] = new Vector3(CastPos.x - xInterval, CastPos.y - yInterval, CastPos.z);
-        _positions[2] = new Vector3(CastPos.x + xInterval, CastPos.y - yInterval, CastPos.z);
+        _positions[0] = new Vector3(AreaProjectilePos.x, AreaProjectilePos.y - yInterval, AreaProjectilePos.z);
+        _positions[1] = new Vector3(AreaProjectilePos.x - xInterval, AreaProjectilePos.y - yInterval, AreaProjectilePos.z);
+        _positions[2] = new Vector3(AreaProjectilePos.x + xInterval, AreaProjectilePos.y - yInterval, AreaProjectilePos.z);
 
         for (int i = 0; i < SwordPrefab.Length; i++)
         {
