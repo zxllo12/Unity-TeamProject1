@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LightBall : SkillBase
 {
+    [SerializeField] ParticleSystem ligthBallBuffEffect;
+
     public override void SetData(int id)
     {
         base.SetData(id);
@@ -24,6 +26,8 @@ public class LightBall : SkillBase
         MonsterState monster = go.GetComponent<MonsterState>();
         if (monster != null)
         {
+            ParticleSystem particle = Instantiate(ligthBallBuffEffect, go.transform);
+            Destroy(particle.gameObject, _skillData.Second);
             BuffBase lightBallBuff = new LightBallAttackBuff();
             lightBallBuff.SetInfo(go, _skillData.Second, _skillData.Tick, _attackPoint, _skillData.Damage);
             monster.GetComponent<BuffHandler>()?.ApplyBuff(lightBallBuff);

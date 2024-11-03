@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 8993815340316646576, guid: ae2e50eb3bfbb6849b3aeb3519907640, type: 3}
   castEffect: {fileID: 0}
+  ligthBallBuffEffect: {fileID: 198397783741852124, guid: 87ad75dca7ceef44bafef0a49761f8fb, type: 3}
