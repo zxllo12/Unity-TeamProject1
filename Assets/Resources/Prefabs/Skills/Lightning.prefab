@@ -46,5 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 922131137209677502, guid: 44eceeb4479690741b325b7ab3525638, type: 3}
   castEffect: {fileID: 0}
-  maxHitCount: 3
+  maxHitCount: 5
   LightningEffect: {fileID: 5536986499926970603, guid: 612fd0627c6541448b47557e10d04f1a, type: 3}
