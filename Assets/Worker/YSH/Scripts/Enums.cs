@@ -29,4 +29,11 @@ public static class Enums
         Slot4,
         Length,
     }
+
+    public enum ESoundType
+    {
+        BGM,
+        SFX,
+        Length,
+    }
 }

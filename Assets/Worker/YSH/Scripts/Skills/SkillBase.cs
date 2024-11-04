@@ -10,6 +10,9 @@ public class SkillBase : MonoBehaviour
     [SerializeField] protected Projectile projectilePrefab;
     [SerializeField] protected ParticleSystem castEffect;
 
+    [Header("Audio")]
+    [SerializeField] protected string castAudioClipName;
+
     protected ParticleSystem _castEffectInstance;
 
     // firePos의 transform, 계속 변함
@@ -73,6 +76,9 @@ public class SkillBase : MonoBehaviour
 
         if (castEffect == null)
             return;
+
+        if (!string.IsNullOrEmpty(castAudioClipName))
+            SoundManager.Instance.Play(Enums.ESoundType.SFX, castAudioClipName);
 
         if (_castEffectInstance == null)
         {

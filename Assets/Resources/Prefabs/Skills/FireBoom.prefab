@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37f4be048601a840bc9f74d64028a52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 21300000, guid: 44f320d83b6c7f04bb15ccce324b290b, type: 3}
   projectilePrefab: {fileID: 4085288649280319164, guid: 28f8bff85b17b2e43876e7d5e9e0bfac, type: 3}
   castEffect: {fileID: 299190385437311252, guid: 5e499894c4da48b41b4d45fc1ad5f50d, type: 3}
+  castAudioClipName: FireBoom_Cast

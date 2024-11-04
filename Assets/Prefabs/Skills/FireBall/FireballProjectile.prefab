@@ -19566,6 +19566,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashEffect: {fileID: 198888474367897224, guid: c9e6ddab55c69eb4b81803e860d80c55, type: 3}
   hitEffect: {fileID: 198563800904457666, guid: 983ffc7b1f02f0d46a330ab4d104d17d, type: 3}
+  launchAudioClipName: FireBall_Launch
+  hitAudioClipName: FireBall_Hit
+  useCallBack: 0
 --- !u!1 &1450556779679700
 GameObject:
   m_ObjectHideFlags: 0
