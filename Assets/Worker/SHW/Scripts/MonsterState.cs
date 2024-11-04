@@ -630,7 +630,6 @@ public class MonsterState : MonoBehaviour
 
         animator.SetBool("isUsingSkill", false);
 
-        StartCoroutine(SkillCoolDown());
 
         curState = State.Idle;
     }
