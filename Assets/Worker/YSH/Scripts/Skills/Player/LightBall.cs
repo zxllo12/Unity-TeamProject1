@@ -6,6 +6,9 @@ public class LightBall : SkillBase
 {
     [SerializeField] ParticleSystem ligthBallBuffEffect;
 
+    [Header("Audio")]
+    [SerializeField] string lightBuffEffectAudioClip;
+
     public override void SetData(int id)
     {
         base.SetData(id);
@@ -29,7 +32,7 @@ public class LightBall : SkillBase
             ParticleSystem particle = Instantiate(ligthBallBuffEffect, go.transform);
             Destroy(particle.gameObject, _skillData.Second);
             BuffBase lightBallBuff = new LightBallAttackBuff();
-            lightBallBuff.SetInfo(go, _skillData.Second, _skillData.Tick, _attackPoint, _skillData.Damage);
+            lightBallBuff.SetInfo(go, _skillData.Second, _skillData.Tick, _attackPoint, _skillData.Damage, lightBuffEffectAudioClip);
             monster.GetComponent<BuffHandler>()?.ApplyBuff(lightBallBuff);
             Debug.Log($"LightBallCallBack Apply : {go.name}");
         }

@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14959ef52424ae54e9c3a506cb495e53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 5865809051407253712, guid: e169186eaec8f4f41936afd7475bf028, type: 3}
+  projectilePrefab: {fileID: 5865809051407253712, guid: aec3058fc83772d47ab6f251bfb2273e, type: 3}
   castEffect: {fileID: 0}
+  castAudioClipName: 
   ligthChainEffect: {fileID: 7733952616040613345, guid: 120d26b29397204498f311e1c95476ea, type: 3}
