@@ -1,10 +1,5 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System.Collections;
-using TMPro;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 
 public class LobbyUI : MonoBehaviour
 {
@@ -20,7 +15,7 @@ public class LobbyUI : MonoBehaviour
 
     public void LinkButton()
     {
-        if(StartButton != null)
+        if (StartButton != null)
         {
             StartButton.onClick.AddListener(GameManager.Instance.StartGame);
         }
@@ -45,7 +40,7 @@ public class LobbyUI : MonoBehaviour
     {
         gameObject?.SetActive(false);
         statusUpgradeShop?.SetActive(true);
-        
+
     }
 
     // 스테이터스 상점 닫기
@@ -57,7 +52,7 @@ public class LobbyUI : MonoBehaviour
 
     private void OpenOptionWindow()
     {
-        
+
     }
 
     private void CloseOptionWindow()
