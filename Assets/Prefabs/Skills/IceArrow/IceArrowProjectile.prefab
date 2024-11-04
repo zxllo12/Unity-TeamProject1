@@ -14700,6 +14700,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashEffect: {fileID: 1093973483104827391, guid: 194ce92b379acb5408b0dd4521766e58, type: 3}
   hitEffect: {fileID: 567064712191396584, guid: e6863f703e9397842b112391bd36cf4c, type: 3}
+  launchAudioClipName: IceArrow_Launch
+  hitAudioClipName: IceArrow_Hit
+  useCallBack: 0
 --- !u!1 &8224942082064603990
 GameObject:
   m_ObjectHideFlags: 0

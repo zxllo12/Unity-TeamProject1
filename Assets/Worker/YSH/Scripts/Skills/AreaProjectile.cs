@@ -51,6 +51,9 @@ public class AreaProjectile : Projectile
                 Destroy(effect.gameObject, effect.main.duration);
             }
 
+            if (!string.IsNullOrEmpty(hitAudioClipName))
+                SoundManager.Instance.Play(Enums.ESoundType.SFX, hitAudioClipName);
+
             MonsterState monster = other.GetComponent<MonsterState>();
             if (monster != null)
             {
@@ -75,6 +78,9 @@ public class AreaProjectile : Projectile
                 ParticleSystem effect = Instantiate(hitEffect, other.transform.position, Quaternion.identity);
                 Destroy(effect.gameObject, effect.main.duration);
             }
+
+            if (!string.IsNullOrEmpty(hitAudioClipName))
+                SoundManager.Instance.Play(Enums.ESoundType.SFX, hitAudioClipName);
 
             MonsterState monster = other.GetComponent<MonsterState>();
             if (monster != null)

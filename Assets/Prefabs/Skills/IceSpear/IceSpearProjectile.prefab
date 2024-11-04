@@ -132,6 +132,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashEffect: {fileID: 5548562989863330931, guid: f0fcdfc9589fdef4884136f89d1d7812, type: 3}
   hitEffect: {fileID: 567064712191396584, guid: e6863f703e9397842b112391bd36cf4c, type: 3}
+  launchAudioClipName: IceSpear_Launch
+  hitAudioClipName: IceSpear_Hit
+  useCallBack: 0
 --- !u!114 &3957064848775510347
 MonoBehaviour:
   m_ObjectHideFlags: 0

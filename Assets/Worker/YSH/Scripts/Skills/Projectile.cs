@@ -5,8 +5,12 @@ using UnityEngine.Events;
 
 public class Projectile : MonoBehaviour
 {
+    [Header("Effect")]
     [SerializeField] protected ParticleSystem flashEffect;
     [SerializeField] protected ParticleSystem hitEffect;
+    [Header("Audio")]
+    [SerializeField] protected string launchAudioClipName;
+    [SerializeField] protected string hitAudioClipName;
     [SerializeField] protected bool useCallBack = false;
 
     protected Coroutine _moveRoutine;
@@ -32,6 +36,9 @@ public class Projectile : MonoBehaviour
             ParticleSystem effect = Instantiate(flashEffect, startPos, Quaternion.identity);
             Destroy(effect.gameObject, effect.main.duration);
         }
+
+        if (!string.IsNullOrEmpty(launchAudioClipName))
+            SoundManager.Instance.Play(Enums.ESoundType.SFX, launchAudioClipName);
 
         _moveRoutine = StartCoroutine(MoveRoutine(skill, startPos, dir, speed));
     }
@@ -62,6 +69,9 @@ public class Projectile : MonoBehaviour
             ParticleSystem effect = Instantiate(hitEffect, other.transform.position, Quaternion.identity);
             Destroy(effect.gameObject, effect.main.duration);
         }
+
+        if (!string.IsNullOrEmpty(hitAudioClipName))
+            SoundManager.Instance.Play(Enums.ESoundType.SFX, hitAudioClipName);
 
         if (useCallBack == false)
         {

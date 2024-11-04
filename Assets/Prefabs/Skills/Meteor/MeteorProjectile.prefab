@@ -4933,3 +4933,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashEffect: {fileID: 0}
   hitEffect: {fileID: 4119058779821309861, guid: 55077e3ea0b392b4cad1401b368b0768, type: 3}
+  launchAudioClipName: 
+  hitAudioClipName: Meteor_Hit
+  useCallBack: 0
+  _destroyTime: 0
