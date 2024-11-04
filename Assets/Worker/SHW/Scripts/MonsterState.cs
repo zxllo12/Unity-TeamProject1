@@ -14,9 +14,9 @@ public class MonsterState : MonoBehaviour
     [SerializeField] Transform shootPoint;        // 발사 포인트
     [SerializeField] Animator animator;           // 재생할 에니메이터
     [SerializeField] AttackTrigger trigger;       // 공격 범위 확인 트리거
-    [SerializeField] GameObject hpBarPrefab;
-    Slider hpBar;
-    Transform hpBarTransform;
+    [SerializeField] GameObject hpBarPrefab; // 남궁하
+    [SerializeField] Slider hpBar; // 남궁하
+    [SerializeField] Transform hpBarTransform; // 남궁하
 
 
     [Header("State")]
@@ -42,8 +42,8 @@ public class MonsterState : MonoBehaviour
     bool canAttack = true;      // 공격 확인
     float attackTimer;          // 공격 타이머
 
-   public bool isDeathWorm; // 데스웜 확인
-   public bool isBoss;  // 보스 확인
+    bool isDeathWorm; // 데스웜 확인
+    bool isBoss;  // 보스 확인
 
     // 사망확인용
     bool isdead = false;
@@ -81,12 +81,17 @@ public class MonsterState : MonoBehaviour
         // LoadMonsterData(id);
         player = GameManager.Instance.player;
 
-        GameObject hpBarInstance = Instantiate(hpBarPrefab, transform.position, Quaternion.identity);
-        hpBarInstance.transform.SetParent(GameObject.Find("WorldCanvas").transform);
-        hpBar = hpBarInstance.GetComponent<Slider>();
+        //남궁하
+        Vector3 hpBarPosition = new Vector3(transform.position.x, transform.position.y - 1.0f, transform.position.z - 1.0f);
+        GameObject hpBarInstance = Instantiate(hpBarPrefab, hpBarPosition, Quaternion.identity);
+        hpBar = hpBarInstance.GetComponentInChildren<Slider>();
+        hpBarInstance.transform.SetParent(gameObject.transform);
+
+        hpBar.minValue = 0;
+        hpBar.maxValue = hp;
 
         hpBarTransform = hpBarInstance.transform;
-        UpdateHPBar();
+        UpdateHPBar(); // 남궁하
     }
 
     private void OnDisable()
@@ -171,7 +176,7 @@ public class MonsterState : MonoBehaviour
             }
         }
 
-        hpBarTransform.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * -1.5f);
+        hpBarTransform.position = transform.position + new Vector3(0, -1, -2); // 남궁하
     }
 
     public void Idle()
@@ -215,8 +220,6 @@ public class MonsterState : MonoBehaviour
         if (isDeathWorm == true)
         {
             animator.SetBool("isDisappear", true);
-            // 추적 애니메이션 실행
-            animator.SetBool("isRunning", true);
         }
         // 일반 몹
         else
@@ -228,8 +231,6 @@ public class MonsterState : MonoBehaviour
             // 플레이어의 x축 만 받는 벡터를 만들것
             transform.position = Vector3.MoveTowards(transform.position, towardVector, runSpeed * Time.deltaTime);
         }
-
-        // Debug.Log($"{Vector3.Distance(transform.position, player.transform.position)}");
 
         // 공격범위 내로 들어왔을 경우
         if (Vector3.Distance(transform.position, player.transform.position) < attackRage)
@@ -244,11 +245,6 @@ public class MonsterState : MonoBehaviour
         {
             AllAnimationOff();
             curState = State.Return;   // 스폰지점으로 돌아간다
-
-            if (isDeathWorm == true)
-            {
-                curState = State.Idle;
-            }
         }
     }
 
@@ -280,14 +276,6 @@ public class MonsterState : MonoBehaviour
     {
         if (canAttack == true)
         {
-            if(isDeathWorm == true)
-            {
-                animator.SetBool("isAppear", true);
-                animator.SetBool("isIdle", true);
-
-                AllAnimationOff();
-            }
-
             // 공격 애니메이션
             animator.SetBool("isAttacking", true);
 
@@ -343,7 +331,11 @@ public class MonsterState : MonoBehaviour
         {
             OnDead?.Invoke(this);
             // animator.SetBool("isDead", false);
-            Destroy(hpBar.gameObject);
+            // 남궁하
+            if (hpBar != null)
+            {
+                Destroy(hpBar.gameObject);
+            }
             Destroy(gameObject, 3f);
         }
     }
@@ -465,12 +457,12 @@ public class MonsterState : MonoBehaviour
         animator.SetBool("isDead", false);
         animator.SetBool("isStun", false);
     }
-
+    //남궁하
     private void UpdateHPBar()
     {
         if (hpBar != null)
         {
-            hpBar.value = (float)curHp / hp;
+            hpBar.value = curHp;
         }
     }
 }
