@@ -106,8 +106,8 @@ public class StatusUpgradeShopUI : MonoBehaviour
     {
         GameManager.Instance.battlePlayerMaxHP = 100f + upgradedHealth * 5.0f;
         GameManager.Instance.battlePlayerAtk = 10f + upgradedAtk * 1.0f;
-        GameManager.Instance.battlePlayerDef = 5f + upgradedDef * 0.5f;
-        GameManager.Instance.skillCooltimeReduce = upgradedCooldown * 1.0f;
+        GameManager.Instance.battlePlayerDef = 0f + upgradedDef * 0.5f;
+        GameManager.Instance.skillCooltimeReduce = upgradedCooldown * 0.5f;
     }
 
     private void UpdateUI()
@@ -119,7 +119,7 @@ public class StatusUpgradeShopUI : MonoBehaviour
         healthPriceText.text = $"{healthPrice}";
         healthIncreaseText.text = $"체력 {upgradedHealth * 5} +5";
         cooldownPriceText.text = $"{cooldownPrice}";
-        cooldownIncreaseText.text = $"쿨타임 감소 {upgradedCooldown * 1}% +1%";
+        cooldownIncreaseText.text = $"쿨타임 감소 {upgradedCooldown * 0.5f}% +0.5%";
         goldText.text = $"Gold: {GameManager.Instance.GetGold()}";
     }
 }

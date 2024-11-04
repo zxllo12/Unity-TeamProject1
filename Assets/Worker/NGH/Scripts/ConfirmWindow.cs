@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class ConfirmWindow : MonoBehaviour
 {
     [SerializeField] Button confirmButton, cancelButton;
-    [SerializeField] TextMeshProUGUI skillname, description, element, power, cooltime, range;
+    [SerializeField] TextMeshProUGUI skillname, description, element, power, cooltime, range, resultText;
+    [SerializeField] GameObject resultWindow;
     int skillID;
 
     private void Start()
@@ -38,15 +39,21 @@ public class ConfirmWindow : MonoBehaviour
         if (SkillUnlockManager.Instance.IsSkillUnlocked(skillID))
         {
             Debug.Log("이미 해금된 스킬입니다.");
+            resultWindow.SetActive(true);
+            resultText.text = "이미 해금된 스킬입니다.";
         }
         else if (GameManager.Instance.HasEnoughGold(cost))
         {
             GameManager.Instance.SpendGold(cost);
             SkillUnlockManager.Instance.UnlockSkill(skillID);
+            resultWindow.SetActive(true);
+            resultText.text = $"{DataManager.Instance.SkillDict[skillID].Name} 이/가 해금되었습니다.";
         }
         else
         {
             Debug.Log("골드가 부족합니다.");
+            resultWindow.SetActive(true);
+            resultText.text = "골드가 부족합니다.";
         }
     }
 }

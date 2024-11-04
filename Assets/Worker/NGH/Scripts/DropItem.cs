@@ -53,6 +53,7 @@ public class DropItem : MonoBehaviour
         { 
             case ItemType.Skill :
                 GameManager.Instance.battleUI.ShowSkillSlotUI(skillID);
+                GameManager.Instance.player.Player_Freeze();
                 break;
             case ItemType.Gold :
                 GameManager.Instance.AddGold(goldAmount);

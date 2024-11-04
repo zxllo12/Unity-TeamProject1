@@ -178,13 +178,13 @@ public class GameManager : MonoBehaviour
     public void SetPlayer(Player_Controller player)
     {
         this.player = player;
-
         SetPlayerStatus();
         if (playerCurHpSetOnce)
         {
             player.stats.currentHealth = player.stats.maxHealth;
             playerCurHpSetOnce = false;
         }
+        player.stats.Dead += GameOver;
 
         // 추후 수정 필요 (데이터에서 기본스킬 찾도록)
         player.handler.SetBasicSkill(9);
@@ -254,6 +254,7 @@ public class GameManager : MonoBehaviour
         if (player != null)
         {
             ResetPlayerStatus();
+            player.stats.Dead -= GameOver;
         }
         playerCurHpSetOnce = true;
         triggerCount = 0;
@@ -311,5 +312,21 @@ public class GameManager : MonoBehaviour
         player.stats.attackPower = 10f;
         player.stats.defense = 5f;
         skillCooltimeReduce = 0f;
+    }
+
+    public void GameOver()
+    {
+        StartCoroutine(GameOverCoroutine());
+    }
+
+    private IEnumerator GameOverCoroutine()
+    {
+        yield return new WaitForSeconds(3);
+
+        battleUI.GameOver.SetActive(true);
+
+        yield return new WaitForSeconds(3);
+
+        ReturnToLobby();
     }
 }

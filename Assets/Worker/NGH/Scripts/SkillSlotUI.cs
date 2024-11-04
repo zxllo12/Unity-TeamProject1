@@ -16,8 +16,6 @@ public class SkillSlotUI : MonoBehaviour
     private void OnEnable()
     {
         SlotIndex = 0;
-
-        GameManager.Instance.player.Player_Freeze();
     }
 
     private void Update()
