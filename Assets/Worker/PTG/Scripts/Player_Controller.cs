@@ -121,36 +121,23 @@ public class Player_Controller : MonoBehaviour
             DoubleJump();
         }
 
-        if (rigid.velocity.y < 0) // 낙하 중일 때
-        {
-            rigid.AddForce(Vector3.up * customGravity * fallMultiplier, ForceMode.Acceleration);
-        }
-        else if (rigid.velocity.y > 0 && !Input.GetButton("Jump")) // 낮은 점프 시 가속도 적용
-        {
-            rigid.AddForce(Vector3.up * customGravity * lowJumpMultiplier, ForceMode.Acceleration);
-        }
-        else // 상승 중일 때 기본 중력 적용
-        {
-            rigid.AddForce(Vector3.up * customGravity, ForceMode.Acceleration);
-        }
-
         // 최대 하강 속도 제한
         if (rigid.velocity.y < maxFallSpeed)
         {
             rigid.velocity = new Vector3(rigid.velocity.x, maxFallSpeed, rigid.velocity.z);
         }
 
-        //방향에 따른 캐릭터 회전
+        // 방향에 따른 캐릭터 회전
         if (hInput != 0)
         {
             Quaternion newRotation = Quaternion.LookRotation(new Vector3(hInput, 0, 0));
             model.rotation = newRotation;
         }
 
-        //무적 상태
+        // 무적 상태
         stats.UpdateInvincibleTime(Time.deltaTime);
 
-        // Get Item Test
+        // 상호 작용
         if (Input.GetKeyDown(KeyCode.F))
         {
             if (rewardChest != null)
@@ -194,6 +181,19 @@ public class Player_Controller : MonoBehaviour
     {
         //캐릭터 움직임
         rigid.velocity = new Vector3(direction.x, rigid.velocity.y, 0);
+
+        if (rigid.velocity.y < 0) // 낙하 중일 때
+        {
+            rigid.AddForce(Vector3.up * customGravity * fallMultiplier, ForceMode.Acceleration);
+        }
+        else if (rigid.velocity.y > 0 && !Input.GetButton("Jump")) // 낮은 점프 시 가속도 적용
+        {
+            rigid.AddForce(Vector3.up * customGravity * lowJumpMultiplier, ForceMode.Acceleration);
+        }
+        else // 상승 중일 때 기본 중력 적용
+        {
+            rigid.AddForce(Vector3.up * customGravity, ForceMode.Acceleration);
+        }
     }
 
     private void OnDestroy()
