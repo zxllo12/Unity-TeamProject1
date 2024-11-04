@@ -15,8 +15,8 @@ public class SkillData : IDataLoader
     public int Price;
     public int Radius;                  // 피해 범위
     public string ClassName;
-    public int Second;                  // 도트 데미지 초
-    public float Tick;                  // 초당 틱
+    public float Second;                // 도트 데미지 초
+    public int Tick;                    // 초당 틱 횟수
     public int Range;                   // 사거리 (스캔이 시작되는 상대 위치로도 사용)
     public float CastTime;              // 시전시간
     public int ProjectileSpeed;         // 투사체 속도
@@ -35,8 +35,8 @@ public class SkillData : IDataLoader
         Price = int.Parse(fields[7]);               // Parse Price
         Radius = int.Parse(fields[8]);              // Parse Radius
         ClassName = fields[9];                      // Parse ClassName
-        Second = int.Parse(fields[10]);             // Parse Second
-        Tick = float.Parse(fields[11]);             // Parse Tick
+        Second = float.Parse(fields[10]);           // Parse Second
+        Tick = int.Parse(fields[11]);               // Parse Tick
         Range = int.Parse(fields[12]);              // Parse Range
         CastTime = float.Parse(fields[13]);         // Parse CastTime
         ProjectileSpeed = int.Parse(fields[14]);    // Parse Projectile Speed

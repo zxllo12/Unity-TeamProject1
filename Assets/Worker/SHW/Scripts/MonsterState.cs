@@ -5,47 +5,52 @@ using UnityEngine.UI;
 
 public class MonsterState : MonoBehaviour
 {
-    // ´ë±â, ÃßÀû, °ø°İ, »ç¸Á, µÇµ¹¾Æ°¡±â, ½ºÅ³, ÀÌµ¿, ÇÇ°İ
-    public enum State { Idle, Running, Attack, Return, Skill, Walking, Dead, IsHit }
+    // ëŒ€ê¸°, ì¶”ì , ê³µê²©, ì‚¬ë§, ë˜ëŒì•„ê°€ê¸°, ìŠ¤í‚¬, ì´ë™, í”¼ê²©
+    public enum State { Idle, Running, Attack, Return, Skill, Walking, Dead, Stun }
 
     [Header("Setting")]
-    [SerializeField] Player_Controller player;    // ÃßÀûÇÒ ÇÃ·¹ÀÌ¾î
-    [SerializeField] GameObject bulletPrefab;     // ¿ø°Å¸® °ø°İ½Ã ¹ß»çÇÒ ÇÁ¸®ÆÕ
-    [SerializeField] Transform shootPoint;        // ¹ß»ç Æ÷ÀÎÆ®
-    [SerializeField] Animator animator;           // Àç»ıÇÒ ¿¡´Ï¸ŞÀÌÅÍ
-    [SerializeField] AttackTrigger trigger;       // °ø°İ ¹üÀ§ È®ÀÎ Æ®¸®°Å
-    [SerializeField] GameObject hpBarPrefab; // ³²±ÃÇÏ
-    [SerializeField] Slider hpBar; // ³²±ÃÇÏ
-    [SerializeField] Transform hpBarTransform; // ³²±ÃÇÏ
+    [SerializeField] Player_Controller player;    // ì¶”ì í•  í”Œë ˆì´ì–´
+    [SerializeField] GameObject bulletPrefab;     // ì›ê±°ë¦¬ ê³µê²©ì‹œ ë°œì‚¬í•  í”„ë¦¬íŒ¹
+    [SerializeField] Transform shootPoint;        // ë°œì‚¬ í¬ì¸íŠ¸
+    [SerializeField] Animator animator;           // ì¬ìƒí•  ì—ë‹ˆë©”ì´í„°
+    [SerializeField] AttackTrigger trigger;       // ê³µê²© ë²”ìœ„ í™•ì¸ íŠ¸ë¦¬ê±°
+    [SerializeField] Collider Collider;           // ë°ìŠ¤ì›œ í”¼ê²© íŒì •ìš© ì½œë¼ì´ë”
+    [SerializeField] GameObject hpBarPrefab;
+    Slider hpBar;
+    Transform hpBarTransform;
+
 
 
     [Header("State")]
-    [SerializeField] State curState;         // Çö»óÅÂ
-    public Vector3 spawnPoint;               // ±âº» À§Ä¡(ÀÓ½Ã)
-    public Vector3 WalkRangePoint;  // ÀÌµ¿ À§Ä¡
+    [SerializeField] State curState;         // í˜„ìƒíƒœ
+    public Vector3 spawnPoint;               // ê¸°ë³¸ ìœ„ì¹˜(ì„ì‹œ)
+    public Vector3 WalkRangePoint;  // ì´ë™ ìœ„ì¹˜
     public Vector3 destination;
 
     [SerializeField] int id;
-    [SerializeField] float attack;           // °ø°İ·Â
-    [SerializeField] float def;              // ¹æ¾î·Â
-    [SerializeField] float hp;               // Ã¼·Â
-    public float curHp;                      // ½ÇÁ¦ ÇöÀç Ã¼·Â
-    [SerializeField] float walkSpeed;        // °È±âÀÌ¼Ó
-    [SerializeField] float runSpeed;         // ¶Ù±âÀÌ¼Ó
-    [SerializeField] float attackSpeed;      // ÀÌ¼Ó
-    [SerializeField] float range;             // ÃßÀû°Å¸®
-    [SerializeField] float attackRage;       // °ø°İ »ç°Å¸®
-    [SerializeField] bool canSkill;          // ½ºÅ³¿©ºÎ
-    [SerializeField] bool attackType;        // °ø°İ Å¸ÀÔ trueÀÏ °æ¿ì ¿ø°Å¸®
-    [SerializeField] float bulletSpeed;      // Åõ»çÃ¼ ¹ß»ç ¼Óµµ
+    [SerializeField] float attack;           // ê³µê²©ë ¥
+    [SerializeField] float def;              // ë°©ì–´ë ¥
+    [SerializeField] float hp;               // ì²´ë ¥
+    public float curHp;                      // ì‹¤ì œ í˜„ì¬ ì²´ë ¥
+    [SerializeField] float walkSpeed;        // ê±·ê¸°ì´ì†
+    [SerializeField] float runSpeed;         // ë›°ê¸°ì´ì†
+    [SerializeField] float attackSpeed;      // ì´ì†
+    [SerializeField] float range;             // ì¶”ì ê±°ë¦¬
+    [SerializeField] float attackRage;       // ê³µê²© ì‚¬ê±°ë¦¬
+    [SerializeField] bool canSkill;          // ìŠ¤í‚¬ì—¬ë¶€
+    [SerializeField] bool attackType;        // ê³µê²© íƒ€ì… trueì¼ ê²½ìš° ì›ê±°ë¦¬
+    [SerializeField] float bulletSpeed;      // íˆ¬ì‚¬ì²´ ë°œì‚¬ ì†ë„
 
-    bool canAttack = true;      // °ø°İ È®ÀÎ
-    float attackTimer;          // °ø°İ Å¸ÀÌ¸Ó
+    bool canAttack = true;      // ê³µê²© í™•ì¸
+    float attackTimer;          // ê³µê²© íƒ€ì´ë¨¸
 
-    bool isDeathWorm; // µ¥½º¿ú È®ÀÎ
-    bool isBoss;  // º¸½º È®ÀÎ
+    public bool isDeathWorm; // ë°ìŠ¤ì›œ í™•ì¸
+    public bool isBoss;  // ë³´ìŠ¤ í™•ì¸
 
-    // »ç¸ÁÈ®ÀÎ¿ë
+    public bool isStun = false;
+    float stunTimer = 0;
+
+    // ì‚¬ë§í™•ì¸ìš©
     bool isdead = false;
 
     protected MonsterData _monsterData;
@@ -55,7 +60,7 @@ public class MonsterState : MonoBehaviour
 
     private void Awake()
     {
-        // ¾Ö´Ï¸ŞÀÌÅÍ °®°í¿À±â
+        // ì• ë‹ˆë©”ì´í„° ê°–ê³ ì˜¤ê¸°
         animator = GetComponent<Animator>();
 
         LoadMonsterData(id);
@@ -69,9 +74,9 @@ public class MonsterState : MonoBehaviour
             isBoss = true;
         }
 
-        // ½ºÆù Æ÷ÀÎÆ® ÀúÀå
+        // ìŠ¤í° í¬ì¸íŠ¸ ì €ì¥
         spawnPoint = transform.position;
-        // ¹èÈ¸½Ã °Å¸® ±âÁ¸À§Ä¡ +5
+        // ë°°íšŒì‹œ ê±°ë¦¬ ê¸°ì¡´ìœ„ì¹˜ +5
         WalkRangePoint = new Vector3(spawnPoint.x - 5, spawnPoint.y, spawnPoint.z);
 
         GameManager.Instance.SetMonster(this);
@@ -81,7 +86,7 @@ public class MonsterState : MonoBehaviour
         // LoadMonsterData(id);
         player = GameManager.Instance.player;
 
-        //³²±ÃÇÏ
+        //ë‚¨ê¶í•˜
         Vector3 hpBarPosition = new Vector3(transform.position.x, transform.position.y - 1.0f, transform.position.z - 1.0f);
         GameObject hpBarInstance = Instantiate(hpBarPrefab, hpBarPosition, Quaternion.identity);
         hpBar = hpBarInstance.GetComponentInChildren<Slider>();
@@ -91,7 +96,7 @@ public class MonsterState : MonoBehaviour
         hpBar.maxValue = hp;
 
         hpBarTransform = hpBarInstance.transform;
-        UpdateHPBar(); // ³²±ÃÇÏ
+        UpdateHPBar(); // ë‚¨ê¶í•˜
     }
 
     private void OnDisable()
@@ -99,25 +104,26 @@ public class MonsterState : MonoBehaviour
 
     }
 
+    // ë°ì´í„° ë¶ˆëŸ¬ì˜¤ëŠ” í•¨ìˆ˜
     public void LoadMonsterData(int id)
     {
-        // ¿À·ù È®ÀÎ¿ë
-        // Debug.Log($"¿äÃ»µÈ ¸ó½ºÅÍ ID: {id}");
+        // ì˜¤ë¥˜ í™•ì¸ìš©
+        // Debug.Log($"ìš”ì²­ëœ ëª¬ìŠ¤í„° ID: {id}");
 
-        // id¿¡ ÇØ´çÇÏ´Â µ¥ÀÌÅÍ°¡ Á¸ÀçÇÏ´ÂÁö È®ÀÎÇÏ°í, Á¸ÀçÇÏÁö ¾ÊÀ» °æ¿ì ¿À·ù Ãâ·Â
+        // idì— í•´ë‹¹í•˜ëŠ” ë°ì´í„°ê°€ ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸í•˜ê³ , ì¡´ì¬í•˜ì§€ ì•Šì„ ê²½ìš° ì˜¤ë¥˜ ì¶œë ¥
         if (DataManager.Instance.MonsterDict.TryGetValue(id, out MonsterData data) == false)
         {
-            Debug.LogError($"MonsterData¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù. ID: {id}");
+            Debug.LogError($"MonsterDataë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ID: {id}");
             return;
         }
 
-        // °¡Á®¿Â °ªÀº ¼±¾ğÇÑ ¸ó½ºÅÍ µ¥ÀÌÅÍ¿¡ ÇÒ´çÇÑ´Ù.
+        // ê°€ì ¸ì˜¨ ê°’ì€ ì„ ì–¸í•œ ëª¬ìŠ¤í„° ë°ì´í„°ì— í• ë‹¹í•œë‹¤.
         _monsterData = data;
 
         attack = _monsterData.Attack;
         def = _monsterData.Defense;
         hp = _monsterData.Hp;
-        curHp = hp;  // ÇöÀç Ã¼·Â = ¼³Á¤Ã¼·ÂÀ¸·Î ¼³Á¤
+        curHp = hp;  // í˜„ì¬ ì²´ë ¥ = ì„¤ì •ì²´ë ¥ìœ¼ë¡œ ì„¤ì •
         walkSpeed = _monsterData.WalkSpeed;
         runSpeed = _monsterData.RunSpeed;
         attackSpeed = _monsterData.AttackSpeed;
@@ -134,36 +140,35 @@ public class MonsterState : MonoBehaviour
 
     private void Update()
     {
-        // »óÅÂ È®ÀÎ¿ë µğ¹ö±× ·Î±×
+        // ìƒíƒœ í™•ì¸ìš© ë””ë²„ê·¸ ë¡œê·¸
         // Debug.Log(curState);
 
-        // »óÅÂÆĞÅÏ
+        // ìƒíƒœíŒ¨í„´
         switch (curState)
         {
-            case State.Idle:    // ´ë±â = ¼û½¬±â
+            case State.Idle:    // ëŒ€ê¸° = ìˆ¨ì‰¬ê¸°
                 Idle();
                 break;
-            case State.Running:     // ¶Ù±â = ÃßÀû
+            case State.Running:     // ë›°ê¸° = ì¶”ì 
                 Running();
                 break;
-            case State.Return:  // ¸®ÅÏ = µÇµ¹¾Æ°¡±â
+            case State.Return:  // ë¦¬í„´ = ë˜ëŒì•„ê°€ê¸°
                 Return();
                 break;
-            case State.Attack: // °ø°İ
+            case State.Attack: // ê³µê²©
                 Attack();
                 break;
-            case State.Skill: // ½ºÅ³
+            case State.Skill: // ìŠ¤í‚¬
                 Skill();
                 break;
-            case State.Walking: // ÀÌµ¿ = ¹èÈ¸
+            case State.Walking: // ì´ë™ = ë°°íšŒ
                 Walking();
                 break;
-            /*
-        case State.IsHit:   // ÇÇ°İ
-            IsHit();
-            return;*/
-            case State.Dead:  // (ÀÓ½Ã) »ç¸Á
+            case State.Dead:  // (ì„ì‹œ) ì‚¬ë§
                 Dead();
+                break;
+            case State.Stun:
+                Stun();
                 break;
         }
 
@@ -176,107 +181,131 @@ public class MonsterState : MonoBehaviour
             }
         }
 
-        hpBarTransform.position = transform.position + new Vector3(0, -1, -2); // ³²±ÃÇÏ
+        hpBarTransform.position = transform.position + new Vector3(0, -1, -2); // ë‚¨ê¶í•˜
     }
 
+    // ê¸°ë³¸ ëŒ€ê¸°ìƒíƒœ
     public void Idle()
     {
-        // ´ë±â ¾Ö´Ï¸ŞÀÌ¼Ç ¸ğ¼Ç Ãâ·Â
+        AllAnimationOff();
+
+        // ëŒ€ê¸° ì• ë‹ˆë©”ì´ì…˜ ëª¨ì…˜ ì¶œë ¥
         animator.SetBool("isIdle", true);
 
-        // µ¥½º¿ú Á¦¿Ü °È±â »óÅÂ º¯°æ
+        // ë°ìŠ¤ì›œ ì œì™¸ ê±·ê¸° ìƒíƒœ ë³€ê²½
         if (isDeathWorm == false)
         {
             StartCoroutine(WalkCoroutine());
         }
 
-        // ÀÏÁ¤ ¹üÀ§ ³»¿¡ ÇÃ·¹ÀÌ¾î°¡ µé¾î¿ÔÀ» °æ¿ì
+        // ì¼ì • ë²”ìœ„ ë‚´ì— í”Œë ˆì´ì–´ê°€ ë“¤ì–´ì™”ì„ ê²½ìš°
         if (Vector3.Distance(transform.position, player.transform.position) < range)
         {
             StopAllCoroutines();
-            AllAnimationOff(); // ¾Ö´Ï¸ŞÀÌ¼Ç Ãë¼Ò
-            curState = State.Running;   // ÃßÀû»óÅÂ·Î º¯È¯
+            curState = State.Running;   // ì¶”ì ìƒíƒœë¡œ ë³€í™˜
         }
     }
 
-    // ´ë±â¸ğ¼Ç°ú ¹èÈ¸¸ğ¼ÇÀÇ ÄÚ·çÆ¾
+    // ëŒ€ê¸°ëª¨ì…˜ê³¼ ë°°íšŒëª¨ì…˜ì˜ ì½”ë£¨í‹´
     IEnumerator WalkCoroutine()
     {
         yield return new WaitForSeconds(3f);
         curState = State.Walking;
         AllAnimationOff();
 
-        // ÀÌ°Å ±¦Âú³ª..?
-        // ´ÙÀ½ »óÅÂ·Î ³Ñ¾î°¥¶§ ´Ù¸¥ ÄÚ·çÆ¾ ÀüºÎ Á¾·á..?
+        // ì´ê±° ê´œì°®ë‚˜..?
+        // ë‹¤ìŒ ìƒíƒœë¡œ ë„˜ì–´ê°ˆë•Œ ë‹¤ë¥¸ ì½”ë£¨í‹´ ì „ë¶€ ì¢…ë£Œ..?
         StopAllCoroutines();
     }
 
+    // ì¶”ì 
     public void Running()
     {
+        AllAnimationOff();
+
         Flip(player.transform.position);
         Vector3 towardVector = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
 
-        // µ¥½º¿ú
+        // ë°ìŠ¤ì›œ
         if (isDeathWorm == true)
         {
             animator.SetBool("isDisappear", true);
-        }
-        // ÀÏ¹İ ¸÷
-        else
-        {
-            // ÃßÀû ¾Ö´Ï¸ŞÀÌ¼Ç ½ÇÇà
+            
+            // ì¶”ì  ì• ë‹ˆë©”ì´ì…˜ ì‹¤í–‰
             animator.SetBool("isRunning", true);
 
-            // Å¸°Ù(ÇÃ·¹ÀÌ¾î)¸¦ ÇâÇØ¼­ ÀÌµ¿
-            // ÇÃ·¹ÀÌ¾îÀÇ xÃà ¸¸ ¹Ş´Â º¤ÅÍ¸¦ ¸¸µé°Í
+            // ë“¤ì–´ê°€ìˆëŠ” ë™ì•ˆ í”¼ê²© íŒì • ì—†ë„ë¡
+            Collider.enabled = false;
+        }
+        // ì¼ë°˜ ëª¹
+        else
+        {
+            // ì¶”ì  ì• ë‹ˆë©”ì´ì…˜ ì‹¤í–‰
+            animator.SetBool("isRunning", true);
+
+            // íƒ€ê²Ÿ(í”Œë ˆì´ì–´)ë¥¼ í–¥í•´ì„œ ì´ë™
+            // í”Œë ˆì´ì–´ì˜ xì¶• ë§Œ ë°›ëŠ” ë²¡í„°ë¥¼ ë§Œë“¤ê²ƒ
             transform.position = Vector3.MoveTowards(transform.position, towardVector, runSpeed * Time.deltaTime);
         }
 
-        // °ø°İ¹üÀ§ ³»·Î µé¾î¿ÔÀ» °æ¿ì
+        // ê³µê²©ë²”ìœ„ ë‚´ë¡œ ë“¤ì–´ì™”ì„ ê²½ìš°
         if (Vector3.Distance(transform.position, player.transform.position) < attackRage)
         {
-            AllAnimationOff();
+
             curState = State.Attack;
         }
 
-        // ÃßÀû¿¡¼­ ¹®Á¦°¡ È¤½Ã else if ¿©¼­ ¹®Á¦ÀÎ°¡? ½Í¾î¼­ ÀÏ´Ü if¹®À¸·Î ÀüÈ¯
-        // ÀÏÁ¤ ¹üÀ§ ³»¿¡ ÇÃ·¹ÀÌ¾î°¡ ³Ñ¾î°¥ °æ¿ì
+        // ì¶”ì ì—ì„œ ë¬¸ì œê°€ í˜¹ì‹œ else if ì—¬ì„œ ë¬¸ì œì¸ê°€? ì‹¶ì–´ì„œ ì¼ë‹¨ ifë¬¸ìœ¼ë¡œ ì „í™˜
+        // ì¼ì • ë²”ìœ„ ë‚´ì— í”Œë ˆì´ì–´ê°€ ë„˜ì–´ê°ˆ ê²½ìš°
         if (Vector3.Distance(transform.position, player.transform.position) > range)
         {
-            AllAnimationOff();
-            curState = State.Return;   // ½ºÆùÁöÁ¡À¸·Î µ¹¾Æ°£´Ù
+            curState = State.Return;   // ìŠ¤í°ì§€ì ìœ¼ë¡œ ëŒì•„ê°„ë‹¤
         }
     }
 
-    // ÀÌµ¿½Ã ½ºÆùÁöÁ¡À¸·Î µ¹¾Æ°¡´Â Return
+    // ì´ë™ì‹œ ìŠ¤í°ì§€ì ìœ¼ë¡œ ëŒì•„ê°€ëŠ” Return
     public void Return()
     {
-        // µÇµ¹¾Æ°¡´Â »óÅÂ = °È´Â ¸ğ¼Ç
-        animator.SetBool("isWalking", true);
+        AllAnimationOff();
 
-        // ½ºÆùÁöÁ¡À¸·Î ´Ù½Ã µ¹¾Æ°¨
-        transform.position = Vector3.MoveTowards(transform.position, spawnPoint, walkSpeed * Time.deltaTime);
-
-        // ÀÏÁ¤ ¹üÀ§ ³»¿¡ ÇÃ·¹ÀÌ¾î°¡ µé¾î¿ÔÀ» °æ¿ì
+        // ì¼ì • ë²”ìœ„ ë‚´ì— í”Œë ˆì´ì–´ê°€ ë“¤ì–´ì™”ì„ ê²½ìš°
         if (Vector3.Distance(transform.position, player.transform.position) < range)
         {
-            animator.SetBool("isWalking", false);  // ¾Ö´Ï¸ŞÀÌ¼Ç Ãë¼Ò
-            curState = State.Running;   // ÃßÀû»óÅÂ·Î º¯È¯
+            curState = State.Running;   // ì¶”ì ìƒíƒœë¡œ ë³€í™˜
         }
 
-        // ½ºÆùÆ÷ÀÎÆ®¿¡ µµÂøÇßÀ» °æ¿ì
+        // ìŠ¤í°í¬ì¸íŠ¸ì— ë„ì°©í–ˆì„ ê²½ìš°
         else if (transform.position.x == spawnPoint.x)
         {
-            animator.SetBool("isWalking", false);
             curState = State.Idle;
         }
     }
 
+    // ê³µê²©
     public void Attack()
     {
+        AllAnimationOff();
         if (canAttack == true)
         {
-            // °ø°İ ¾Ö´Ï¸ŞÀÌ¼Ç
+
+            // ìŠ¤í‚¬ ë°œë™ ì—¬ë¶€ í™•ì¸
+            if (canSkill == true)
+            {
+                Skill();
+                return;
+            }
+
+            if (isDeathWorm == true)
+            {
+                animator.SetBool("isAppear", true);
+                // animator.SetBool("isIdle", true);
+
+                Collider.enabled = true;
+
+                AllAnimationOff();
+            }
+            
+            // ê³µê²© ì• ë‹ˆë©”ì´ì…˜
             animator.SetBool("isAttacking", true);
 
             if (attackType == true)
@@ -288,7 +317,7 @@ public class MonsterState : MonoBehaviour
             }
             else
             {
-                // ÇÃ·¹ÀÌ¾î °ø°İ
+                // í”Œë ˆì´ì–´ ê³µê²©
                 trigger.TirggerOnOff();
             }
 
@@ -298,30 +327,20 @@ public class MonsterState : MonoBehaviour
         }
 
 
-        // °ø°İ¹üÀ§ ³»·Î µé¾î¿ÔÀ» °æ¿ì
+        // ê³µê²©ë²”ìœ„ ë‚´ë¡œ ë“¤ì–´ì™”ì„ ê²½ìš°
         if (Vector3.Distance(transform.position, player.transform.position) > attackRage)
         {
-            animator.SetBool("isAttacking", false);
             curState = State.Running;
         }
     }
 
-    IEnumerator ShootCoroutine()
-    {
-        Debug.Log("ÄÚ·çÆ¾ ½ÃÀÛ");
-
-        yield return new WaitForSeconds(2f);
-
-
-
-    }
-
+    // ì‚¬ë§
     public void Dead()
     {
-        // ÀÌÀü ¾î´À»óÅÂµç ¿¡´Ï¸ŞÀÌ¼Ç ²ô±â
+        // ì´ì „ ì–´ëŠìƒíƒœë“  ì—ë‹ˆë©”ì´ì…˜ ë„ê¸°
         AllAnimationOff();
 
-        // »ç¸Á ¾Ö´Ï¸ŞÀÌ¼Ç
+        // ì‚¬ë§ ì• ë‹ˆë©”ì´ì…˜
         if (isdead == false)
         {
             animator.SetBool("isDead", true);
@@ -331,7 +350,7 @@ public class MonsterState : MonoBehaviour
         {
             OnDead?.Invoke(this);
             // animator.SetBool("isDead", false);
-            // ³²±ÃÇÏ
+            // ë‚¨ê¶í•˜
             if (hpBar != null)
             {
                 Destroy(hpBar.gameObject);
@@ -340,14 +359,25 @@ public class MonsterState : MonoBehaviour
         }
     }
 
+    // ìŠ¤í‚¬
     public void Skill()
     {
-        // ½ºÅ³ÀÌ ÀÖ´Â ¸ó½ºÅÍÀÇ °æ¿ì
+        AllAnimationOff();
+
+        animator.SetBool("SkillReady", true);
+
+        if (id == 1)      // ë©§ë¼ì§€
+        {
+            RushSkill();
+        }
     }
 
+    // ë°°íšŒ
     public void Walking()
     {
-        // °È±â ¾Ö´Ï¸ŞÀÌ¼Ç 
+        AllAnimationOff();
+
+        // ê±·ê¸° ì• ë‹ˆë©”ì´ì…˜ 
         animator.SetBool("isWalking", true);
 
         if (transform.position.x >= spawnPoint.x)
@@ -366,15 +396,14 @@ public class MonsterState : MonoBehaviour
 
         StartCoroutine(IdleCoroutine());
 
-        // ÀÏÁ¤ ¹üÀ§ ³»¿¡ ÇÃ·¹ÀÌ¾î°¡ µé¾î¿ÔÀ» °æ¿ì
+        // ì¼ì • ë²”ìœ„ ë‚´ì— í”Œë ˆì´ì–´ê°€ ë“¤ì–´ì™”ì„ ê²½ìš°
         if (Vector3.Distance(transform.position, player.transform.position) < range)
         {
-            animator.SetBool("isWalking", false);  // ¾Ö´Ï¸ŞÀÌ¼Ç Ãë¼Ò
-            curState = State.Running;   // ÃßÀû»óÅÂ·Î º¯È¯
+            curState = State.Running;   // ì¶”ì ìƒíƒœë¡œ ë³€í™˜
         }
     }
 
-    // ´ë±â¸ğ¼Ç°ú ¹èÈ¸¸ğ¼ÇÀÇ ÄÚ·çÆ¾
+    // ëŒ€ê¸°ëª¨ì…˜ê³¼ ë°°íšŒëª¨ì…˜ì˜ ì½”ë£¨í‹´
     IEnumerator IdleCoroutine()
     {
         yield return new WaitForSeconds(5f);
@@ -384,22 +413,22 @@ public class MonsterState : MonoBehaviour
         StopAllCoroutines();
     }
 
-    // ÇÇ°İ½Ã Ãâ·ÂÇÒ ÇÔ¼ö
+    // í”¼ê²©ì‹œ ì¶œë ¥í•  í•¨ìˆ˜
     public void IsHit(float damage)
     {
-        // ÀÌÀü ¾î´À»óÅÂµç ¿¡´Ï¸ŞÀÌ¼Ç ²ô±â
+        // ì´ì „ ì–´ëŠìƒíƒœë“  ì—ë‹ˆë©”ì´ì…˜ ë„ê¸°
         AllAnimationOff();
 
-        // ÇÇ°İ ¾Ö´Ï¸ŞÀÌ¼Ç Ãâ·Â
+        // í”¼ê²© ì• ë‹ˆë©”ì´ì…˜ ì¶œë ¥
         animator.SetBool("isHit", true);
         animator.SetBool("isHit", false);
 
-        // Hp °¨¼Ò
+        // Hp ê°ì†Œ
         curHp -= damage;
 
         UpdateHPBar();
 
-        // Á×¾úÀ» °æ¿ì
+        // ì£½ì—ˆì„ ê²½ìš°
         if (curHp <= 0)
         {
             curState = State.Dead;
@@ -407,46 +436,65 @@ public class MonsterState : MonoBehaviour
 
     }
 
-    // Ãæµ¹ °¨Áö = ÇÃ·¹ÀÌ¾î¿¡°Ô µ¥¹ÌÁö ÁÖ´Â ºÎºĞ
+    // ì¶©ëŒ ê°ì§€ = í”Œë ˆì´ì–´ì—ê²Œ ë°ë¯¸ì§€ ì£¼ëŠ” ë¶€ë¶„
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log($"¸ó½ºÅÍ Ãæµ¹ : {collision.gameObject.name}");
+        Debug.Log($"ëª¬ìŠ¤í„° ì¶©ëŒ : {collision.gameObject.name}");
         if (collision.gameObject == GameManager.Instance.player.gameObject)
         {
             GameManager.Instance.player.stats.TakeDamage(attack);
         }
     }
 
-    // È¸Àü
+    // íšŒì „
     public void Flip(Vector3 lookingPos)
     {
-        // ¿ø·¡´Â y°ªÀÌ ±âÁ¸Æ÷Áö¼Ç°ú °°À»¶§ ¹Ù¶óº¸´Â ÄÚµå
-        // ÇÃ·¹ÀÌ¾î Á¡ÇÁÇßÀ» ¶§ °¨Áö¸¦ À§ÇØ¼­ ¾à°£ ¹üÀ§ ¼öÁ¤?
+        // ì›ë˜ëŠ” yê°’ì´ ê¸°ì¡´í¬ì§€ì…˜ê³¼ ê°™ì„ë•Œ ë°”ë¼ë³´ëŠ” ì½”ë“œ
+        // í”Œë ˆì´ì–´ ì í”„í–ˆì„ ë•Œ ê°ì§€ë¥¼ ìœ„í•´ì„œ ì•½ê°„ ë²”ìœ„ ìˆ˜ì •?
         if (transform.position.y == lookingPos.y)
         {
             transform.LookAt(lookingPos);
         }
     }
 
+    // ìŠ¤í„´ ì„ì‹œì‘ì„±
     public void Stun()
     {
-        // ÀÌÀü ¾î´À»óÅÂµç ¿¡´Ï¸ŞÀÌ¼Ç ²ô±â
+
+        if (stunTimer > 0)
+        {
+            stunTimer -= Time.deltaTime;
+        }
+        else
+        {
+            curState = State.Idle;
+        }
+    }
+
+    public void Stunned(float second)
+    {
+        // ì´ì „ ì–´ëŠìƒíƒœë“  ì—ë‹ˆë©”ì´ì…˜ ë„ê¸°
         AllAnimationOff();
+
+        stunTimer = second;
+        curState = State.Stun;
 
         animator.SetBool("isStun", true);
         animator.SetBool("isStun", false);
+
+
     }
 
-    // µĞÈ­(ÀÓ½ÃÀÛ¼º) 
+    // ë‘”í™”(ì„ì‹œì‘ì„±) 
     public void Slow(float ice)
     {
-        // µĞÈ­ ½ºÅ³¿¡ °É·ÈÀ» °æ¿ì ÀÌ¼Ó °¨¼Ò?
-        // ¿ø·¡´ë·Î µ¹¸± ¹æ¹ı ÇÊ¿ä
+        // ë‘”í™” ìŠ¤í‚¬ì— ê±¸ë ¸ì„ ê²½ìš° ì´ì† ê°ì†Œ?
+        // ì›ë˜ëŒ€ë¡œ ëŒë¦´ ë°©ë²• í•„ìš”
         walkSpeed -= ice;
         runSpeed -= ice;
     }
 
-    // ¾Ö´Ï¸ŞÀÌ¼Ç ÀüºÎ ²ô´Â ÇÔ¼ö
+    // ì• ë‹ˆë©”ì´ì…˜ ì „ë¶€ ë„ëŠ” í•¨ìˆ˜
     public void AllAnimationOff()
     {
         animator.SetBool("isIdle", false);
@@ -457,7 +505,7 @@ public class MonsterState : MonoBehaviour
         animator.SetBool("isDead", false);
         animator.SetBool("isStun", false);
     }
-    //³²±ÃÇÏ
+    //ë‚¨ê¶í•˜
     private void UpdateHPBar()
     {
         if (hpBar != null)
@@ -465,5 +513,28 @@ public class MonsterState : MonoBehaviour
             hpBar.value = curHp;
         }
     }
+
+    #region ìŠ¤í‚¬ ëª¨ìŒ
+
+    public void RushSkill()
+    {
+        // í”Œë ˆì´ì–´ ë°©í–¥ìœ¼ë¡œ ëŒì§„
+        Vector3 rushDirection = (player.transform.position - transform.position).normalized;
+
+        float rushDistance = 5f;  // ëŒì§„ ê±°ë¦¬ (5m)
+        float rushSpeed = runSpeed * 2.5f;  // ëŒì§„ ì†ë„ (ê¸°ì¡´ ì†ë„ì˜ 2.5ë°°)
+
+        Vector3 rushStartPos = transform.position;
+
+        transform.position += rushDirection * rushSpeed * Time.deltaTime;
+
+        // í”Œë ˆì´ì–´ ê³µê²©
+        trigger.TirggerOnOff();
+
+        // ê³µê²© í›„ ê¸°ë³¸ìƒíƒœë¡œ ë³€ê²½
+        curState = State.Idle;
+    }
+
+    #endregion
 }
 

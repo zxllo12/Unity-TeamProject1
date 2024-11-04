@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] protected ParticleSystem flashEffect;
     [SerializeField] protected ParticleSystem hitEffect;
+    [SerializeField] protected bool useCallBack = false;
 
     protected Coroutine _moveRoutine;
 
@@ -14,6 +15,8 @@ public class Projectile : MonoBehaviour
     public float Damage { get { return _damage; } }
 
     protected SkillBase _ownerSkill;
+
+    public UnityAction<GameObject> OnHit;
 
     public virtual void SetDamage(float damage)
     {
@@ -54,21 +57,26 @@ public class Projectile : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"{gameObject.name} hit : {other.name}");
-
         if (hitEffect != null)
         {
             ParticleSystem effect = Instantiate(hitEffect, other.transform.position, Quaternion.identity);
             Destroy(effect.gameObject, effect.main.duration);
         }
 
-        MonsterState monster = other.GetComponent<MonsterState>();
-        if (monster != null)
+        if (useCallBack == false)
         {
-            monster.IsHit(_damage);
-        }
+            MonsterState monster = other.GetComponent<MonsterState>();
+            if (monster != null)
+            {
+                monster.IsHit(_damage);
+            }
 
-        Debug.Log($"Projectile Damage : {_damage}");
+            Debug.Log($"Projectile Damage : {_damage}");
+        }
+        else
+        {
+            OnHit?.Invoke(other.gameObject);
+        }
 
         // 관통 여부 확인
         if (_ownerSkill.SkillData.CanPenetration == false)

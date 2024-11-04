@@ -314,7 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce154dafe7621404daa12d513df3bf6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableTime: 0.8
+  disableTime: 1.8
 --- !u!1 &3783786756296295634
 GameObject:
   m_ObjectHideFlags: 0
@@ -1286,7 +1286,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: bcb3736a66a5e074dafa3b18a984b9fe, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 1
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -1340,6 +1340,8 @@ MonoBehaviour:
   shootPoint: {fileID: 0}
   animator: {fileID: 8381081918614425273}
   trigger: {fileID: 2901923486075840412}
+  Collider: {fileID: 0}
+  hpBarPrefab: {fileID: 1273474970888333437, guid: f6e56f2315d945b49ba9ddce93a6345d, type: 3}
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   WalkRangePoint: {x: 0, y: 0, z: 0}
@@ -1357,6 +1359,8 @@ MonoBehaviour:
   canSkill: 0
   attackType: 0
   bulletSpeed: 0
+  isDeathWorm: 0
+  isBoss: 0
 --- !u!1 &8535023829657998843
 GameObject:
   m_ObjectHideFlags: 0

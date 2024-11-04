@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 133414442164375397}
   - component: {fileID: 133414442164375399}
   - component: {fileID: 133414442164375398}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +68,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131936}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: LeftMandible_Bone029
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131938}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: LeftMandible_Bone028
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131940}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: LeftMandible_Bone031
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,7 +164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131942}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: LeftMandible_Bone030
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,7 +196,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131944}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: LeftMandible_Bone033
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131946}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: LeftMandible_Bone032
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,7 +259,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131948}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: MasterRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +291,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131950}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: LP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -327,7 +327,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131952}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: BottomMandible_Bone024
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +359,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131954}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: BottomMandible_Bone023
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,7 +391,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131956}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: BottomMandible_Bone026
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,7 +423,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131958}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: BottomMandible_Bone025
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -456,7 +456,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3755553334877131960}
   - component: {fileID: 3755553334882567570}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Carapace_lp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -553,7 +553,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131962}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: BottomMandible_Bone027
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -584,7 +584,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131964}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Head Control
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -624,7 +624,7 @@ GameObject:
   - component: {fileID: 133414442025987711}
   - component: {fileID: 133414442025987704}
   - component: {fileID: 3379868762111809312}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Giant_Worm_LP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -639,7 +639,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3755553334877292702}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -18.301722, y: -0.74, z: 1.0130081}
+  m_LocalPosition: {x: -15.922958, y: -0.66, z: 0.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -662,7 +662,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 8453def12ff136342accbc42c04469db, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -703,6 +703,7 @@ MonoBehaviour:
   shootPoint: {fileID: 0}
   animator: {fileID: 3755553334886693714}
   trigger: {fileID: 133414442164375398}
+  Collider: {fileID: 3379868762111809312}
   hpBarPrefab: {fileID: 1273474970888333437, guid: f6e56f2315d945b49ba9ddce93a6345d, type: 3}
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
@@ -745,7 +746,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132000}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone063
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -777,7 +778,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132002}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone062
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -809,7 +810,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132004}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone065
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -841,7 +842,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132006}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone064
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -873,7 +874,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132008}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone067
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -904,7 +905,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132010}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone066
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -936,7 +937,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132012}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone069
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -968,7 +969,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132014}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone068
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1000,7 +1001,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132016}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone048
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1032,7 +1033,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132018}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone047
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1064,7 +1065,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132020}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone050
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1096,7 +1097,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132022}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone049
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1128,7 +1129,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132024}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone052
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1160,7 +1161,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132026}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone051
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1192,7 +1193,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132028}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone061
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1224,7 +1225,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132030}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone053
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1255,7 +1256,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131904}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone040
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1288,7 +1289,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3755553334877131906}
   - component: {fileID: 3755553334882567572}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tentacles_LP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1423,7 +1424,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131908}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone042
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1455,7 +1456,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131910}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone041
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1487,7 +1488,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131912}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone044
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1519,7 +1520,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131914}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone043
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1551,7 +1552,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131916}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone046
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1582,7 +1583,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131918}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone045
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1614,7 +1615,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131920}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: RightMandible_Bone035
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1646,7 +1647,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131922}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: RightMandible_Bone034
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1678,7 +1679,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131924}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: RightMandible_Bone037
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1710,7 +1711,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131926}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: RightMandible_Bone036
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1742,7 +1743,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131928}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: RightMandible_Bone039
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1773,7 +1774,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131930}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: RightMandible_Bone038
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1806,7 +1807,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3755553334877131932}
   - component: {fileID: 3755553334882567574}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: teeth_lp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1953,7 +1954,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3755553334877131934}
   - component: {fileID: 3755553334882567568}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Spikes_lp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2057,7 +2058,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132064}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Worm Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2090,7 +2091,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132066}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: TopMandible_Bone022
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2121,7 +2122,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132068}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Worm_Bone001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2154,7 +2155,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3755553334877132070}
   - component: {fileID: 3755553334882567578}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Worm_body_lp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2321,7 +2322,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132072}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Worm_Bone003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2353,7 +2354,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132074}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Worm_Bone002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2385,7 +2386,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132076}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Worm_Bone005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2417,7 +2418,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132078}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Worm_Bone004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2449,7 +2450,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132080}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone087
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2481,7 +2482,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132082}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone086
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2513,7 +2514,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132084}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: TongueMaster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2550,7 +2551,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132086}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone088
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2581,7 +2582,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132088}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: TopMandible_Bone019
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2613,7 +2614,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132090}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: TopMandible_Bone018
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2645,7 +2646,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132092}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: TopMandible_Bone021
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2677,7 +2678,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132094}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: TopMandible_Bone020
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2709,7 +2710,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131968}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone079
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2741,7 +2742,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131970}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone078
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2773,7 +2774,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131972}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone081
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2804,7 +2805,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131974}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone080
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2836,7 +2837,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131976}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone083
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2868,7 +2869,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131978}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone082
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2900,7 +2901,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131980}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone085
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2932,7 +2933,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131982}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone084
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2964,7 +2965,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131984}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone071
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2996,7 +2997,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131986}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone070
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3028,7 +3029,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131988}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone073
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3060,7 +3061,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131990}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone072
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3092,7 +3093,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131992}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone075
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3124,7 +3125,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131994}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone074
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3155,7 +3156,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131996}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone077
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3187,7 +3188,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877131998}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Tongue_Bone076
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3219,7 +3220,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132032}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Worm_Bone015
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3251,7 +3252,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132034}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Worm_Bone014
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3283,7 +3284,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132036}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Worm_Bone017
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3314,7 +3315,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132038}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Worm_Bone016
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3346,7 +3347,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132048}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Worm_Bone007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3378,7 +3379,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132050}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Worm_Bone006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3410,7 +3411,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132052}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Worm_Bone009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3442,7 +3443,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132054}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Worm_Bone008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3474,7 +3475,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132056}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Worm_Bone011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3506,7 +3507,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132058}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Worm_Bone010
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3538,7 +3539,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132060}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Worm_Bone013
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3570,7 +3571,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755553334877132062}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Worm_Bone012
   m_TagString: Untagged
   m_Icon: {fileID: 0}

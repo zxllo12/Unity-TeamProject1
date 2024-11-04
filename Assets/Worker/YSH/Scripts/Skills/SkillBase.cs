@@ -11,24 +11,33 @@ public class SkillBase : MonoBehaviour
     [SerializeField] protected ParticleSystem castEffect;
 
     protected ParticleSystem _castEffectInstance;
-    protected Vector3 _castPos;
 
     // firePos의 transform, 계속 변함
     protected Transform _fireTransform;
 
     // Vector3형은 값타입이므로 변하지않음
-    protected Vector3 _startPos;
+    // 캐스팅 시작 시 firePos의 위치를 기억
+    protected Vector3 _startFirePos;
+
     protected float _startDir;
     protected GameObject _user;
+
+    // AreaProjectile이 발생하는 위치는 castPos가 아닌 플레이어 기준으로 해야함
+    protected Vector3 _startUserPos;
+    protected Vector3 _areaProjectilePos;
+
+    protected float _attackPoint;
     
     // 유저의 방향을 알 수 있는 변수 필요
 
     public Transform FireTransform { get { return _fireTransform; } set { _fireTransform = value; } }
-    public Vector3 StartPos { get { return _startPos; } set { _startPos = value; } }
+    public Vector3 StartFirePos { get { return _startFirePos; } set { _startFirePos = value; } }
     public float StartDir { get { return _startDir; } set { _startDir = value; } }
-    public Vector3 CastPos { get { return _castPos; } }
 
     public GameObject User { get { return _user; } set { _user = value; } }
+    public Vector3 StartUserPos { get { return _startUserPos; } set { _startUserPos = value; } }
+    public Vector3 AreaProjectilePos { get { return _areaProjectilePos; } }
+    public float AttackPoint { get { return _attackPoint; } set { _attackPoint = value; } } 
 
     public SkillData SkillData { get { return _skillData; } }
 
@@ -57,8 +66,8 @@ public class SkillBase : MonoBehaviour
 
     public virtual void DoCast()
     {
-        Vector3 dist = new Vector3(_fireTransform.forward.x * _skillData.Range, 0, 0);
-        _castPos = FireTransform.position + dist;
+        Vector3 dist = new Vector3(_startDir * _skillData.Range, 0, 0);
+        _areaProjectilePos = _startUserPos + dist;
 
         if (castEffect == null)
             return;
@@ -74,7 +83,7 @@ public class SkillBase : MonoBehaviour
         }
     }
 
-    public virtual void DoSkill(float attackPoint)
+    public virtual void DoSkill()
     {
         Debug.Log($"Do Skill : {_skillData.Name}");
         // 스킬 사용 시의 공통 행동

@@ -1844,7 +1844,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 5c78f234d0243ba4791fd8382582a889, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -1899,6 +1899,8 @@ MonoBehaviour:
   shootPoint: {fileID: 0}
   animator: {fileID: 3207198422581461841}
   trigger: {fileID: 7718546969522230700}
+  Collider: {fileID: 0}
+  hpBarPrefab: {fileID: 1273474970888333437, guid: f6e56f2315d945b49ba9ddce93a6345d, type: 3}
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   WalkRangePoint: {x: 0, y: 0, z: 0}
@@ -1916,6 +1918,8 @@ MonoBehaviour:
   canSkill: 0
   attackType: 0
   bulletSpeed: 0
+  isDeathWorm: 0
+  isBoss: 0
 --- !u!1 &3207198422590828849
 GameObject:
   m_ObjectHideFlags: 0

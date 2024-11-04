@@ -2558,7 +2558,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: af30ad7c71a369a4eab422f78309416f, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -2608,12 +2608,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  bulletPrefab: {fileID: 7388910518196718470, guid: 77b9ff79397a4b841ad8c32cd0f2928f, type: 3}
+  bulletPrefab: {fileID: 0}
   shootPoint: {fileID: 0}
   animator: {fileID: 7360494016992951026}
   trigger: {fileID: 176826486513294975}
+  Collider: {fileID: 0}
+  hpBarPrefab: {fileID: 1273474970888333437, guid: f6e56f2315d945b49ba9ddce93a6345d, type: 3}
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
+  WalkRangePoint: {x: 0, y: 0, z: 0}
+  destination: {x: 0, y: 0, z: 0}
   id: 7
   attack: 0
   def: 0
@@ -2622,11 +2626,13 @@ MonoBehaviour:
   walkSpeed: 1
   runSpeed: 2
   attackSpeed: 10
-  rage: 7
+  range: 0
   attackRage: 10
   canSkill: 0
   attackType: 1
   bulletSpeed: 0
+  isDeathWorm: 0
+  isBoss: 0
 --- !u!1 &7360494017002457468
 GameObject:
   m_ObjectHideFlags: 0
