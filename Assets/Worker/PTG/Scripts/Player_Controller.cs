@@ -52,6 +52,8 @@ public class Player_Controller : MonoBehaviour
 
         rigid = GetComponent<Rigidbody>();
         rigid.useGravity = false;
+
+        handler.EquipSkill(1, Enums.PlayerSkillSlot.Slot1);
     }
 
     private void Start()
@@ -236,14 +238,16 @@ public class Player_Controller : MonoBehaviour
         Destroy(gameObject, 3f);
     }
 
-    private void Player_Freeze()
+    public void Player_Freeze()
     {
+        Debug.Log("Player_Freeze");
         // 멈춤
         moveStop = true;
     }
 
-    private void Player_Release()
+    public void Player_Release()
     {
+        Debug.Log("Player_Release");
         // 멈춤 해제
         moveStop = false;
     }

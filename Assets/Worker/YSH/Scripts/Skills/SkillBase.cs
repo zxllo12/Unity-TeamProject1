@@ -66,6 +66,8 @@ public class SkillBase : MonoBehaviour
 
     public virtual void DoCast()
     {
+        GameManager.Instance.player.Player_Freeze();
+
         Vector3 dist = new Vector3(_startDir * _skillData.Range, 0, 0);
         _areaProjectilePos = _startUserPos + dist;
 
@@ -92,6 +94,8 @@ public class SkillBase : MonoBehaviour
 
     public virtual void StopCast()
     {
+        GameManager.Instance.player.Player_Release();
+
         _castEffectInstance?.Stop();
         _castEffectInstance?.gameObject?.SetActive(false);
     }
