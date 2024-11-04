@@ -2206,7 +2206,7 @@ MonoBehaviour:
     attackPower: 10
     defense: 5
     maxHealth: 100
-    currentHealth: 100
+    currentHealth: 0
     invincibleDuration: 1.5
   skillui: {fileID: 0}
   ignoreHalfBlockDelay: 1
