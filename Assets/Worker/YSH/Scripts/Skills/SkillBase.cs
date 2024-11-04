@@ -87,7 +87,7 @@ public class SkillBase : MonoBehaviour
     {
         Debug.Log($"Do Skill : {_skillData.Name}");
         // 스킬 사용 시의 공통 행동
-        _currentCoolTime = _skillData.CoolTime;
+        _currentCoolTime = _skillData.CoolTime * (1 - GameManager.Instance.skillCooltimeReduce / 100f);
     }
 
     public virtual void StopCast()

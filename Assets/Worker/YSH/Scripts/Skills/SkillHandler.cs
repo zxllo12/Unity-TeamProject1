@@ -18,6 +18,8 @@ public class SkillHandler : MonoBehaviour
 
     public UnityAction OnChangedSkillSlot;
 
+    public UnityAction<int, float> OnSkillUsed;
+
     public void SetBasicSkill(int skillID)
     {
         // ID °Ë»ç
@@ -176,6 +178,7 @@ public class SkillHandler : MonoBehaviour
         yield return castTime;
         _playerSkillSlot[(int)slot].StopCast();
         _playerSkillSlot[(int)slot].DoSkill();
+        OnSkillUsed?.Invoke((int)slot, _playerSkillSlot[(int)slot].SkillData.CoolTime * (1 - GameManager.Instance.skillCooltimeReduce / 100f));
         _castRoutine = null;
     }
 

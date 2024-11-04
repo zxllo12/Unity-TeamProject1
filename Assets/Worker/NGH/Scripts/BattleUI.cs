@@ -33,7 +33,7 @@ public class BattleUI : MonoBehaviour
         GameManager.Instance.player.handler.OnChangedSkillSlot += UpdateSkill;
         GameManager.Instance.player.stats.OnChangedHP += UpdateHp;
         GameManager.Instance.OnGoldChanged += UpdateGold;
-        //GameManager.Instance.player.handler.OnSkillUsed += StartCooldown;
+        GameManager.Instance.player.handler.OnSkillUsed += StartCooldown;
 
         UpdateGold();
         UpdateHp();
@@ -62,7 +62,7 @@ public class BattleUI : MonoBehaviour
         GameManager.Instance.player.handler.OnChangedSkillSlot -= UpdateSkill;
         GameManager.Instance.player.stats.OnChangedHP -= UpdateHp;
         GameManager.Instance.OnGoldChanged -= UpdateGold;
-        //GameManager.Instance.player.handler.OnSkillUsed -= StartCooldown; // 쿨타임 이벤트 해제
+        GameManager.Instance.player.handler.OnSkillUsed -= StartCooldown; // 쿨타임 이벤트 해제
     }
 
     public void ShowSkillSlotUI(int skillID)
