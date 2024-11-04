@@ -389,7 +389,7 @@ public class MonsterState : MonoBehaviour
         {
             RushSkill();
         }
-        if(id==9)
+        if(id==9)       // °ñ·½
         {
             Harden();
         }
@@ -558,6 +558,8 @@ public class MonsterState : MonoBehaviour
 
     public void RushSkill()
     {
+        if (skillCoolDown == false) { return; }
+
         StartCoroutine(RushCoroutine());
     }
 
