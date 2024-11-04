@@ -299,6 +299,19 @@ MonoBehaviour:
   trigger: {fileID: 881695990303509154}
   Collider: {fileID: 0}
   hpBarPrefab: {fileID: 1273474970888333437, guid: f6e56f2315d945b49ba9ddce93a6345d, type: 3}
+  monsterPrefabs:
+  - {fileID: 1329178955573946686, guid: b72471080387f2342a2175b57c50c0cc, type: 3}
+  - {fileID: 7360494017002457466, guid: e205c5f3799fec24f86cd9d82b99bda8, type: 3}
+  - {fileID: 3207198422590828837, guid: 95670c98a77d43047bcb256be99375b4, type: 3}
+  - {fileID: 1818569843717202659, guid: f3fade6f8289627469750976820ccbf2, type: 3}
+  - {fileID: 4341523719760046909, guid: c0c4f0fd9ee00be4ebbfc25d12aa0884, type: 3}
+  healAmount: 0
+  healRange: 0
+  buffDuration: 10
+  attackBuffMultiplier: 1.2
+  defenseBuffMultiplier: 1.2
+  absorbRadius: 10
+  absorbAmount: 20
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   WalkRangePoint: {x: 0, y: 0, z: 0}
@@ -316,8 +329,11 @@ MonoBehaviour:
   canSkill: 0
   attackType: 0
   bulletSpeed: 0
+  skillCoolTime: 0
   isDeathWorm: 0
   isBoss: 0
+  isStun: 0
+  skillCoolDown: 1
 --- !u!1 &5313556638889604618
 GameObject:
   m_ObjectHideFlags: 0
