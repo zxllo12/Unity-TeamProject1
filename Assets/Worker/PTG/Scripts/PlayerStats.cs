@@ -22,7 +22,7 @@ public class PlayerStats
     //체력 초기화
     public PlayerStats()
     {
-        currentHealth = maxHealth;
+        //currentHealth = maxHealth;
     }
 
     //무적 시간

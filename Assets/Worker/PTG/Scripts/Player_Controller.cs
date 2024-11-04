@@ -59,8 +59,6 @@ public class Player_Controller : MonoBehaviour
         // 이벤트 추가
         GameManager.Instance.player.stats.OnChangedHP += TakeDamageAnimation;
         GameManager.Instance.player.stats.Dead += PlayerDead;
-        GameManager.Instance.player.skillui.Player_Stop += Player_Freeze;
-        GameManager.Instance.player.skillui.Player_Start += Player_Release;
     }   
 
     void Update()
@@ -72,14 +70,6 @@ public class Player_Controller : MonoBehaviour
         float height = rigid.velocity.y;
 
         animator.SetFloat("height", Mathf.Abs(height));
-
-        // 공격 모션 테스트
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            animator.SetTrigger("Atk");
-
-            PlayerDead();// 죽음테스트
-        }
 
         // 기본 공격
         if (Input.GetKeyDown(basicSkillKey))
@@ -201,8 +191,6 @@ public class Player_Controller : MonoBehaviour
         // 이벤트 해제
         GameManager.Instance.player.stats.OnChangedHP -= TakeDamageAnimation;
         GameManager.Instance.player.stats.Dead -= PlayerDead;
-        GameManager.Instance.player.skillui.Player_Stop -= Player_Freeze;
-        GameManager.Instance.player.skillui.Player_Start -= Player_Release;
     }
 
     private void Jump()
@@ -236,14 +224,28 @@ public class Player_Controller : MonoBehaviour
         Destroy(gameObject, 3f);
     }
 
-    private void Player_Freeze()
+    public void PlayCast()
     {
+        Player_Freeze();
+        animator.SetBool("cast", true);
+    }
+
+    public void StopCast()
+    {
+        Player_Release();
+        animator.SetBool("cast", false);
+    }
+
+    public void Player_Freeze()
+    {
+        Debug.Log("Player_Freeze");
         // 멈춤
         moveStop = true;
     }
 
-    private void Player_Release()
+    public void Player_Release()
     {
+        Debug.Log("Player_Release");
         // 멈춤 해제
         moveStop = false;
     }
