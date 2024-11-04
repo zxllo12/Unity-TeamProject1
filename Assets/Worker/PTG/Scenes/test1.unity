@@ -273,6 +273,7 @@ MonoBehaviour:
   battlePlayerMaxHP: 0
   battlePlayerAtk: 0
   battlePlayerDef: 0
+  battlePlayerCurrentHP: 0
   skillCooltimeReduce: 0
   playerCurHpSetOnce: 1
 --- !u!4 &550593482
