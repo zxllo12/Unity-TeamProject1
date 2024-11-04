@@ -25,10 +25,10 @@ public class ConfirmWindow : MonoBehaviour
         this.skillID = skillID;
         skillname.text = $"{DataManager.Instance.SkillDict[skillID].Name}";
         description.text = $"{DataManager.Instance.SkillDict[skillID].Description}";
-        element.text = $"{DataManager.Instance.SkillDict[skillID].SkillType}";
-        power.text = $"{DataManager.Instance.SkillDict[skillID].Damage}";
-        cooltime.text = $"{DataManager.Instance.SkillDict[skillID].CoolTime}";
-        range.text = $"{DataManager.Instance.SkillDict[skillID].Range}";
+        element.text = $"속성 : {DataManager.Instance.SkillDict[skillID].SkillType}";
+        power.text = $"위력 : {DataManager.Instance.SkillDict[skillID].Damage * 100}%";
+        cooltime.text = $"기본 쿨타임 : {DataManager.Instance.SkillDict[skillID].CoolTime}초";
+        range.text = $"범위 : {DataManager.Instance.SkillDict[skillID].Range}";
     }
 
     public void UnlockSkillInShop()

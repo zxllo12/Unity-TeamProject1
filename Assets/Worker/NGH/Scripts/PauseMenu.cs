@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenuUI; // 설정창 패널
     private bool isPaused = false; // 게임 멈춤 상태 확인용
+    public Button returnLobbyButton;
 
     void Update()
     {
@@ -30,6 +32,10 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenuUI.SetActive(true); // 설정창 보이기
         Time.timeScale = 0f; // 게임 시간 멈춤
+        if(returnLobbyButton != null)
+        {
+            returnLobbyButton.onClick.AddListener(GameManager.Instance.ReturnToLobby);
+        }
         isPaused = true;
     }
 
