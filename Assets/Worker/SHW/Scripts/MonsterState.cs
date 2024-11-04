@@ -18,20 +18,20 @@ public class MonsterState : MonoBehaviour
     [SerializeField] GameObject hpBarPrefab;      // 남궁하
     [SerializeField] Slider hpBar;                // 남궁하
     [SerializeField] Transform hpBarTransform;    // 남궁하
-    [SerializeField] private GameObject[] monsterPrefabs;    // ��ȯ�� ���� ������
+    [SerializeField] private GameObject[] monsterPrefabs;    
 
     [Header("Boss1")]
-    [SerializeField] float healAmount;      // ȸ����
-    [SerializeField] float healRange;       // ȸ�� ����                                 
+    [SerializeField] float healAmount;      // 힐량
+    [SerializeField] float healRange;       // 힐 범위                    
 
     [Header("Boss2")]
-    [SerializeField] float buffDuration; // ���� ���� �ð�
-    [SerializeField] float attackBuffMultiplier; // ���ݷ� 20% ����
-    [SerializeField] float defenseBuffMultiplier; // ���� 20% ����
+    [SerializeField] float buffDuration; // 버프 시간
+    [SerializeField] float attackBuffMultiplier; // 공격 버프
+    [SerializeField] float defenseBuffMultiplier; // 방어 버프
 
     [Header("Boss3")]
-    [SerializeField] float absorbRadius = 10f; // ���� ���� (��: �ݰ� 10m)
-    [SerializeField] float absorbAmount = 20f; // ���� �� ������ �����ϴ� ü�·�
+    [SerializeField] float absorbRadius = 10f; // 흡혈 범위
+    [SerializeField] float absorbAmount = 20f; // 흡혈 양
 
 
 
@@ -43,38 +43,32 @@ public class MonsterState : MonoBehaviour
 
 
     public int id;
-    public float attack;           // ���ݷ�
-    public float def;              // ����
-    public float hp;               // ü��
-    public float curHp;           // ���� ���� ü��
-    public float walkSpeed;        // �ȱ��̼�
-    public float runSpeed;         // �ٱ��̼�
-    public float attackSpeed;      // �̼�
-    public float range;             // �����Ÿ�
-    public float attackRage;       // ���� ��Ÿ�
-    public bool canSkill;          // ��ų����
-    public bool attackType;        // ���� Ÿ�� true�� ��� ���Ÿ�
-    public float bulletSpeed;      // ����ü �߻� �ӵ�
-    public float skillCoolTime;    // ��ų ��Ÿ��
+    public float attack;           // 공격력
+    public float def;              // 방어력
+    public float hp;               // 체력
+    public float curHp;           // 현재 체력
+    public float walkSpeed;        // 이동 속도
+    public float runSpeed;         // 추적 속도
+    public float attackSpeed;      // 공속
+    public float range;             // 추적 범위
+    public float attackRage;       // 공격 범위
+    public bool canSkill;          // 스킬 가능 여부
+    public bool attackType;        // 공격 타입 (true = 원거리)
+    public float bulletSpeed;      // 탄속
+    public float skillCoolTime;    // 스킬 쿨타임
 
-    bool canAttack = true;      // ���� Ȯ��
-    float attackTimer;          // ���� Ÿ�̸�
+    bool canAttack = true;      // 공격 가능 상태 확인
+    float attackTimer;          // 공격용 타이머
 
-    public bool isDeathWorm; // ������ Ȯ��
-    public bool isBoss;  // ���� Ȯ��
+    public bool isDeathWorm; // 데스웜 확인용
+    public bool isBoss;  // 보스 확인용
 
+    public bool isStun = false;     // 스턴 상태 확인 
+    float stunTimer = 0;            // 스턴 타이머
 
-    public bool isStun = false;
-    float stunTimer = 0;
+    public bool skillCoolDown = true;       // 스킬 쿨 확인
 
-
-    public bool skillCoolDown = true;
-
-
-
-    // ���Ȯ�ο�
-
-    bool isdead = false;
+    bool isdead = false;        // 사망 상태 확인
 
     protected MonsterData _monsterData;
     public MonsterData MonsterData { get { return _monsterData; } }
@@ -206,6 +200,8 @@ public class MonsterState : MonoBehaviour
         }
 
         hpBarTransform.position = transform.position + new Vector3(0, -1, -2); // 남궁하
+
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 
     // 기본 대기상태
@@ -293,9 +289,6 @@ public class MonsterState : MonoBehaviour
         }
     }
 
-    // �̵��� ������������ ���ư��� Return
-    // �����ʿ� =  ���� ��ȭ�� ���� 
-
     public void Return()
     {
         AllAnimationOff();
@@ -375,10 +368,19 @@ public class MonsterState : MonoBehaviour
         // 이전 어느상태든 에니메이션 끄기
         AllAnimationOff();
 
+        // 애니메이션 초기화용(임시)
+        animator.SetBool("isIdle", true);
+        animator.SetBool("isIdle", false);
+
+        animator.SetBool("isDead", true);
+
+        GetComponent<Collider>().enabled = false;
+
         // 사망 애니메이션
         if (isdead == false)
         {
-            animator.SetBool("isDead", true);
+        animator.SetBool("isDead", false);
+           
             isdead = true;
         }
         else
@@ -390,7 +392,7 @@ public class MonsterState : MonoBehaviour
             {
                 Destroy(hpBar.gameObject);
             }
-            Destroy(gameObject, 3f);
+            Destroy(gameObject, 1f);
         }
     }
 
@@ -405,11 +407,11 @@ public class MonsterState : MonoBehaviour
         {
             RushSkill();
         }
-        if(id==9)       // ��
+        if(id==9)       // 골렘
         {
             Harden();
         }
-        if (id >= 15)        // ���� ������ ��ȯ ��ų
+        if (id >= 15)        // 보스 공통 소환 스킬
         {
             SummonMonster();
         }
@@ -512,9 +514,6 @@ public class MonsterState : MonoBehaviour
         }
     }
 
-
-    // ���� ����
-
     public void Stun()
     {
 
@@ -528,7 +527,7 @@ public class MonsterState : MonoBehaviour
         }
     }
 
-    // ���� �����Լ�
+    // 스턴 상태
     public void Stunned(float second)
     {
         // 이전 어느상태든 에니메이션 끄기
@@ -576,7 +575,6 @@ public class MonsterState : MonoBehaviour
 
     public void RushSkill()
     {
-
         if (skillCoolDown == false) { return; }
 
         StartCoroutine(RushCoroutine());
@@ -587,8 +585,8 @@ public class MonsterState : MonoBehaviour
         AllAnimationOff();
 
         Vector3 rushDirection = (player.transform.position - transform.position).normalized;
-        float rushDistance = 5f;  // ���� �Ÿ� (5m)
-        float rushSpeed = runSpeed * 2.5f;  // ���� �ӵ� (���� �ӵ��� 2.5��)
+        float rushDistance = 5f;  
+        float rushSpeed = runSpeed * 2.5f;  
 
         Vector3 rushStartPos = transform.position;
 
@@ -601,26 +599,16 @@ public class MonsterState : MonoBehaviour
             yield return null;
         }
 
-        // ���� ���� �� �÷��̾� ����
         trigger.TirggerOnOff();
 
         animator.SetBool("isUsingSkill", false);
 
         StartCoroutine(SkillCoolDown());
 
-        // ���� �� ���¸� �⺻ ���·� ����
-
         curState = State.Idle;
-
     }
 
-    // ��ũ���� 
-    public void IceBall()
-    {
-        // �������� ���̽��� 
-    }
-
-    // �� ��ų = �ܴ�������
+    // 스톤 골렘 스킬
     public void Harden()
     {
         if (skillCoolDown == false) { return; }
@@ -632,7 +620,6 @@ public class MonsterState : MonoBehaviour
 
         if (hardenStack < maxStack)
         {
-            // �����ϴ��� ������? ���� ���� ��Ȳ
             float defIncrease = def * amountIncrease;
             def += defIncrease;
             hardenStack++;
@@ -641,13 +628,6 @@ public class MonsterState : MonoBehaviour
         StartCoroutine(SkillCoolDown());
     }
 
-    // ���̷��� �ּ���
-    public void PlayerSlow()
-    {
-        // �÷��̾� ���ο�
-    }
-
-    // ����1 ���� ��
     public void MonsterHill()
     {
         if (skillCoolDown == false) { return; }
@@ -670,7 +650,6 @@ public class MonsterState : MonoBehaviour
         StartCoroutine(SkillCoolDown());
     }
 
-    // ����2 ���� ����ȭ
     public void MonsterBurserKer()
     {
         if (skillCoolDown == false) { return; }
@@ -706,7 +685,6 @@ public class MonsterState : MonoBehaviour
         monster.def = originalDefense;
     }
 
-    // ����3 ���� ����
     public void MonsterAbsorb()
     {
         // ��ų ��Ÿ�� ��
@@ -737,7 +715,6 @@ public class MonsterState : MonoBehaviour
         StartCoroutine(SkillCoolDown());
     }
 
-    // �������� ���� ��ȯ
     public void SummonMonster()
     {
         // ��ų ��Ÿ�� ��

@@ -127,6 +127,8 @@ MonoBehaviour:
   trigger: {fileID: 2160621722378822133}
   Collider: {fileID: 0}
   hpBarPrefab: {fileID: 1273474970888333437, guid: f6e56f2315d945b49ba9ddce93a6345d, type: 3}
+  hpBar: {fileID: 0}
+  hpBarTransform: {fileID: 0}
   monsterPrefabs: []
   healAmount: 0
   healRange: 0
@@ -168,8 +170,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.25840786, z: 0.56518143}
-  m_Center: {x: -7.876877e-16, y: 0.21074034, z: 0.1427167}
+  m_Size: {x: 1, y: 0.47181535, z: 0.56518143}
+  m_Center: {x: -7.876877e-16, y: 0.31744438, z: 0.1427167}
 --- !u!114 &4265926205647494502
 MonoBehaviour:
   m_ObjectHideFlags: 0
