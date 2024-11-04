@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public float battlePlayerMaxHP;
     public float battlePlayerAtk;
     public float battlePlayerDef;
+    public float battlePlayerCurrentHP;
     public float skillCooltimeReduce;
     public bool playerCurHpSetOnce = true;
 
@@ -182,9 +183,15 @@ public class GameManager : MonoBehaviour
         if (playerCurHpSetOnce)
         {
             player.stats.currentHealth = player.stats.maxHealth;
+            SetPlayerCurrentHP();
             playerCurHpSetOnce = false;
         }
+        else
+        {
+            player.stats.currentHealth = battlePlayerCurrentHP;
+        }
         player.stats.Dead += GameOver;
+        player.stats.OnChangedHP += SetPlayerCurrentHP;
 
         // 추후 수정 필요 (데이터에서 기본스킬 찾도록)
         player.handler.SetBasicSkill(9);
@@ -255,8 +262,10 @@ public class GameManager : MonoBehaviour
         {
             ResetPlayerStatus();
             player.stats.Dead -= GameOver;
+            player.stats.OnChangedHP -= SetPlayerCurrentHP;
         }
         playerCurHpSetOnce = true;
+        Time.timeScale = 1f;
         triggerCount = 0;
         monsterCount = 0;
         playerSkillSlotID = new int?[(int)Enums.PlayerSkillSlot.Length];
@@ -312,6 +321,11 @@ public class GameManager : MonoBehaviour
         player.stats.attackPower = 10f;
         player.stats.defense = 5f;
         skillCooltimeReduce = 0f;
+    }
+
+    private void SetPlayerCurrentHP()
+    {
+        battlePlayerCurrentHP = player.stats.currentHealth;
     }
 
     public void GameOver()
