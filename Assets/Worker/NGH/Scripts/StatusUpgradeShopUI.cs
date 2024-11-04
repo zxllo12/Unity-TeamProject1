@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -32,11 +30,13 @@ public class StatusUpgradeShopUI : MonoBehaviour
         InitializeStatus();
         SetPrice();
         UpdateUI();
+        gameObject.SetActive(false); 
     }
 
     private void OnDestroy()
     {
         PlayerSaveManager.SavePlayerSattus(upgradedAtk, upgradedDef, upgradedHealth, upgradedCooldown);
+        SetPlayerStatus();
     }
 
     private void InitializeStatus() 
@@ -96,6 +96,13 @@ public class StatusUpgradeShopUI : MonoBehaviour
         cooldownPrice = upgradedCooldown * 10 + 10;
     }
 
+    private void SetPlayerStatus()
+    {
+        GameManager.Instance.battlePlayerMaxHP = 100f + upgradedHealth * 5.0f;
+        GameManager.Instance.battlePlayerAtk = 10f + upgradedAtk * 1.0f;
+        GameManager.Instance.battlePlayerDef = 5f + upgradedDef * 0.5f;
+        GameManager.Instance.skillCooltimeReduce = upgradedCooldown * 1.0f;
+    }
 
     private void UpdateUI()
     {
