@@ -2188,8 +2188,14 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 536871424
-  speed: 200
-  jumpForce: 6
+  speed: 5
+  jumpForce: 12
+  maxFallSpeed: -10
+  fallMultiplier: 2.5
+  fallAcceleration: 1.2
+  maxFallMultiplier: 10
+  customGravity: -20
+  lowJumpMultiplier: 2
   animator: {fileID: 4086540118484351829}
   model: {fileID: 4086540118476887237}
   handler: {fileID: 0}
@@ -2202,6 +2208,7 @@ MonoBehaviour:
     maxHealth: 100
     currentHealth: 100
     invincibleDuration: 1.5
+  skillui: {fileID: 0}
   ignoreHalfBlockDelay: 1
 --- !u!1 &4086540118477048177
 GameObject:
