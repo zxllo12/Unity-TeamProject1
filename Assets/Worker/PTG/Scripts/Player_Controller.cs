@@ -238,6 +238,18 @@ public class Player_Controller : MonoBehaviour
         Destroy(gameObject, 3f);
     }
 
+    public void PlayCast()
+    {
+        Player_Freeze();
+        animator.SetBool("cast", true);
+    }
+
+    public void StopCast()
+    {
+        Player_Release();
+        animator.SetBool("cast", false);
+    }
+
     public void Player_Freeze()
     {
         Debug.Log("Player_Freeze");
