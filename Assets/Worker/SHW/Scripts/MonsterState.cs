@@ -18,7 +18,7 @@ public class MonsterState : MonoBehaviour
     [SerializeField] GameObject hpBarPrefab;      // 남궁하
     [SerializeField] Slider hpBar;                // 남궁하
     [SerializeField] Transform hpBarTransform;    // 남궁하
-    [SerializeField] private GameObject[] monsterPrefabs;    
+    [SerializeField] private GameObject[] monsterPrefabs;
 
     [Header("Boss1")]
     [SerializeField] float healAmount;      // 힐량
@@ -199,8 +199,11 @@ public class MonsterState : MonoBehaviour
             }
         }
 
-        hpBarTransform.position = transform.position + new Vector3(0, -1, -2); // 남궁하
-        hpBar.transform.rotation = Quaternion.Euler(Vector3.zero);
+        if (hpBar != null)
+        {
+            hpBarTransform.position = transform.position + new Vector3(0, -1, -2); // 남궁하
+            hpBar.transform.rotation = Quaternion.Euler(Vector3.zero);
+        }
 
         GetComponent<Rigidbody>().velocity = Vector3.zero;
 
@@ -252,7 +255,7 @@ public class MonsterState : MonoBehaviour
         if (isDeathWorm == true)
         {
             animator.SetBool("isDisappear", true);
-            
+
             // 추적 애니메이션 실행
             animator.SetBool("isRunning", true);
 
@@ -334,7 +337,7 @@ public class MonsterState : MonoBehaviour
 
                 AllAnimationOff();
             }
-            
+
             // 공격 애니메이션
             animator.SetBool("isAttacking", true);
 
@@ -381,8 +384,8 @@ public class MonsterState : MonoBehaviour
         // 사망 애니메이션
         if (isdead == false)
         {
-        animator.SetBool("isDead", false);
-           
+            animator.SetBool("isDead", false);
+
             isdead = true;
         }
         else
@@ -409,7 +412,7 @@ public class MonsterState : MonoBehaviour
         {
             RushSkill();
         }
-        if(id==9)       // 골렘
+        if (id == 9)       // 골렘
         {
             Harden();
         }
@@ -417,7 +420,7 @@ public class MonsterState : MonoBehaviour
         {
             SummonMonster();
         }
-        if(id == 15)
+        if (id == 15)
         {
             MonsterHill();
         }
@@ -581,10 +584,10 @@ public class MonsterState : MonoBehaviour
     }
 
     public void TriggerReturn()
-    { 
+    {
         if (curState == State.Running)
         {
-             
+
         }
         else
         {
@@ -608,8 +611,8 @@ public class MonsterState : MonoBehaviour
         AllAnimationOff();
 
         Vector3 rushDirection = (player.transform.position - transform.position).normalized;
-        float rushDistance = 5f;  
-        float rushSpeed = runSpeed * 2.5f;  
+        float rushDistance = 5f;
+        float rushSpeed = runSpeed * 2.5f;
 
         Vector3 rushStartPos = transform.position;
 
