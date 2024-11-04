@@ -368,12 +368,19 @@ public class MonsterState : MonoBehaviour
         // 이전 어느상태든 에니메이션 끄기
         AllAnimationOff();
 
-       GetComponent<Collider>().enabled = false;
+        // 애니메이션 초기화용(임시)
+        animator.SetBool("isIdle", true);
+        animator.SetBool("isIdle", false);
+
+        animator.SetBool("isDead", true);
+
+        GetComponent<Collider>().enabled = false;
 
         // 사망 애니메이션
         if (isdead == false)
         {
-            animator.SetBool("isDead", true);
+        animator.SetBool("isDead", false);
+           
             isdead = true;
         }
         else
@@ -385,7 +392,7 @@ public class MonsterState : MonoBehaviour
             {
                 Destroy(hpBar.gameObject);
             }
-            Destroy(gameObject, 3f);
+            Destroy(gameObject, 1f);
         }
     }
 
