@@ -1113,6 +1113,7 @@ GameObject:
   - component: {fileID: 1953472555603087411}
   - component: {fileID: 1953472555603087412}
   - component: {fileID: 1953472555603087413}
+  - component: {fileID: 2224599989093067732}
   m_Layer: 7
   m_Name: Flower Dryad
   m_TagString: Untagged
@@ -1242,6 +1243,18 @@ MonoBehaviour:
   isBoss: 0
   isStun: 0
   skillCoolDown: 1
+--- !u!114 &2224599989093067732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 319512542070410852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd06c69f479b73244bf36b13691c2844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &319512542070410854
 GameObject:
   m_ObjectHideFlags: 0

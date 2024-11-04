@@ -1052,6 +1052,7 @@ GameObject:
   - component: {fileID: 7406655132794978803}
   - component: {fileID: 7406655132794978800}
   - component: {fileID: 1693354311890493631}
+  - component: {fileID: -2678804047937017794}
   m_Layer: 7
   m_Name: Spider King
   m_TagString: Untagged
@@ -1156,6 +1157,14 @@ MonoBehaviour:
   trigger: {fileID: 0}
   Collider: {fileID: 0}
   hpBarPrefab: {fileID: 1273474970888333437, guid: f6e56f2315d945b49ba9ddce93a6345d, type: 3}
+  monsterPrefabs: []
+  healAmount: 0
+  healRange: 0
+  buffDuration: 0
+  attackBuffMultiplier: 0
+  defenseBuffMultiplier: 0
+  absorbRadius: 10
+  absorbAmount: 20
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   WalkRangePoint: {x: 0, y: 0, z: 0}
@@ -1173,8 +1182,11 @@ MonoBehaviour:
   canSkill: 0
   attackType: 0
   bulletSpeed: 3
+  skillCoolTime: 0
   isDeathWorm: 0
   isBoss: 0
+  isStun: 0
+  skillCoolDown: 1
 --- !u!65 &1693354311890493631
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1188,6 +1200,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.1447382, z: 1.4570675}
   m_Center: {x: -2.7672302e-18, y: 0.8570018, z: -0.0076177716}
+--- !u!114 &-2678804047937017794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818569843717202659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd06c69f479b73244bf36b13691c2844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1818569843717202661
 GameObject:
   m_ObjectHideFlags: 0

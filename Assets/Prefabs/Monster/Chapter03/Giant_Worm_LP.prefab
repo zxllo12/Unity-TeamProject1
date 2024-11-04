@@ -624,6 +624,7 @@ GameObject:
   - component: {fileID: 133414442025987711}
   - component: {fileID: 133414442025987704}
   - component: {fileID: 3379868762111809312}
+  - component: {fileID: 7707781075071610743}
   m_Layer: 7
   m_Name: Giant_Worm_LP
   m_TagString: Untagged
@@ -705,6 +706,14 @@ MonoBehaviour:
   trigger: {fileID: 133414442164375398}
   Collider: {fileID: 3379868762111809312}
   hpBarPrefab: {fileID: 1273474970888333437, guid: f6e56f2315d945b49ba9ddce93a6345d, type: 3}
+  monsterPrefabs: []
+  healAmount: 0
+  healRange: 0
+  buffDuration: 0
+  attackBuffMultiplier: 0
+  defenseBuffMultiplier: 0
+  absorbRadius: 10
+  absorbAmount: 20
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   WalkRangePoint: {x: 0, y: 0, z: 0}
@@ -722,8 +731,11 @@ MonoBehaviour:
   canSkill: 0
   attackType: 0
   bulletSpeed: 0
+  skillCoolTime: 0
   isDeathWorm: 0
   isBoss: 0
+  isStun: 0
+  skillCoolDown: 1
 --- !u!65 &3379868762111809312
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -737,6 +749,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.545107, y: 5.1542783, z: 1.520387}
   m_Center: {x: -1.2725537, y: 2.6463087, z: -0.0013173819}
+--- !u!114 &7707781075071610743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3755553334877292702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd06c69f479b73244bf36b13691c2844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3755553334877292736
 GameObject:
   m_ObjectHideFlags: 0
