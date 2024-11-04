@@ -200,8 +200,10 @@ public class MonsterState : MonoBehaviour
         }
 
         hpBarTransform.position = transform.position + new Vector3(0, -1, -2); // 남궁하
+        hpBar.transform.rotation = Quaternion.Euler(Vector3.zero);
 
         GetComponent<Rigidbody>().velocity = Vector3.zero;
+
     }
 
     // 기본 대기상태
