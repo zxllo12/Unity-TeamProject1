@@ -2190,18 +2190,18 @@ MonoBehaviour:
     m_Bits: 536871424
   speed: 5
   jumpForce: 12
-  maxFallSpeed: -10
+  maxFallSpeed: -5
   fallMultiplier: 2.5
-  fallAcceleration: 1.2
-  maxFallMultiplier: 10
-  customGravity: -20
+  fallAcceleration: 1.1
+  maxFallMultiplier: 4
+  customGravity: -3
   lowJumpMultiplier: 2
   animator: {fileID: 4086540118484351829}
   model: {fileID: 4086540118476887237}
-  handler: {fileID: 0}
+  handler: {fileID: 4086540118476887235}
   firePos: {fileID: 2282588985292804952}
   basicSkillKey: 122
-  skillKeys: 00000000000000000000000000000000
+  skillKeys: 71000000770000006500000072000000
   stats:
     attackPower: 10
     defense: 5
