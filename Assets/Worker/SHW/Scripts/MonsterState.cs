@@ -18,6 +18,20 @@ public class MonsterState : MonoBehaviour
     [SerializeField] GameObject hpBarPrefab;
     Slider hpBar;
     Transform hpBarTransform;
+    [SerializeField] private GameObject[] monsterPrefabs;    // ��ȯ�� ���� ������
+
+    [Header("Boss1")]
+    [SerializeField] float healAmount;      // ȸ����
+    [SerializeField] float healRange;       // ȸ�� ����                                 
+
+    [Header("Boss2")]
+    [SerializeField] float buffDuration; // ���� ���� �ð�
+    [SerializeField] float attackBuffMultiplier; // ���ݷ� 20% ����
+    [SerializeField] float defenseBuffMultiplier; // ���� 20% ����
+
+    [Header("Boss3")]
+    [SerializeField] float absorbRadius = 10f; // ���� ���� (��: �ݰ� 10m)
+    [SerializeField] float absorbAmount = 20f; // ���� �� ������ �����ϴ� ü�·�
 
 
 
@@ -27,30 +41,39 @@ public class MonsterState : MonoBehaviour
     public Vector3 WalkRangePoint;  // 이동 위치
     public Vector3 destination;
 
-    [SerializeField] int id;
-    [SerializeField] float attack;           // 공격력
-    [SerializeField] float def;              // 방어력
-    [SerializeField] float hp;               // 체력
-    public float curHp;                      // 실제 현재 체력
-    [SerializeField] float walkSpeed;        // 걷기이속
-    [SerializeField] float runSpeed;         // 뛰기이속
-    [SerializeField] float attackSpeed;      // 이속
-    [SerializeField] float range;             // 추적거리
-    [SerializeField] float attackRage;       // 공격 사거리
-    [SerializeField] bool canSkill;          // 스킬여부
-    [SerializeField] bool attackType;        // 공격 타입 true일 경우 원거리
-    [SerializeField] float bulletSpeed;      // 투사체 발사 속도
 
-    bool canAttack = true;      // 공격 확인
-    float attackTimer;          // 공격 타이머
+    public int id;
+    public float attack;           // ���ݷ�
+    public float def;              // ����
+    public float hp;               // ü��
+    public float curHp;           // ���� ���� ü��
+    public float walkSpeed;        // �ȱ��̼�
+    public float runSpeed;         // �ٱ��̼�
+    public float attackSpeed;      // �̼�
+    public float range;             // �����Ÿ�
+    public float attackRage;       // ���� ��Ÿ�
+    public bool canSkill;          // ��ų����
+    public bool attackType;        // ���� Ÿ�� true�� ��� ���Ÿ�
+    public float bulletSpeed;      // ����ü �߻� �ӵ�
+    public float skillCoolTime;    // ��ų ��Ÿ��
 
-    public bool isDeathWorm; // 데스웜 확인
-    public bool isBoss;  // 보스 확인
+    bool canAttack = true;      // ���� Ȯ��
+    float attackTimer;          // ���� Ÿ�̸�
+
+    public bool isDeathWorm; // ������ Ȯ��
+    public bool isBoss;  // ���� Ȯ��
+
 
     public bool isStun = false;
     float stunTimer = 0;
 
-    // 사망확인용
+
+    public bool skillCoolDown = true;
+
+
+
+    // ���Ȯ�ο�
+
     bool isdead = false;
 
     protected MonsterData _monsterData;
@@ -131,6 +154,7 @@ public class MonsterState : MonoBehaviour
         attackRage = _monsterData.AttackRage;
         canSkill = _monsterData.CanSkill;
         attackType = _monsterData.AttackType;
+        skillCoolTime = _monsterData.SkillCool;
 
         if (trigger != null)
         {
@@ -259,16 +283,27 @@ public class MonsterState : MonoBehaviour
         // 일정 범위 내에 플레이어가 넘어갈 경우
         if (Vector3.Distance(transform.position, player.transform.position) > range)
         {
-            curState = State.Return;   // 스폰지점으로 돌아간다
+
+            curState = State.Idle;   // ������������ ���ư���
+
+            if (isDeathWorm == true)
+            {
+                curState = State.Idle;
+            }
         }
     }
 
-    // 이동시 스폰지점으로 돌아가는 Return
+    // �̵��� ������������ ���ư��� Return
+    // �����ʿ� =  ���� ��ȭ�� ���� 
+
     public void Return()
     {
         AllAnimationOff();
 
-        // 일정 범위 내에 플레이어가 들어왔을 경우
+        Flip(destination);
+
+        // ���� ���� ���� �÷��̾ ������ ���
+
         if (Vector3.Distance(transform.position, player.transform.position) < range)
         {
             curState = State.Running;   // 추적상태로 변환
@@ -370,6 +405,26 @@ public class MonsterState : MonoBehaviour
         {
             RushSkill();
         }
+        if(id==9)       // ��
+        {
+            Harden();
+        }
+        if (id >= 15)        // ���� ������ ��ȯ ��ų
+        {
+            SummonMonster();
+        }
+        if(id == 15)
+        {
+            MonsterHill();
+        }
+        if (id == 16)
+        {
+            MonsterBurserKer();
+        }
+        if (id == 17)
+        {
+            MonsterAbsorb();
+        }
     }
 
     // 배회
@@ -457,7 +512,9 @@ public class MonsterState : MonoBehaviour
         }
     }
 
-    // 스턴 임시작성
+
+    // ���� ����
+
     public void Stun()
     {
 
@@ -471,6 +528,7 @@ public class MonsterState : MonoBehaviour
         }
     }
 
+    // ���� �����Լ�
     public void Stunned(float second)
     {
         // 이전 어느상태든 에니메이션 끄기
@@ -518,21 +576,200 @@ public class MonsterState : MonoBehaviour
 
     public void RushSkill()
     {
-        // 플레이어 방향으로 돌진
-        Vector3 rushDirection = (player.transform.position - transform.position).normalized;
 
-        float rushDistance = 5f;  // 돌진 거리 (5m)
-        float rushSpeed = runSpeed * 2.5f;  // 돌진 속도 (기존 속도의 2.5배)
+        if (skillCoolDown == false) { return; }
+
+        StartCoroutine(RushCoroutine());
+    }
+
+    private IEnumerator RushCoroutine()
+    {
+        AllAnimationOff();
+
+        Vector3 rushDirection = (player.transform.position - transform.position).normalized;
+        float rushDistance = 5f;  // ���� �Ÿ� (5m)
+        float rushSpeed = runSpeed * 2.5f;  // ���� �ӵ� (���� �ӵ��� 2.5��)
 
         Vector3 rushStartPos = transform.position;
 
-        transform.position += rushDirection * rushSpeed * Time.deltaTime;
+        animator.SetBool("isUsingSkill", true);
 
-        // 플레이어 공격
+
+        while (Vector3.Distance(rushStartPos, transform.position) < rushDistance)
+        {
+            transform.position += rushDirection * rushSpeed * Time.deltaTime;
+            yield return null;
+        }
+
+        // ���� ���� �� �÷��̾� ����
         trigger.TirggerOnOff();
 
-        // 공격 후 기본상태로 변경
+        animator.SetBool("isUsingSkill", false);
+
+        StartCoroutine(SkillCoolDown());
+
+        // ���� �� ���¸� �⺻ ���·� ����
+
         curState = State.Idle;
+
+    }
+
+    // ��ũ���� 
+    public void IceBall()
+    {
+        // �������� ���̽��� 
+    }
+
+    // �� ��ų = �ܴ�������
+    public void Harden()
+    {
+        if (skillCoolDown == false) { return; }
+
+        int hardenStack = 0;
+        int maxStack = 5;
+        float StackDuration = 35;
+        float amountIncrease = 0.1f;
+
+        if (hardenStack < maxStack)
+        {
+            // �����ϴ��� ������? ���� ���� ��Ȳ
+            float defIncrease = def * amountIncrease;
+            def += defIncrease;
+            hardenStack++;
+        }
+
+        StartCoroutine(SkillCoolDown());
+    }
+
+    // ���̷��� �ּ���
+    public void PlayerSlow()
+    {
+        // �÷��̾� ���ο�
+    }
+
+    // ����1 ���� ��
+    public void MonsterHill()
+    {
+        if (skillCoolDown == false) { return; }
+
+        // ���� ���� ���� ã��
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, healRange);
+
+        foreach (var hitCollider in hitColliders)
+        {
+            MonsterState monster = hitCollider.GetComponent<MonsterState>();
+
+            // ������ �ƴ� ���͵鸸 ȸ�� (�ڱ� �ڽ� ����)
+            if (monster != null && monster != this)
+            {
+                monster.curHp = Mathf.Min(monster.curHp + healAmount, monster.hp); // �ִ� ü���� ���� �ʵ��� ȸ��
+                monster.UpdateHPBar();  // ü�¹� ������Ʈ
+            }
+        }
+
+        StartCoroutine(SkillCoolDown());
+    }
+
+    // ����2 ���� ����ȭ
+    public void MonsterBurserKer()
+    {
+        if (skillCoolDown == false) { return; }
+
+        Collider[] nearbyMonsters = Physics.OverlapSphere(transform.position, 10f); // �ݰ� 10m ���� ���� Ž��
+
+        foreach (Collider collider in nearbyMonsters)
+        {
+            MonsterState monster = collider.GetComponent<MonsterState>();
+
+            if (monster != null && monster != this) // �ڽ��� ������ ���͸� ����
+            {
+                StartCoroutine(ApplyBuff(monster, attackBuffMultiplier, defenseBuffMultiplier, buffDuration));
+            }
+        }
+
+        StartCoroutine(SkillCoolDown());
+    }
+
+    IEnumerator ApplyBuff(MonsterState monster, float attackMultiplier, float defenseMultiplier, float duration)
+    {
+        float originalAttack = monster.attack;
+        float originalDefense = monster.def;
+
+        // ���ݷ°� ���� ����
+        monster.attack *= attackMultiplier;
+        monster.def *= defenseMultiplier;
+
+        yield return new WaitForSeconds(duration);
+
+        // ���� ���·� ����
+        monster.attack = originalAttack;
+        monster.def = originalDefense;
+    }
+
+    // ����3 ���� ����
+    public void MonsterAbsorb()
+    {
+        // ��ų ��Ÿ�� ��
+        if (skillCoolDown == false) { return; }
+
+        float maxHealth = hp; // ���� ������ �ִ� ü��
+
+        Collider[] nearbyMonsters = Physics.OverlapSphere(transform.position, absorbRadius);
+
+        foreach (Collider collider in nearbyMonsters)
+        {
+            MonsterState monster = collider.GetComponent<MonsterState>();
+
+            if (monster != null && monster != this && monster.curHp > 0) // �ڽ��� �����ϰ� ü���� �ִ� ���͸�
+            {
+                float actualAbsorb = Mathf.Min(absorbAmount, monster.curHp); // ������ ���� ü���� �ʰ����� �ʰ� ����
+
+                // ������ ü���� ���ҽ�Ű��, ������ ü���� ȸ��
+                monster.curHp -= actualAbsorb;
+                curHp = Mathf.Min(curHp + actualAbsorb, maxHealth); // ������ ü���� �ִ� ü���� ���� �ʵ��� ����
+
+                // ü�� UI ������Ʈ
+                monster.UpdateHPBar();
+                UpdateHPBar();
+            }
+        }
+
+        StartCoroutine(SkillCoolDown());
+    }
+
+    // �������� ���� ��ȯ
+    public void SummonMonster()
+    {
+        // ��ų ��Ÿ�� ��
+        if (skillCoolDown == false) { return; }
+
+        int monstersToSummon = 3;   // ��ȯ�� ���� ��
+        float spawnOffset = 2f;  // ���� ������ ��ȯ �Ÿ�
+
+        // 3���� ���� ��ȯ
+        for (int i = 0; i < monstersToSummon; i++)
+        {
+            // ������ ���� ��ȯ ��ġ ���
+            Vector3 spawnPosition = transform.position + transform.forward * spawnOffset
+                                  + new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
+
+            // ���� ���� Ÿ�� ����
+            int randomIndex = Random.Range(0, monsterPrefabs.Length);
+            GameObject monsterPrefab = monsterPrefabs[randomIndex];
+
+            // ���� ��ȯ
+            Quaternion spawnRotation = Quaternion.Euler(0, -90, 0); // y�� �������� 90�� ȸ�� // ��ȯ ���� 
+            Instantiate(monsterPrefab, spawnPosition, spawnRotation);
+        }
+
+        StartCoroutine(SkillCoolDown());
+    }
+
+    IEnumerator SkillCoolDown()
+    {
+        skillCoolDown = false;
+        yield return new WaitForSeconds(skillCoolTime);
+        skillCoolDown = true;
     }
 
     #endregion

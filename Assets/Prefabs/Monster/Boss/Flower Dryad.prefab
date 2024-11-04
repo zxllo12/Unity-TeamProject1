@@ -1113,6 +1113,7 @@ GameObject:
   - component: {fileID: 1953472555603087411}
   - component: {fileID: 1953472555603087412}
   - component: {fileID: 1953472555603087413}
+  - component: {fileID: 2224599989093067732}
   m_Layer: 7
   m_Name: Flower Dryad
   m_TagString: Untagged
@@ -1207,6 +1208,19 @@ MonoBehaviour:
   trigger: {fileID: 0}
   Collider: {fileID: 0}
   hpBarPrefab: {fileID: 1273474970888333437, guid: f6e56f2315d945b49ba9ddce93a6345d, type: 3}
+  monsterPrefabs:
+  - {fileID: 2159478351848550849, guid: ee5d5c687c4b7554dbcfab40ab5ac813, type: 3}
+  - {fileID: 2696945076877700492, guid: 31e09ba4c73efb64eb95f89eceb0852f, type: 3}
+  - {fileID: 7735227050587826862, guid: 4a4ba727a17c3f149b93cad6c6c3f65d, type: 3}
+  - {fileID: 4745347529743736400, guid: 131bf7a805daa284896f1e3b7834ef59, type: 3}
+  - {fileID: 8439323093095676235, guid: a1c7702a7a3b2b8499a7a7a06c9e1e05, type: 3}
+  healAmount: 20
+  healRange: 30
+  buffDuration: 2
+  attackBuffMultiplier: 1.2
+  defenseBuffMultiplier: 1.2
+  absorbRadius: 10
+  absorbAmount: 20
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   WalkRangePoint: {x: 0, y: 0, z: 0}
@@ -1224,8 +1238,23 @@ MonoBehaviour:
   canSkill: 0
   attackType: 0
   bulletSpeed: 3
+  skillCoolTime: 0
   isDeathWorm: 0
   isBoss: 0
+  isStun: 0
+  skillCoolDown: 1
+--- !u!114 &2224599989093067732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 319512542070410852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd06c69f479b73244bf36b13691c2844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &319512542070410854
 GameObject:
   m_ObjectHideFlags: 0

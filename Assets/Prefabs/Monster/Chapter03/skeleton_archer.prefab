@@ -1933,6 +1933,7 @@ GameObject:
   - component: {fileID: 7944157226580758804}
   - component: {fileID: 3253287618294029972}
   - component: {fileID: 2339909531652904598}
+  - component: {fileID: 6953620865345543109}
   m_Layer: 7
   m_Name: skeleton_archer
   m_TagString: Untagged
@@ -2000,6 +2001,14 @@ MonoBehaviour:
   trigger: {fileID: 0}
   Collider: {fileID: 0}
   hpBarPrefab: {fileID: 1273474970888333437, guid: f6e56f2315d945b49ba9ddce93a6345d, type: 3}
+  monsterPrefabs: []
+  healAmount: 0
+  healRange: 0
+  buffDuration: 0
+  attackBuffMultiplier: 0
+  defenseBuffMultiplier: 0
+  absorbRadius: 10
+  absorbAmount: 20
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   WalkRangePoint: {x: 0, y: 0, z: 0}
@@ -2017,8 +2026,11 @@ MonoBehaviour:
   canSkill: 0
   attackType: 0
   bulletSpeed: 3
+  skillCoolTime: 0
   isDeathWorm: 0
   isBoss: 0
+  isStun: 0
+  skillCoolDown: 1
 --- !u!54 &3253287618294029972
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2049,6 +2061,18 @@ CapsuleCollider:
   m_Height: 1.7623136
   m_Direction: 1
   m_Center: {x: 7.1340874e-16, y: 0.90524644, z: -0.12864025}
+--- !u!114 &6953620865345543109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8256343100864658243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd06c69f479b73244bf36b13691c2844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8276800680277394314
 GameObject:
   m_ObjectHideFlags: 0
