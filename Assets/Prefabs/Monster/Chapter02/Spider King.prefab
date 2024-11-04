@@ -1151,12 +1151,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  bulletPrefab: {fileID: 7388910518196718470, guid: 77b9ff79397a4b841ad8c32cd0f2928f, type: 3}
+  bulletPrefab: {fileID: 4400284416325512177, guid: 24502259645bc4e41ab76c95b9d07d77, type: 3}
   shootPoint: {fileID: 7406655132303181981}
   animator: {fileID: 1818569843726684451}
   trigger: {fileID: 0}
   Collider: {fileID: 0}
   hpBarPrefab: {fileID: 1273474970888333437, guid: f6e56f2315d945b49ba9ddce93a6345d, type: 3}
+  hpBar: {fileID: 0}
+  hpBarTransform: {fileID: 0}
   monsterPrefabs: []
   healAmount: 0
   healRange: 0

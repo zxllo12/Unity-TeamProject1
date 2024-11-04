@@ -508,9 +508,11 @@ public class MonsterState : MonoBehaviour
     {
         // 원래는 y값이 기존포지션과 같을때 바라보는 코드
         // 플레이어 점프했을 때 감지를 위해서 약간 범위 수정?
-        if (transform.position.y == lookingPos.y)
+        if (transform.position.y <= lookingPos.y)
         {
-            transform.LookAt(lookingPos);
+             transform.LookAt(lookingPos);
+            // transform.Rotate(0, 180, 0);
+
         }
     }
 
