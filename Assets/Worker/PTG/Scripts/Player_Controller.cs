@@ -13,7 +13,7 @@ public class Player_Controller : MonoBehaviour
     public LayerMask groundLayer;
 
     [SerializeField] float speed = 5; // 이동 속도
-    [SerializeField] float jumpForce =8; // 점프 파워
+    [SerializeField] float jumpForce = 12; // 점프 파워
     [SerializeField] float maxFallSpeed = -10f; // 최대 하강 속도 제한
     [SerializeField] float fallMultiplier = 2.5f; // 기본 하강 가속도 배율
     [SerializeField] float fallAcceleration = 1.2f; // 하강 가속도 증가율
