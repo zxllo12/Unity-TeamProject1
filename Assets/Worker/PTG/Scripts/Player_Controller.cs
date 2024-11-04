@@ -91,7 +91,9 @@ public class Player_Controller : MonoBehaviour
         float hInput = Input.GetAxisRaw("Horizontal");
         direction.x = hInput * speed;
 
-        animator.SetFloat("speed", Mathf.Abs(hInput));
+        float targetSpeed = Mathf.Abs(hInput);
+
+        animator.SetFloat("speed", Mathf.Lerp(animator.GetFloat("speed"), targetSpeed, Time.deltaTime * 20f));
 
         // 점프 및 이중 점프
         bool isGrounded = Physics.CheckSphere(groundCheck.position, 0.15f, groundLayer);
