@@ -578,6 +578,20 @@ public class MonsterState : MonoBehaviour
         }
     }
 
+    public void TriggerReturn()
+    { 
+        if (curState == State.Running)
+        {
+             
+        }
+        else
+        {
+            Flip(spawnPoint);
+            destination = spawnPoint;
+            transform.position = Vector3.MoveTowards(transform.position, destination, walkSpeed * Time.deltaTime);
+        }
+    }
+
     #region 스킬 모음
 
     public void RushSkill()
