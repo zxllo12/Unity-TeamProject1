@@ -103,10 +103,18 @@ public class Player_Controller : MonoBehaviour
         {
             AbleDoubleJump = true;
 
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetKey(KeyCode.DownArrow) && Input.GetButtonDown("Jump"))
+            {
+                if (currentPlatform != null)
+                {
+                    StartCoroutine(CoDownJump());
+                }
+            }
+            else if (Input.GetButtonDown("Jump"))
             {
                 Jump();
             }
+            
         }
         else if (AbleDoubleJump && Input.GetButtonDown("Jump"))
         {
@@ -149,13 +157,7 @@ public class Player_Controller : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (currentPlatform != null)
-            {
-                StartCoroutine(CoDownJump());
-            }
-        }
+        
     }
 
     // 밑으로 점프
