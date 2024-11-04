@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Worker/NGH/Scene/BattleTest.unity
     guid: 4ae8a1f6e9018be458446063cffd1415
-  - enabled: 1
+  - enabled: 0
     path: Assets/Worker/NGH/Scene/BattleTest 2.unity
     guid: faf4da4d08aec5f47a8ebbac09d50b72
   - enabled: 1
@@ -26,4 +26,28 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stage1-1.unity
     guid: c7ce34e36200b5549ada0789345e80d6
+  - enabled: 1
+    path: Assets/Scenes/Stage1-2.unity
+    guid: 42f5c24c5deec8346b68d2b74a242083
+  - enabled: 1
+    path: Assets/Scenes/Stage1-3.unity
+    guid: b28642c42fd830242a519e36ea094bcd
+  - enabled: 1
+    path: Assets/Scenes/Stage2-1.unity
+    guid: 1300b52fcc2c52e4c8f9471215bea207
+  - enabled: 1
+    path: Assets/Scenes/Stage2-2.unity
+    guid: ab46ea665babe074ebf99d857804afd3
+  - enabled: 1
+    path: Assets/Scenes/Stage2-3.unity
+    guid: dff9e322a3741fb4aa6b3a0b992ca1b5
+  - enabled: 1
+    path: Assets/Scenes/Stage3-1.unity
+    guid: 75d0526230b4d594e936818fbde5bfc0
+  - enabled: 1
+    path: Assets/Scenes/Stage3-2.unity
+    guid: 9d3875fafb18e6d42b5c563b3cfd0d54
+  - enabled: 1
+    path: Assets/Scenes/Stage3-3.unity
+    guid: 118dbff2efffbb0449e8fe77fcbecfae
   m_configObjects: {}
