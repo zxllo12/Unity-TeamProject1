@@ -368,6 +368,8 @@ public class MonsterState : MonoBehaviour
         // 이전 어느상태든 에니메이션 끄기
         AllAnimationOff();
 
+       GetComponent<Collider>().enabled = false;
+
         // 사망 애니메이션
         if (isdead == false)
         {
