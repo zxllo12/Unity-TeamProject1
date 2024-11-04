@@ -52,9 +52,6 @@ public class Player_Controller : MonoBehaviour
 
         rigid = GetComponent<Rigidbody>();
         rigid.useGravity = false;
-
-        // test
-        handler.EquipSkill(3, Enums.PlayerSkillSlot.Slot1);
     }
 
     private void Start()
