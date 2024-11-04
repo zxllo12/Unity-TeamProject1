@@ -52,8 +52,6 @@ public class Player_Controller : MonoBehaviour
 
         rigid = GetComponent<Rigidbody>();
         rigid.useGravity = false;
-
-        handler.EquipSkill(1, Enums.PlayerSkillSlot.Slot1);
     }
 
     private void Start()
@@ -61,8 +59,6 @@ public class Player_Controller : MonoBehaviour
         // 이벤트 추가
         GameManager.Instance.player.stats.OnChangedHP += TakeDamageAnimation;
         GameManager.Instance.player.stats.Dead += PlayerDead;
-        GameManager.Instance.player.skillui.Player_Stop += Player_Freeze;
-        GameManager.Instance.player.skillui.Player_Start += Player_Release;
     }   
 
     void Update()
@@ -74,14 +70,6 @@ public class Player_Controller : MonoBehaviour
         float height = rigid.velocity.y;
 
         animator.SetFloat("height", Mathf.Abs(height));
-
-        // 공격 모션 테스트
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            animator.SetTrigger("Atk");
-
-            PlayerDead();// 죽음테스트
-        }
 
         // 기본 공격
         if (Input.GetKeyDown(basicSkillKey))
@@ -203,8 +191,6 @@ public class Player_Controller : MonoBehaviour
         // 이벤트 해제
         GameManager.Instance.player.stats.OnChangedHP -= TakeDamageAnimation;
         GameManager.Instance.player.stats.Dead -= PlayerDead;
-        GameManager.Instance.player.skillui.Player_Stop -= Player_Freeze;
-        GameManager.Instance.player.skillui.Player_Start -= Player_Release;
     }
 
     private void Jump()
