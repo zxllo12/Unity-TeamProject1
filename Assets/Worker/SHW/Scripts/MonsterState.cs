@@ -15,9 +15,9 @@ public class MonsterState : MonoBehaviour
     [SerializeField] Animator animator;           // 재생할 에니메이터
     [SerializeField] AttackTrigger trigger;       // 공격 범위 확인 트리거
     [SerializeField] Collider Collider;           // 데스웜 피격 판정용 콜라이더
-    [SerializeField] GameObject hpBarPrefab;
-    Slider hpBar;
-    Transform hpBarTransform;
+    [SerializeField] GameObject hpBarPrefab;      // 남궁하
+    [SerializeField] Slider hpBar;                // 남궁하
+    [SerializeField] Transform hpBarTransform;    // 남궁하
     [SerializeField] private GameObject[] monsterPrefabs;    // ��ȯ�� ���� ������
 
     [Header("Boss1")]
