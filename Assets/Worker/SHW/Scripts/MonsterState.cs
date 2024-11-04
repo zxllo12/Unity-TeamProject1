@@ -587,7 +587,8 @@ public class MonsterState : MonoBehaviour
     {
         if (curState == State.Running)
         {
-
+            // (임시)
+            transform.position = spawnPoint;
         }
         else
         {
