@@ -200,8 +200,10 @@ public class MonsterState : MonoBehaviour
         }
 
         hpBarTransform.position = transform.position + new Vector3(0, -1, -2); // 남궁하
+        hpBar.transform.rotation = Quaternion.Euler(Vector3.zero);
 
         GetComponent<Rigidbody>().velocity = Vector3.zero;
+
     }
 
     // 기본 대기상태
@@ -510,9 +512,14 @@ public class MonsterState : MonoBehaviour
         // 플레이어 점프했을 때 감지를 위해서 약간 범위 수정?
         if (transform.position.y <= lookingPos.y)
         {
-             transform.LookAt(lookingPos);
-            // transform.Rotate(0, 180, 0);
-
+            if (transform.position.x >= lookingPos.x)
+            {
+                transform.rotation = Quaternion.Euler(0, -90, 0);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 90, 0);
+            }
         }
     }
 
@@ -570,6 +577,20 @@ public class MonsterState : MonoBehaviour
         if (hpBar != null)
         {
             hpBar.value = curHp;
+        }
+    }
+
+    public void TriggerReturn()
+    { 
+        if (curState == State.Running)
+        {
+             
+        }
+        else
+        {
+            Flip(spawnPoint);
+            destination = spawnPoint;
+            transform.position = Vector3.MoveTowards(transform.position, destination, walkSpeed * Time.deltaTime);
         }
     }
 
