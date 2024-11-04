@@ -510,9 +510,14 @@ public class MonsterState : MonoBehaviour
         // 플레이어 점프했을 때 감지를 위해서 약간 범위 수정?
         if (transform.position.y <= lookingPos.y)
         {
-             transform.LookAt(lookingPos);
-            // transform.Rotate(0, 180, 0);
-
+            if (transform.position.x >= lookingPos.x)
+            {
+                transform.rotation = Quaternion.Euler(0, -90, 0);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 90, 0);
+            }
         }
     }
 
