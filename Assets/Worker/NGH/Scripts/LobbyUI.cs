@@ -8,7 +8,7 @@ public class LobbyUI : MonoBehaviour
 
     public Button StartButton;
 
-    private void OnEnable()
+    private void Start()
     {
         LinkButton();
     }
