@@ -19606,6 +19606,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashEffect: {fileID: 0}
   hitEffect: {fileID: 0}
+  launchAudioClipName: 
+  hitAudioClipName: Frozensword_Hit
+  useCallBack: 0
+  _destroyTime: 0
 --- !u!54 &4489696941240178193
 Rigidbody:
   m_ObjectHideFlags: 0

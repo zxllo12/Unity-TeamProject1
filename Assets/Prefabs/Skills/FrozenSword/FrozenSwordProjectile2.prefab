@@ -4951,6 +4951,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashEffect: {fileID: 0}
   hitEffect: {fileID: 0}
+  launchAudioClipName: 
+  hitAudioClipName: 
+  useCallBack: 0
+  _destroyTime: 0
 --- !u!54 &8198766439343549696
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -38916,4 +38916,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashEffect: {fileID: 7397463088676918473, guid: 945841a68a6475648b00a07dde1c71d2, type: 3}
   hitEffect: {fileID: 5441401661027536714, guid: 9c8087dd77dbf7e4ba12e2510932443f, type: 3}
+  launchAudioClipName: LightBall_Launch
+  hitAudioClipName: LightBall_Hit
   useCallBack: 1

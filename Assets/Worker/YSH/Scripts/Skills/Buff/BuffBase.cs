@@ -20,6 +20,8 @@ public class BuffBase
     public float TickTimer { get { return _tickTimer; } }
     public float BuffTimer { get { return _buffTimer; } }
 
+    protected string _clipName;
+
     public void UpdateBuff()
     {
         // 지속 시간 관리
@@ -39,7 +41,7 @@ public class BuffBase
         }
     }
 
-    public void SetInfo(GameObject owner, float length, int tickCount, float basicAttack, float skillDamage)
+    public void SetInfo(GameObject owner, float length, int tickCount, float basicAttack, float skillDamage, string clipName)
     {
         _owner = owner;
         _tickTimer = 0;
@@ -47,10 +49,15 @@ public class BuffBase
         _tickDelay = (length / tickCount);
         _damagePerTick = (basicAttack * skillDamage) / tickCount;
         _buffTimer = length;
+
+        _clipName = clipName;
     }
 
     public virtual void DoTick()
     {
+        if (!string.IsNullOrEmpty(_clipName))
+            SoundManager.Instance.Play(Enums.ESoundType.SFX, _clipName);
+
         _tickTimer = _tickDelay;
     }
 }

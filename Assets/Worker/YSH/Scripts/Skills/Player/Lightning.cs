@@ -7,6 +7,8 @@ public class Lightning : SkillBase
     [SerializeField] int maxHitCount;
     [SerializeField] ParticleSystem LightningEffect;
 
+    [SerializeField] string LightningAudioClip;
+
     int _hitCount = 0;
 
     public override void SetData(int id)
@@ -35,6 +37,9 @@ public class Lightning : SkillBase
         MonsterState monster = go.GetComponent<MonsterState>();
         if (monster != null)
         {
+            if (!string.IsNullOrEmpty(LightningAudioClip))
+                SoundManager.Instance.Play(Enums.ESoundType.SFX, LightningAudioClip);
+
             monster.IsHit(_skillData.Damage * _attackPoint);
             _hitCount++;
             Debug.Log($"{gameObject.name} Damage : {_skillData.Damage * _attackPoint}");
