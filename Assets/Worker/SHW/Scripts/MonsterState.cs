@@ -643,7 +643,7 @@ public class MonsterState : MonoBehaviour
         int hardenStack = 0;
         int maxStack = 5;
         float StackDuration = 35;
-        float amountIncrease = 0.1f;
+        float amountIncrease = 1;
 
         if (hardenStack < maxStack)
         {
