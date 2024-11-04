@@ -20,56 +20,16 @@ public class GameManager : MonoBehaviour
     public int?[] PlayerSkillSlotID { get { return playerSkillSlotID; } }
 
     public Player_Controller player;
-
-    public void SetPlayer(Player_Controller player)
-    {
-        this.player = player;
-
-        // 추후 수정 필요 (데이터에서 기본스킬 찾도록)
-        player.handler.SetBasicSkill(9);
-
-        for (int i = 0; i < playerSkillSlotID.Length; i++)
-        {
-            if (playerSkillSlotID[i] != null)
-            {
-                player.handler.EquipSkill((int)playerSkillSlotID[i], (Enums.PlayerSkillSlot)i);
-            }
-        }
-    }
-
     public BattleUI battleUI;
-
-    public void SetBattleUI(BattleUI battleUI)
-    {
-        this.battleUI = battleUI;
-    }
-
     GameObject rewardChest;
-
-    public void SetRewardChest(GameObject rewardChest)
-    {
-        this.rewardChest = rewardChest;
-    }
-
     public int monsterCount = 0;
+    public int triggerCount = 0;
 
-    public void SetMonster(MonsterState monster)
-    {
-        monsterCount++;
-        monster.OnDead += DecreaseMonster;
-    }
-
-    public void DecreaseMonster(MonsterState monster)
-    {
-        monsterCount--;
-        Debug.Log($"{monster.gameObject.name} 사망");
-        monster.OnDead -= DecreaseMonster;
-        if(monsterCount == 0 && rewardChest != null)
-        {
-            rewardChest.SetActive(true);
-            rewardChest = null;
-        }
-    }
+    public float battlePlayerMaxHP;
+    public float battlePlayerAtk;
+    public float battlePlayerDef;
+    public float skillCooltimeReduce;
+    public bool playerCurHpSetOnce = true;
 
     private void Awake()
     {
@@ -83,6 +43,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
         PlayerSaveManager.LoadGold(out gold);
     }
 
@@ -138,18 +99,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // 게임 시작 시 타이틀 화면에서 호출
+    // 테스트 씬 전환용 코드
     public void TestGame()
     {
         // 게임 로딩 시작
         StartCoroutine(LoadTestGame());
     }
 
-    // 메인 게임 비동기 로딩
+    // 테스트용 씬으로 전환
     private IEnumerator LoadTestGame()
     {
         // 메인 게임 씬을 비동기로 로드
-        AsyncOperation operation = SceneManager.LoadSceneAsync("BattleTest 2");
+        AsyncOperation operation = SceneManager.LoadSceneAsync("BattleTest");
 
         // 로딩 진행 상황 업데이트
         while (!operation.isDone)
@@ -158,17 +119,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // 게임 시작 시 타이틀 화면에서 호출
+    // 다음 씬으로 넘어가기 위한 코드
     public void LoadScene(string sceneName)
     {
         // 게임 로딩 시작
         StartCoroutine(LoadSceneRoutine(sceneName));
     }
 
-    // 메인 게임 비동기 로딩
+    // 다음 스테이지 비동기 로딩
     private IEnumerator LoadSceneRoutine(string sceneName)
     {
-        // 메인 게임 씬을 비동기로 로드
+        // 다음 스테이지를 비동기로 로드
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
 
         // 로딩 진행 상황 업데이트
@@ -214,6 +175,74 @@ public class GameManager : MonoBehaviour
         
     }
 
+    public void SetPlayer(Player_Controller player)
+    {
+        this.player = player;
+
+        SetPlayerStatus();
+        if (playerCurHpSetOnce)
+        {
+            player.stats.currentHealth = player.stats.maxHealth;
+            playerCurHpSetOnce = false;
+        }
+
+        // 추후 수정 필요 (데이터에서 기본스킬 찾도록)
+        player.handler.SetBasicSkill(9);
+
+        for (int i = 0; i < playerSkillSlotID.Length; i++)
+        {
+            if (playerSkillSlotID[i] != null)
+            {
+                player.handler.EquipSkill((int)playerSkillSlotID[i], (Enums.PlayerSkillSlot)i);
+            }
+        }
+    }
+
+    public void SetRewardChest(GameObject rewardChest)
+    {
+        this.rewardChest = rewardChest;
+    }
+
+    public void SetBattleUI(BattleUI battleUI)
+    {
+        this.battleUI = battleUI;
+    }
+
+    public void SetMonster(MonsterState monster)
+    {
+        monsterCount++;
+        monster.OnDead += DecreaseMonster;
+    }
+
+    public void DecreaseMonster(MonsterState monster)
+    {
+        monsterCount--;
+        Debug.Log($"{monster.gameObject.name} 사망");
+        monster.OnDead -= DecreaseMonster;
+        if (triggerCount == 0 && monsterCount == 0 && rewardChest != null)
+        {
+            rewardChest.SetActive(true);
+            rewardChest = null;
+        }
+    }
+
+    public void SetTrigger(Trigger trigger)
+    {
+        triggerCount++;
+        trigger.triggerDestroyed += DecreaseTrigger;
+    }
+
+    public void DecreaseTrigger(Trigger trigger)
+    {
+        triggerCount--;
+        trigger.triggerDestroyed -= DecreaseTrigger;
+        if (triggerCount == 0 && monsterCount == 0 && rewardChest != null)
+        {
+            rewardChest.SetActive(true);
+            rewardChest = null;
+        }
+    }
+
     // 씬 전환후 연결 초기화
     private void InitializeBattleScene()
     {
@@ -222,6 +251,12 @@ public class GameManager : MonoBehaviour
 
     private void InitializeLobbyScene()
     {
+        if (player != null)
+        {
+            ResetPlayerStatus();
+        }
+        playerCurHpSetOnce = true;
+        triggerCount = 0;
         monsterCount = 0;
         playerSkillSlotID = new int?[(int)Enums.PlayerSkillSlot.Length];
     }
@@ -261,5 +296,20 @@ public class GameManager : MonoBehaviour
     public int GetGold()
     {
         return gold;
+    }
+
+    private void SetPlayerStatus()
+    {
+        player.stats.maxHealth = battlePlayerMaxHP;
+        player.stats.attackPower = battlePlayerAtk;
+        player.stats.defense = battlePlayerDef;
+    }
+
+    private void ResetPlayerStatus()
+    {
+        player.stats.maxHealth = 100;
+        player.stats.attackPower = 10f;
+        player.stats.defense = 5f;
+        skillCooltimeReduce = 0f;
     }
 }

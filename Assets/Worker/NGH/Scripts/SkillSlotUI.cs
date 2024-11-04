@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class SkillSlotUI : MonoBehaviour
@@ -11,6 +12,10 @@ public class SkillSlotUI : MonoBehaviour
     int skillID;
     int slotIndex;
     int SlotIndex {  get { return slotIndex; } set { cursors[slotIndex].SetActive(false); slotIndex = value; cursors[slotIndex].SetActive(true); } }
+
+    public UnityAction Player_Stop;//ptk
+
+    public UnityAction Player_Start;//ptk
 
     private void OnEnable()
     {
@@ -21,7 +26,9 @@ public class SkillSlotUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if(slotIndex < cursors.Length-1)
+            Player_Stop?.Invoke();//ptk
+
+            if (slotIndex < cursors.Length-1)
             {
                 SlotIndex++;
             }
@@ -29,6 +36,8 @@ public class SkillSlotUI : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
+            Player_Stop?.Invoke();//ptk
+
             if (slotIndex > 0)
             { 
                 SlotIndex--;
@@ -36,6 +45,8 @@ public class SkillSlotUI : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.Return))
         {
+            Player_Start?.Invoke();//ptk
+
             GameManager.Instance.player.handler.EquipSkill(skillID, (Enums.PlayerSkillSlot)slotIndex);
             gameObject.SetActive(false);
         }

@@ -657,7 +657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce154dafe7621404daa12d513df3bf6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableTime: 0.8
+  disableTime: 0.4
 --- !u!1 &2068047273787855929
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,6 +767,7 @@ GameObject:
   - component: {fileID: 1801455858452705816}
   - component: {fileID: 1801455858452705823}
   - component: {fileID: 1801455858452705817}
+  - component: {fileID: 2169342596583278749}
   m_Layer: 7
   m_Name: skeleton_swordsman
   m_TagString: Untagged
@@ -862,6 +863,16 @@ MonoBehaviour:
   shootPoint: {fileID: 0}
   animator: {fileID: 2965735540048165511}
   trigger: {fileID: 1801455859716319869}
+  Collider: {fileID: 0}
+  hpBarPrefab: {fileID: 1273474970888333437, guid: f6e56f2315d945b49ba9ddce93a6345d, type: 3}
+  monsterPrefabs: []
+  healAmount: 0
+  healRange: 0
+  buffDuration: 0
+  attackBuffMultiplier: 0
+  defenseBuffMultiplier: 0
+  absorbRadius: 10
+  absorbAmount: 20
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   WalkRangePoint: {x: 0, y: 0, z: 0}
@@ -879,6 +890,23 @@ MonoBehaviour:
   canSkill: 0
   attackType: 0
   bulletSpeed: 0
+  skillCoolTime: 0
+  isDeathWorm: 0
+  isBoss: 0
+  isStun: 0
+  skillCoolDown: 1
+--- !u!114 &2169342596583278749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2731715831447648541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd06c69f479b73244bf36b13691c2844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3033861028099401992
 GameObject:
   m_ObjectHideFlags: 0

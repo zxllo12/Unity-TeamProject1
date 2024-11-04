@@ -7,11 +7,19 @@ public class Player_Controller : MonoBehaviour
     private Vector3 direction;
 
     public Rigidbody rigid;
+
     public Transform groundCheck;
+
     public LayerMask groundLayer;
 
-    [SerializeField] float speed = 200;
-    [SerializeField] float jumpForce = 10;
+    [SerializeField] float speed = 5; // 이동 속도
+    [SerializeField] float jumpForce =8; // 점프 파워
+    [SerializeField] float maxFallSpeed = -10f; // 최대 하강 속도 제한
+    [SerializeField] float fallMultiplier = 2.5f; // 기본 하강 가속도 배율
+    [SerializeField] float fallAcceleration = 1.2f; // 하강 가속도 증가율
+    [SerializeField] float maxFallMultiplier = 10f; // 최대 하강 가속도 배율
+    [SerializeField] float customGravity = -20f; // 기본 중력
+    [SerializeField] float lowJumpMultiplier = 2f; // 낮은 점프 가속도 배율
 
     public Animator animator;
 
@@ -21,7 +29,7 @@ public class Player_Controller : MonoBehaviour
 
     bool AbleDoubleJump = true;
 
-    bool isAlive = true;
+    bool moveStop = false;
 
     [SerializeField] Transform firePos;
 
@@ -29,6 +37,8 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] KeyCode[] skillKeys = new KeyCode[(int)Enums.PlayerSkillSlot.Length];
 
     public PlayerStats stats = new PlayerStats();
+
+    public SkillSlotUI skillui = new SkillSlotUI();
 
     [SerializeField] float ignoreHalfBlockDelay;
     GameObject currentPlatform = null;
@@ -40,35 +50,41 @@ public class Player_Controller : MonoBehaviour
         handler = GetComponent<SkillHandler>();
         GameManager.Instance.SetPlayer(this);
 
+        rigid = GetComponent<Rigidbody>();
+        rigid.useGravity = false;
+
         // test
         handler.EquipSkill(3, Enums.PlayerSkillSlot.Slot1);
     }
 
     private void Start()
     {
+        // 이벤트 추가
         GameManager.Instance.player.stats.OnChangedHP += TakeDamageAnimation;
         GameManager.Instance.player.stats.Dead += PlayerDead;
-    }
+        GameManager.Instance.player.skillui.Player_Stop += Player_Freeze;
+        GameManager.Instance.player.skillui.Player_Start += Player_Release;
+    }   
 
     void Update()
     {
-        if (!isAlive)
+        if (moveStop)
             return;
 
-        //점프 애니메이션
+        // 점프 애니메이션
         float height = rigid.velocity.y;
 
         animator.SetFloat("height", Mathf.Abs(height));
 
-        //공격 모션 테스트
+        // 공격 모션 테스트
         if (Input.GetKeyDown(KeyCode.X))
         {
             animator.SetTrigger("Atk");
 
-            PlayerDead();//죽음테스트
+            PlayerDead();// 죽음테스트
         }
 
-
+        // 기본 공격
         if (Input.GetKeyDown(basicSkillKey))
         {
             handler.DoBasicSkill(firePos, stats.attackPower);
@@ -84,13 +100,13 @@ public class Player_Controller : MonoBehaviour
             }
         }
 
-        //좌우 입력
+        // 좌우 입력
         float hInput = Input.GetAxisRaw("Horizontal");
         direction.x = hInput * speed;
 
         animator.SetFloat("speed", Mathf.Abs(hInput));
 
-        //占쏙옙占쏙옙 占쌍댐옙占쏙옙 확占쏙옙
+        // 점프 및 이중 점프
         bool isGrounded = Physics.CheckSphere(groundCheck.position, 0.15f, groundLayer);
         animator.SetBool("isGrounded", isGrounded);
 
@@ -103,15 +119,31 @@ public class Player_Controller : MonoBehaviour
                 Jump();
             }
         }
-        else
+        else if (AbleDoubleJump && Input.GetButtonDown("Jump"))
         {
-            if (AbleDoubleJump && Input.GetButtonDown("Jump"))
-            {
-                DoubleJump();
-            }
+            DoubleJump();
         }
 
-        //캐占쏙옙占쏙옙 占승울옙占쏙옙占
+        if (rigid.velocity.y < 0) // 낙하 중일 때
+        {
+            rigid.AddForce(Vector3.up * customGravity * fallMultiplier, ForceMode.Acceleration);
+        }
+        else if (rigid.velocity.y > 0 && !Input.GetButton("Jump")) // 낮은 점프 시 가속도 적용
+        {
+            rigid.AddForce(Vector3.up * customGravity * lowJumpMultiplier, ForceMode.Acceleration);
+        }
+        else // 상승 중일 때 기본 중력 적용
+        {
+            rigid.AddForce(Vector3.up * customGravity, ForceMode.Acceleration);
+        }
+
+        // 최대 하강 속도 제한
+        if (rigid.velocity.y < maxFallSpeed)
+        {
+            rigid.velocity = new Vector3(rigid.velocity.x, maxFallSpeed, rigid.velocity.z);
+        }
+
+        //방향에 따른 캐릭터 회전
         if (hInput != 0)
         {
             Quaternion newRotation = Quaternion.LookRotation(new Vector3(hInput, 0, 0));
@@ -150,6 +182,7 @@ public class Player_Controller : MonoBehaviour
         }
     }
 
+    // 밑으로 점프
     IEnumerator CoDownJump()
     {
         Collider col;
@@ -163,7 +196,7 @@ public class Player_Controller : MonoBehaviour
     private void FixedUpdate()
     {
         //캐릭터 움직임
-        rigid.AddForce(Vector3.right * direction.x);
+        rigid.velocity = new Vector3(direction.x, rigid.velocity.y, 0);
     }
 
     private void OnDestroy()
@@ -171,35 +204,51 @@ public class Player_Controller : MonoBehaviour
         // 이벤트 해제
         GameManager.Instance.player.stats.OnChangedHP -= TakeDamageAnimation;
         GameManager.Instance.player.stats.Dead -= PlayerDead;
+        GameManager.Instance.player.skillui.Player_Stop -= Player_Freeze;
+        GameManager.Instance.player.skillui.Player_Start -= Player_Release;
     }
 
     private void Jump()
     {
         Debug.Log("점프");
-        //점프
-        rigid.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        // 점프
+        rigid.velocity = new Vector3(rigid.velocity.x, jumpForce, rigid.velocity.z);
     }
 
     private void DoubleJump()
     {
-        //더블 점프
-        rigid.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        // 더블 점프
+        rigid.velocity = new Vector3(rigid.velocity.x, jumpForce, rigid.velocity.z);
 
         AbleDoubleJump = false;
     }
 
     private void TakeDamageAnimation()
     {
+        // 피격 모션
         animator.SetTrigger("damage");
     }
 
     private void PlayerDead()
     {
-        isAlive = false;
+        // 사망
+        Player_Freeze();
 
         animator.SetTrigger("die");
 
         Destroy(gameObject, 3f);
+    }
+
+    private void Player_Freeze()
+    {
+        // 멈춤
+        moveStop = true;
+    }
+
+    private void Player_Release()
+    {
+        // 멈춤 해제
+        moveStop = false;
     }
 
     DropItem curDropItem;

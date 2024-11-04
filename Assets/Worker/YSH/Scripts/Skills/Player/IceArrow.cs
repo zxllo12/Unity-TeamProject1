@@ -21,26 +21,26 @@ public class IceArrow : SkillBase
         base.SetData(id);
     }
 
-    public override void DoSkill(float attackPoint)
+    public override void DoSkill()
     {
         if (_skillRoutine != null)
             return;
 
         Debug.Log("IceArrow DoSkill");
-        _skillRoutine = StartCoroutine(SkillRoutine(attackPoint));
+        _skillRoutine = StartCoroutine(SkillRoutine());
     }
 
-    IEnumerator SkillRoutine(float attackPoint)
+    IEnumerator SkillRoutine()
     {
-        base.DoSkill(attackPoint);
+        base.DoSkill();
 
-        float yPos = FireTransform.position.y + Yinterval;
-        Vector3 initPos = new Vector3(StartPos.x, yPos, StartPos.z);
+        float yPos = StartFirePos.y + Yinterval;
+        Vector3 initPos = new Vector3(StartFirePos.x, yPos, StartFirePos.z);
 
         for (int i = 0; i < arrowCount; i++)
         {
             Projectile projectile = Instantiate(projectilePrefab, initPos, Quaternion.identity);
-            projectile.SetDamage(_skillData.Damage * attackPoint);
+            projectile.SetDamage(_skillData.Damage * _attackPoint);
             projectile.transform.Rotate(0, 0, -(90f * StartDir));
             projectile.Fire(this, initPos, projectile.transform.up, _skillData.ProjectileSpeed);
             initPos.y += -Yinterval;
