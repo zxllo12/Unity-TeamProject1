@@ -27,9 +27,11 @@ public class Player_Controller : MonoBehaviour
 
     public SkillHandler handler;
 
-    bool AbleDoubleJump = true;
+    private bool AbleDoubleJump = true;
 
-    bool moveStop = false;
+    private bool moveStop = false;
+
+    private bool isMoving = false;
 
     [SerializeField] Transform firePos;
 
@@ -91,6 +93,8 @@ public class Player_Controller : MonoBehaviour
         float hInput = Input.GetAxisRaw("Horizontal");
         direction.x = hInput * speed;
 
+        isMoving = Mathf.Abs(hInput) > 0.1f; // 이동 중인지 여부 확인
+
         float targetSpeed = Mathf.Abs(hInput);
 
         animator.SetFloat("speed", Mathf.Lerp(animator.GetFloat("speed"), targetSpeed, Time.deltaTime * 20f));
@@ -138,7 +142,7 @@ public class Player_Controller : MonoBehaviour
         stats.UpdateInvincibleTime(Time.deltaTime);
 
         // 상호 작용
-        if (Input.GetKeyDown(KeyCode.F))
+        if (!isMoving && Input.GetKeyDown(KeyCode.F)) // 플레이어가 멈춰있을 때만 실행
         {
             if (rewardChest != null)
             {
@@ -155,9 +159,7 @@ public class Player_Controller : MonoBehaviour
                 gate.MoveNextScene();
                 gate = null;
             }
-        }
-
-        
+        }   
     }
 
     // 밑으로 점프
@@ -238,14 +240,12 @@ public class Player_Controller : MonoBehaviour
 
     public void Player_Freeze()
     {
-        Debug.Log("Player_Freeze");
         // 멈춤
         moveStop = true;
     }
 
     public void Player_Release()
     {
-        Debug.Log("Player_Release");
         // 멈춤 해제
         moveStop = false;
     }

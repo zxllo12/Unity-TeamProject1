@@ -2188,7 +2188,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 536871424
-  speed: 3
+  speed: 4
   jumpForce: 12
   maxFallSpeed: -20
   fallMultiplier: 1
