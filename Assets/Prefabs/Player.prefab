@@ -2188,13 +2188,13 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 536871424
-  speed: 5
-  jumpForce: 8
-  maxFallSpeed: -5
-  fallMultiplier: 2.5
-  fallAcceleration: 1.1
+  speed: 3
+  jumpForce: 12
+  maxFallSpeed: -20
+  fallMultiplier: 1
+  fallAcceleration: 4
   maxFallMultiplier: 4
-  customGravity: -3
+  customGravity: -30
   lowJumpMultiplier: 2
   animator: {fileID: 4086540118484351829}
   model: {fileID: 4086540118476887237}

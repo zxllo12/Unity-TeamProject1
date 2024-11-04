@@ -176,10 +176,6 @@ public class Player_Controller : MonoBehaviour
         {
             rigid.AddForce(Vector3.up * customGravity * fallMultiplier, ForceMode.Acceleration);
         }
-        else if (rigid.velocity.y > 0 && !Input.GetButton("Jump")) // 낮은 점프 시 가속도 적용
-        {
-            rigid.AddForce(Vector3.up * customGravity * lowJumpMultiplier, ForceMode.Acceleration);
-        }
         else // 상승 중일 때 기본 중력 적용
         {
             rigid.AddForce(Vector3.up * customGravity, ForceMode.Acceleration);
