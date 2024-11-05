@@ -620,6 +620,8 @@ MonoBehaviour:
   trigger: {fileID: 7751410387884236863}
   Collider: {fileID: 0}
   hpBarPrefab: {fileID: 1273474970888333437, guid: f6e56f2315d945b49ba9ddce93a6345d, type: 3}
+  hpBar: {fileID: 0}
+  hpBarTransform: {fileID: 0}
   monsterPrefabs: []
   healAmount: 0
   healRange: 0
@@ -628,6 +630,9 @@ MonoBehaviour:
   defenseBuffMultiplier: 0
   absorbRadius: 10
   absorbAmount: 20
+  idleSound: {fileID: 0}
+  attackSound: {fileID: 0}
+  deadSound: {fileID: 0}
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   WalkRangePoint: {x: 0, y: 0, z: 0}
@@ -661,8 +666,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.71780014, z: 0.67520386}
-  m_Center: {x: -2.4769626e-18, y: 1.2965226, z: 0.007986799}
+  m_Size: {x: 1, y: 1.6837618, z: 0.67520386}
+  m_Center: {x: -2.4767508e-18, y: 1.2213923, z: 0.007986784}
 --- !u!114 &-7169358190840024960
 MonoBehaviour:
   m_ObjectHideFlags: 0

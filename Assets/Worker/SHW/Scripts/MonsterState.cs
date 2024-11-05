@@ -33,14 +33,16 @@ public class MonsterState : MonoBehaviour
     [SerializeField] float absorbRadius = 10f; // 흡혈 범위
     [SerializeField] float absorbAmount = 20f; // 흡혈 양
 
-
+    [Header("Audio")]
+    [SerializeField] AudioClip idleSound;
+    [SerializeField] AudioClip attackSound;
+    [SerializeField] AudioClip deadSound;
 
     [Header("State")]
     [SerializeField] State curState;         // 현상태
     public Vector3 spawnPoint;               // 기본 위치(임시)
     public Vector3 WalkRangePoint;  // 이동 위치
     public Vector3 destination;
-
 
     public int id;
     public float attack;           // 공격력
@@ -216,6 +218,7 @@ public class MonsterState : MonoBehaviour
 
         // 대기 애니메이션 모션 출력
         animator.SetBool("isIdle", true);
+        
 
         // 데스웜 제외 걷기 상태 변경
         if (isDeathWorm == false)
@@ -238,6 +241,8 @@ public class MonsterState : MonoBehaviour
         curState = State.Walking;
         AllAnimationOff();
 
+       // SoundManager.Instance.Play(Enums.ESoundType.SFX, idleSound);
+
         // 이거 괜찮나..?
         // 다음 상태로 넘어갈때 다른 코루틴 전부 종료..?
         StopAllCoroutines();
@@ -247,6 +252,7 @@ public class MonsterState : MonoBehaviour
     public void Running()
     {
         AllAnimationOff();
+       
 
         Flip(player.transform.position);
         Vector3 towardVector = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
@@ -260,7 +266,7 @@ public class MonsterState : MonoBehaviour
             animator.SetBool("isRunning", true);
 
             // 들어가있는 동안 피격 판정 없도록
-            Collider.enabled = false;
+            // Collider.enabled = false;
         }
         // 일반 몹
         else
@@ -319,8 +325,7 @@ public class MonsterState : MonoBehaviour
     {
         AllAnimationOff();
         if (canAttack == true)
-        {
-
+        { 
             // 스킬 발동 여부 확인
             if (canSkill == true)
             {
@@ -330,16 +335,19 @@ public class MonsterState : MonoBehaviour
 
             if (isDeathWorm == true)
             {
+               // Collider.enabled = true;
+
                 animator.SetBool("isAppear", true);
                 // animator.SetBool("isIdle", true);
+                SoundManager.Instance.Play(Enums.ESoundType.SFX, attackSound);
 
-                Collider.enabled = true;
 
                 AllAnimationOff();
             }
 
             // 공격 애니메이션
             animator.SetBool("isAttacking", true);
+            SoundManager.Instance.Play(Enums.ESoundType.SFX, attackSound);
 
             if (attackType == true)
             {
@@ -373,6 +381,8 @@ public class MonsterState : MonoBehaviour
         // 이전 어느상태든 에니메이션 끄기
         AllAnimationOff();
 
+   
+
         // 애니메이션 초기화용(임시)
         animator.SetBool("isIdle", true);
         animator.SetBool("isIdle", false);
@@ -390,6 +400,11 @@ public class MonsterState : MonoBehaviour
         }
         else
         {
+            if(deadSound != null)
+            {
+            SoundManager.Instance.Play(Enums.ESoundType.SFX, deadSound);
+                deadSound = null;
+            }
             OnDead?.Invoke(this);
             // animator.SetBool("isDead", false);
             // 남궁하
@@ -528,6 +543,11 @@ public class MonsterState : MonoBehaviour
 
     public void Stun()
     {
+        if(curHp <= 0)
+        {
+            curState = State.Dead;
+            return;
+        }
 
         if (stunTimer > 0)
         {
@@ -542,16 +562,22 @@ public class MonsterState : MonoBehaviour
     // 스턴 상태
     public void Stunned(float second)
     {
+        if (curState == State.Dead)
+        {
+            return;
+        }
+
         // 이전 어느상태든 에니메이션 끄기
         AllAnimationOff();
 
         stunTimer = second;
         curState = State.Stun;
 
+
         animator.SetBool("isStun", true);
         animator.SetBool("isStun", false);
 
-
+      
     }
 
     // 둔화(임시작성) 
