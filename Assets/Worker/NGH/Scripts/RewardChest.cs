@@ -30,6 +30,8 @@ public class RewardChest : MonoBehaviour
         // 상자 오픈 애니메이션 재생
         animator.SetTrigger("Open");
 
+        SoundManager.Instance.Play(Enums.ESoundType.SFX, "OpenChest");
+
         // 일정 시간 후에 보상을 생성하는 코루틴 시작
         StartCoroutine(GenerateRewardsAfterDelay());
     }

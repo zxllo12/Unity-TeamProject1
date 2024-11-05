@@ -22,6 +22,7 @@ public class SkillSlotUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+            SoundManager.Instance.Play(Enums.ESoundType.SFX, "PlayButton");
             if (slotIndex < cursors.Length-1)
             {
                 SlotIndex++;
@@ -30,6 +31,7 @@ public class SkillSlotUI : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
+            SoundManager.Instance.Play(Enums.ESoundType.SFX, "PlayButton");
             if (slotIndex > 0)
             { 
                 SlotIndex--;
@@ -37,6 +39,7 @@ public class SkillSlotUI : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.Return))
         {
+            SoundManager.Instance.Play(Enums.ESoundType.SFX, "PlayButton");
             GameManager.Instance.player.Player_Release();
 
             GameManager.Instance.player.handler.EquipSkill(skillID, (Enums.PlayerSkillSlot)slotIndex);

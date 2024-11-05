@@ -8,6 +8,7 @@ public class Gate : MonoBehaviour
 
     public void MoveNextScene()
     {
+        SoundManager.Instance.Play(Enums.ESoundType.SFX, "Teleport");
         GameManager.Instance.LoadScene(nextScene);
     }
 }

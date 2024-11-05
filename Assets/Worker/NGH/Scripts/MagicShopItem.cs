@@ -21,6 +21,7 @@ public class MagicShopItem : MonoBehaviour
     {
         GetComponent<Button>().onClick.AddListener(() => 
         {
+            SoundManager.Instance.Play(Enums.ESoundType.SFX, "PushButton");
             confirmWindow.gameObject.SetActive(true);
             confirmWindow.SetInfo(skillID);
         });

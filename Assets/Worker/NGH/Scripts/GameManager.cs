@@ -50,10 +50,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        // 테스트용 로비 전환
-        if (Input.GetKeyDown(KeyCode.Backspace))
+        if (Input.GetKeyDown(KeyCode.L))
         {
-            ReturnToLobby();
+            PlayerPrefs.DeleteAll();
+            LoadScene("LoadingScene");
         }
         // 테스트용 배틀 씬 전환
         if (Input.GetKeyDown(KeyCode.P))
