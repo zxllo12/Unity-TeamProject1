@@ -50,11 +50,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            PlayerPrefs.DeleteAll();
-            LoadScene("LoadingScene");
-        }
         // 테스트용 배틀 씬 전환
         if (Input.GetKeyDown(KeyCode.P))
         {
