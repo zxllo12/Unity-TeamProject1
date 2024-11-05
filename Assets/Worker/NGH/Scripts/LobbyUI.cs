@@ -17,6 +17,7 @@ public class LobbyUI : MonoBehaviour
     {
         if (StartButton != null)
         {
+            SoundManager.Instance.Play(Enums.ESoundType.SFX, "PushButton");
             StartButton.onClick.AddListener(GameManager.Instance.StartGame);
         }
     }
@@ -24,6 +25,7 @@ public class LobbyUI : MonoBehaviour
     // 마법 상점 열기
     public void EnterMagicShop()
     {
+        SoundManager.Instance.Play(Enums.ESoundType.SFX, "PushButton");
         gameObject?.SetActive(false);
         magicShop?.SetActive(true);
     }
@@ -31,6 +33,7 @@ public class LobbyUI : MonoBehaviour
     // 마법 상점 닫기
     public void ExitMagicShop()
     {
+        SoundManager.Instance.Play(Enums.ESoundType.SFX, "PushButton");
         gameObject?.SetActive(true);
         magicShop?.SetActive(false);
     }
@@ -38,6 +41,7 @@ public class LobbyUI : MonoBehaviour
     // 스테이터스 상점 열기
     public void EnterStatusShop()
     {
+        SoundManager.Instance.Play(Enums.ESoundType.SFX, "PushButton");
         gameObject?.SetActive(false);
         statusUpgradeShop?.SetActive(true);
 
@@ -46,6 +50,7 @@ public class LobbyUI : MonoBehaviour
     // 스테이터스 상점 닫기
     public void ExitStatusShop()
     {
+        SoundManager.Instance.Play(Enums.ESoundType.SFX, "PushButton");
         gameObject?.SetActive(true);
         statusUpgradeShop?.SetActive(false);
     }

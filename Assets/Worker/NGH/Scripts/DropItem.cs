@@ -57,9 +57,11 @@ public class DropItem : MonoBehaviour
                 break;
             case ItemType.Gold :
                 GameManager.Instance.AddGold(goldAmount);
+                SoundManager.Instance.Play(Enums.ESoundType.SFX, "Coins");
                 break;
             case ItemType.Potion :
                 GameManager.Instance.player.stats.Heal();
+                SoundManager.Instance.Play(Enums.ESoundType.SFX, "Heal");
                 break;
         }
 

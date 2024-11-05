@@ -56,6 +56,7 @@ public class StatusUpgradeShopUI : MonoBehaviour
         {
             GameManager.Instance.SpendGold(attackPrice);
             upgradedAtk++;
+            SoundManager.Instance.Play(Enums.ESoundType.SFX, "Coins");
             SetPrice();
             UpdateUI();
         }
@@ -67,6 +68,7 @@ public class StatusUpgradeShopUI : MonoBehaviour
         {
             GameManager.Instance.SpendGold(defensePrice);
             upgradedDef++;
+            SoundManager.Instance.Play(Enums.ESoundType.SFX, "Coins");
             SetPrice();
             UpdateUI();
         }
@@ -78,6 +80,7 @@ public class StatusUpgradeShopUI : MonoBehaviour
         {
             GameManager.Instance.SpendGold(healthPrice);
             upgradedHealth++;
+            SoundManager.Instance.Play(Enums.ESoundType.SFX, "Coins");
             SetPrice();
             UpdateUI();
         }
@@ -89,6 +92,7 @@ public class StatusUpgradeShopUI : MonoBehaviour
         {
             GameManager.Instance.SpendGold(cooldownPrice);
             upgradedCooldown++;
+            SoundManager.Instance.Play(Enums.ESoundType.SFX, "Coins");
             SetPrice();
             UpdateUI();
         }

@@ -13,7 +13,11 @@ public class ConfirmWindow : MonoBehaviour
 
     private void Start()
     {
-        cancelButton.onClick.AddListener(() => gameObject.SetActive(false));
+        cancelButton.onClick.AddListener(() => 
+        {
+            gameObject.SetActive(false);
+            SoundManager.Instance.Play(Enums.ESoundType.SFX, "PlayButton");
+        });
         confirmButton.onClick.AddListener(() => 
         { 
             UnlockSkillInShop(); 
@@ -39,6 +43,7 @@ public class ConfirmWindow : MonoBehaviour
         if (SkillUnlockManager.Instance.IsSkillUnlocked(skillID))
         {
             Debug.Log("이미 해금된 스킬입니다.");
+            SoundManager.Instance.Play(Enums.ESoundType.SFX, "PlayButton");
             resultWindow.SetActive(true);
             resultText.text = "이미 해금된 스킬입니다.";
         }
@@ -46,12 +51,14 @@ public class ConfirmWindow : MonoBehaviour
         {
             GameManager.Instance.SpendGold(cost);
             SkillUnlockManager.Instance.UnlockSkill(skillID);
+            SoundManager.Instance.Play(Enums.ESoundType.SFX, "Coins");
             resultWindow.SetActive(true);
             resultText.text = $"{DataManager.Instance.SkillDict[skillID].Name} 이/가 해금되었습니다.";
         }
         else
         {
             Debug.Log("골드가 부족합니다.");
+            SoundManager.Instance.Play(Enums.ESoundType.SFX, "PlayButton");
             resultWindow.SetActive(true);
             resultText.text = "골드가 부족합니다.";
         }
