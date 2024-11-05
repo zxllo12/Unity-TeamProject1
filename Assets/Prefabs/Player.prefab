@@ -2200,7 +2200,7 @@ MonoBehaviour:
   model: {fileID: 4086540118476887237}
   handler: {fileID: 4086540118476887235}
   firePos: {fileID: 2282588985292804952}
-  basicSkillKey: 122
+  basicSkillKey: 97
   skillKeys: 71000000770000006500000072000000
   stats:
     attackPower: 10
@@ -2210,6 +2210,9 @@ MonoBehaviour:
     invincibleDuration: 1.5
   skillui: {fileID: 0}
   ignoreHalfBlockDelay: 1
+  jump: {fileID: 8300000, guid: 3bfd32fe05087ef4a887474a31eccaf6, type: 3}
+  walk: {fileID: 8300000, guid: 153e86c7e170e8e47b7424796e9b8e4a, type: 3}
+  footstepInterval: 0.3
 --- !u!1 &4086540118477048177
 GameObject:
   m_ObjectHideFlags: 0
