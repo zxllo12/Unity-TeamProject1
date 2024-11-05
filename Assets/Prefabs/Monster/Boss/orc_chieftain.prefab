@@ -315,6 +315,8 @@ MonoBehaviour:
   defenseBuffMultiplier: 1.2
   absorbRadius: 10
   absorbAmount: 20
+  attackSound: Boss2Attack
+  deadSound: Boss2Death
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   WalkRangePoint: {x: 0, y: 0, z: 0}
