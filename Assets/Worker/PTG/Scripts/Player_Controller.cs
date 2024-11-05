@@ -46,6 +46,16 @@ public class Player_Controller : MonoBehaviour
     GameObject currentPlatform = null;
     CapsuleCollider _collider;
 
+    Coroutine downJumpRoutine;
+    bool canDownJump = false;
+
+    [SerializeField] AudioClip jump;
+    [SerializeField] AudioClip walk;
+
+    public float footstepInterval = 0.4f; // 발소리 간격
+    private float footstepTimer = 0f;
+    private bool wasGrounded;
+
     private void Awake()
     {
         _collider = GetComponent<CapsuleCollider>();
@@ -103,15 +113,32 @@ public class Player_Controller : MonoBehaviour
         bool isGrounded = Physics.CheckSphere(groundCheck.position, 0.15f, groundLayer);
         animator.SetBool("isGrounded", isGrounded);
 
+        // 이동 사운드
+        if (isGrounded && Mathf.Abs(hInput) > 0.1f)
+        {
+            footstepTimer += Time.deltaTime;
+            if (footstepTimer >= footstepInterval)
+            {
+                SoundManager.Instance.Play(Enums.ESoundType.SFX, walk);
+                footstepTimer = 0;
+            }
+        }
+        else
+        {
+            footstepTimer = 0f; // 멈추면 타이머 초기화
+        }
+
         if (isGrounded)
         {
             AbleDoubleJump = true;
 
-            if (Input.GetKey(KeyCode.DownArrow) && Input.GetButtonDown("Jump"))
+            if (Input.GetKey(KeyCode.DownArrow) &&
+                Input.GetButtonDown("Jump") &&
+                canDownJump)
             {
-                if (currentPlatform != null)
+                if (downJumpRoutine == null)
                 {
-                    StartCoroutine(CoDownJump());
+                    downJumpRoutine = StartCoroutine(CoDownJump());
                 }
             }
             else if (Input.GetButtonDown("Jump"))
@@ -124,6 +151,14 @@ public class Player_Controller : MonoBehaviour
         {
             DoubleJump();
         }
+
+        // 착지 상태 확인하여 착지 소리 재생
+        if (!wasGrounded && isGrounded)
+        {
+            SoundManager.Instance.Play(Enums.ESoundType.SFX, walk);
+        }
+
+        wasGrounded = isGrounded; // 현재 상태를 이전 상태로 업데이트
 
         // 최대 하강 속도 제한
         if (rigid.velocity.y < maxFallSpeed)
@@ -165,12 +200,16 @@ public class Player_Controller : MonoBehaviour
     // 밑으로 점프
     IEnumerator CoDownJump()
     {
-        Collider col;
-        col = currentPlatform.GetComponent<Collider>();
-
-        Physics.IgnoreCollision(_collider, col, true);
+        IgnoreHalfBlock(true);
         yield return new WaitForSeconds(ignoreHalfBlockDelay);
-        Physics.IgnoreCollision(_collider, col, false);
+        IgnoreHalfBlock(false);
+
+        downJumpRoutine = null;
+    }
+
+    void IgnoreHalfBlock(bool bIgnore)
+    {
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("HalfBlock"), bIgnore);
     }
 
     private void FixedUpdate()
@@ -197,15 +236,18 @@ public class Player_Controller : MonoBehaviour
 
     private void Jump()
     {
-        Debug.Log("점프");
         // 점프
         rigid.velocity = new Vector3(rigid.velocity.x, jumpForce, rigid.velocity.z);
+
+        SoundManager.Instance.Play(Enums.ESoundType.SFX, jump);
     }
 
     private void DoubleJump()
     {
         // 더블 점프
         rigid.velocity = new Vector3(rigid.velocity.x, jumpForce, rigid.velocity.z);
+
+        SoundManager.Instance.Play(Enums.ESoundType.SFX, jump);
 
         AbleDoubleJump = false;
     }
@@ -294,9 +336,18 @@ public class Player_Controller : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+        if (other.gameObject.layer == LayerMask.NameToLayer("HalfBlock") || other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            IgnoreHalfBlock(false);
+            downJumpRoutine = null;
+        }
+    }
+
+    private void OnCollisionStay(Collision other)
+    {
         if (other.gameObject.layer == LayerMask.NameToLayer("HalfBlock"))
         {
-            currentPlatform = other.gameObject;
+            canDownJump = true;
         }
     }
 
@@ -304,7 +355,7 @@ public class Player_Controller : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("HalfBlock"))
         {
-            currentPlatform = null;
+            canDownJump = false;
         }
     }
 }
