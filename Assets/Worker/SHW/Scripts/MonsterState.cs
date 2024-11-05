@@ -34,9 +34,8 @@ public class MonsterState : MonoBehaviour
     [SerializeField] float absorbAmount = 20f; // 흡혈 양
 
     [Header("Audio")]
-    [SerializeField] AudioClip idleSound;
-    [SerializeField] AudioClip attackSound;
-    [SerializeField] AudioClip deadSound;
+    [SerializeField] string attackSound;
+    [SerializeField] string deadSound;
 
     [Header("State")]
     [SerializeField] State curState;         // 현상태
