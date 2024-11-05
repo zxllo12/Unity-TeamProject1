@@ -2200,7 +2200,7 @@ MonoBehaviour:
   model: {fileID: 4086540118476887237}
   handler: {fileID: 4086540118476887235}
   firePos: {fileID: 2282588985292804952}
-  basicSkillKey: 122
+  basicSkillKey: 97
   skillKeys: 71000000770000006500000072000000
   stats:
     attackPower: 10
@@ -2209,7 +2209,7 @@ MonoBehaviour:
     currentHealth: 0
     invincibleDuration: 1.5
   skillui: {fileID: 0}
-  ignoreHalfBlockDelay: 1
+  ignoreHalfBlockDelay: 0.3
 --- !u!1 &4086540118477048177
 GameObject:
   m_ObjectHideFlags: 0

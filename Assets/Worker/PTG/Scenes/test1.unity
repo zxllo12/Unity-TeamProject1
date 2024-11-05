@@ -564,6 +564,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4086540118476887236, guid: 7be06f83210a16e4b978bc1f58b016dd, type: 3}
+      propertyPath: ignoreHalfBlockDelay
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 4086540118476887237, guid: 7be06f83210a16e4b978bc1f58b016dd, type: 3}
       propertyPath: m_RootOrder
       value: 6

@@ -19,6 +19,8 @@ public class PlayerStats
 
     public UnityAction Dead;
 
+    string HitAudioClip = "PlayerHit";
+
     //체력 초기화
     public PlayerStats()
     {
@@ -34,7 +36,6 @@ public class PlayerStats
             if (invincibleTimer <= 0f)
             {
                 isInvincible = false;
-                Debug.Log("무적상태 종료");
             }
         }
     }
@@ -44,7 +45,6 @@ public class PlayerStats
     {
         if (isInvincible)
         {
-            Debug.Log("무적상태입니다.");
             return; // 무적 상태일 때는 피해 무시
         }
 
@@ -52,9 +52,10 @@ public class PlayerStats
         actualDamage = Mathf.Clamp(actualDamage, 0, actualDamage);
         currentHealth -= actualDamage;
 
-        OnChangedHP?.Invoke();
+        if (!string.IsNullOrEmpty(HitAudioClip))
+            SoundManager.Instance.Play(Enums.ESoundType.SFX, HitAudioClip);
 
-        Debug.Log($"피격 당함! : 현재 체력 = {currentHealth}");
+        OnChangedHP?.Invoke();
 
         invincibleTimer = invincibleDuration;
         isInvincible = true;
@@ -73,8 +74,6 @@ public class PlayerStats
             currentHealth += maxHealth * 1f;
             currentHealth = Mathf.Min(currentHealth, maxHealth); // 체력이 최대치를 넘지 않도록 설정
             OnChangedHP?.Invoke();
-
-            Debug.Log($"회복함!! : 현재 체력 = {currentHealth}");
         }
     }
 
@@ -82,8 +81,6 @@ public class PlayerStats
     private void Die()
     {
         Dead?.Invoke();
-
-        Debug.Log("플레이어 죽음");
     }
 }
 
