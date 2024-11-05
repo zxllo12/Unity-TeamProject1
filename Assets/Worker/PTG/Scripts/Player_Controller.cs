@@ -49,8 +49,8 @@ public class Player_Controller : MonoBehaviour
     Coroutine downJumpRoutine;
     bool canDownJump = false;
 
-    [SerializeField] AudioClip jump;
-    [SerializeField] AudioClip walk;
+    string JumpAudioClip = "Jump";
+    string WalkAudioClip = "FootSteps_Forest";
 
     public float footstepInterval = 0.4f; // 발소리 간격
     private float footstepTimer = 0f;
@@ -107,6 +107,7 @@ public class Player_Controller : MonoBehaviour
 
         float targetSpeed = Mathf.Abs(hInput);
 
+        // 이동 애니메이션
         animator.SetFloat("speed", Mathf.Lerp(animator.GetFloat("speed"), targetSpeed, Time.deltaTime * 20f));
 
         // 점프 및 이중 점프
@@ -119,7 +120,7 @@ public class Player_Controller : MonoBehaviour
             footstepTimer += Time.deltaTime;
             if (footstepTimer >= footstepInterval)
             {
-                SoundManager.Instance.Play(Enums.ESoundType.SFX, walk);
+                SoundManager.Instance.Play(Enums.ESoundType.SFX, WalkAudioClip);
                 footstepTimer = 0;
             }
         }
@@ -155,7 +156,7 @@ public class Player_Controller : MonoBehaviour
         // 착지 상태 확인하여 착지 소리 재생
         if (!wasGrounded && isGrounded)
         {
-            SoundManager.Instance.Play(Enums.ESoundType.SFX, walk);
+            SoundManager.Instance.Play(Enums.ESoundType.SFX, WalkAudioClip);
         }
 
         wasGrounded = isGrounded; // 현재 상태를 이전 상태로 업데이트
@@ -239,7 +240,7 @@ public class Player_Controller : MonoBehaviour
         // 점프
         rigid.velocity = new Vector3(rigid.velocity.x, jumpForce, rigid.velocity.z);
 
-        SoundManager.Instance.Play(Enums.ESoundType.SFX, jump);
+        SoundManager.Instance.Play(Enums.ESoundType.SFX, JumpAudioClip);
     }
 
     private void DoubleJump()
@@ -247,7 +248,7 @@ public class Player_Controller : MonoBehaviour
         // 더블 점프
         rigid.velocity = new Vector3(rigid.velocity.x, jumpForce, rigid.velocity.z);
 
-        SoundManager.Instance.Play(Enums.ESoundType.SFX, jump);
+        SoundManager.Instance.Play(Enums.ESoundType.SFX, JumpAudioClip);
 
         AbleDoubleJump = false;
     }
@@ -309,7 +310,6 @@ public class Player_Controller : MonoBehaviour
         else if (other.gameObject.CompareTag("DropItem"))
         {
             curDropItem = other.GetComponent<DropItem>();
-            Debug.Log($"{other.gameObject.name} 등록");
         }
         else if (other.gameObject.CompareTag("Gate"))
         {
@@ -326,7 +326,6 @@ public class Player_Controller : MonoBehaviour
         else if (curDropItem != null && curDropItem.gameObject == other.gameObject)
         {
             curDropItem = null;
-            Debug.Log($"{other.gameObject.name} 해제");
         }
         else if (gate != null && gate.gameObject == other.gameObject)
         {
