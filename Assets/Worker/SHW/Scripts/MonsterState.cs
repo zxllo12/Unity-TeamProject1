@@ -241,7 +241,7 @@ public class MonsterState : MonoBehaviour
         curState = State.Walking;
         AllAnimationOff();
 
-        SoundManager.Instance.Play(Enums.ESoundType.SFX, idleSound);
+       // SoundManager.Instance.Play(Enums.ESoundType.SFX, idleSound);
 
         // 이거 괜찮나..?
         // 다음 상태로 넘어갈때 다른 코루틴 전부 종료..?
@@ -543,6 +543,11 @@ public class MonsterState : MonoBehaviour
 
     public void Stun()
     {
+        if(curHp <= 0)
+        {
+            curState = State.Dead;
+            return;
+        }
 
         if (stunTimer > 0)
         {
@@ -557,16 +562,22 @@ public class MonsterState : MonoBehaviour
     // 스턴 상태
     public void Stunned(float second)
     {
+        if (curState == State.Dead)
+        {
+            return;
+        }
+
         // 이전 어느상태든 에니메이션 끄기
         AllAnimationOff();
 
         stunTimer = second;
         curState = State.Stun;
 
+
         animator.SetBool("isStun", true);
         animator.SetBool("isStun", false);
 
-
+      
     }
 
     // 둔화(임시작성) 
