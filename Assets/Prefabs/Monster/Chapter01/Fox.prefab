@@ -947,9 +947,8 @@ MonoBehaviour:
   defenseBuffMultiplier: 0
   absorbRadius: 10
   absorbAmount: 20
-  idleSound: {fileID: 0}
-  attackSound: {fileID: 8300000, guid: 3da0ca1b7fe11944faabe77cfb4b5f6a, type: 3}
-  deadSound: {fileID: 8300000, guid: 35c502e70147ebb4c8f21f38a614324c, type: 3}
+  attackSound: FoxAttack
+  deadSound: FoxDeath
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   WalkRangePoint: {x: 0, y: 0, z: 0}

@@ -865,6 +865,8 @@ MonoBehaviour:
   trigger: {fileID: 1801455859716319869}
   Collider: {fileID: 0}
   hpBarPrefab: {fileID: 1273474970888333437, guid: f6e56f2315d945b49ba9ddce93a6345d, type: 3}
+  hpBar: {fileID: 0}
+  hpBarTransform: {fileID: 0}
   monsterPrefabs: []
   healAmount: 0
   healRange: 0
@@ -873,6 +875,8 @@ MonoBehaviour:
   defenseBuffMultiplier: 0
   absorbRadius: 10
   absorbAmount: 20
+  attackSound: SkeletonWarriorAttack
+  deadSound: SkeletonWarriorDeath
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   WalkRangePoint: {x: 0, y: 0, z: 0}

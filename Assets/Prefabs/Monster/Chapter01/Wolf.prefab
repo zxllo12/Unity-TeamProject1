@@ -593,9 +593,8 @@ MonoBehaviour:
   defenseBuffMultiplier: 0
   absorbRadius: 10
   absorbAmount: 20
-  idleSound: {fileID: 0}
-  attackSound: {fileID: 8300000, guid: b0d144d37a87d5c41a5db7135ccc9f3d, type: 3}
-  deadSound: {fileID: 8300000, guid: 9baf3f4fa8a9143498d4a1c77fc6d929, type: 3}
+  attackSound: WolfAttack
+  deadSound: WolfDeath
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   WalkRangePoint: {x: 0, y: 0, z: 0}

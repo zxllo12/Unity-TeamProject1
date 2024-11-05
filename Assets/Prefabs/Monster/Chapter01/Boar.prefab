@@ -249,9 +249,8 @@ MonoBehaviour:
   defenseBuffMultiplier: 0
   absorbRadius: 10
   absorbAmount: 20
-  idleSound: {fileID: 0}
-  attackSound: {fileID: 8300000, guid: b741634daa81d9642b9b36a90d4ce853, type: 3}
-  deadSound: {fileID: 8300000, guid: 9c513f185b6ac8546868ef4bd299fcda, type: 3}
+  attackSound: BoarAttack
+  deadSound: BoarDeath
   curState: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   WalkRangePoint: {x: 0, y: 0, z: 0}
