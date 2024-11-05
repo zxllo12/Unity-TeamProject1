@@ -46,13 +46,7 @@ public class BattleUI : MonoBehaviour
         // gold UI TEST Code
         if (Input.GetKeyDown(KeyCode.I))
         {
-            GameManager.Instance.AddGold(100);
-        }
-
-        // hp UI TEST Code
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            GameManager.Instance.player.stats.TakeDamage(10);
+            GameManager.Instance.AddGold(1000);
         }
     }
 
