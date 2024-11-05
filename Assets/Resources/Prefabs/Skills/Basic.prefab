@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f6ef4ca901d74544b89fca8793d341c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 127731788330430080, guid: 2ad01737a079ffa4dba46f20712e5807, type: 3}
   castEffect: {fileID: 0}
   castAudioClipName: 
